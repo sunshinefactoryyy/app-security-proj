@@ -1,9 +1,15 @@
 ## Before you work:
 ### Mac: 
-source ./.venv/mac/bin/activate
-cmd + shift + p, Python: Select Interpreter, ./mac/bin/python
+source ./.venv/mac/bin/activate,
+cmd + shift + p,
+Python: Select Interpreter,
+./mac/bin/python
 ### Windows: 
-.\.venv\activate
+.\.venv\win\Scripts\activate
+ctrl + shift + p,
+Python: Select Interpreter,
+.\.venv\win\Scripts\python.exe
+
 
 ## Commands
 ### Clone repository:
