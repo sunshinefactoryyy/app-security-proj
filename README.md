@@ -1,3 +1,7 @@
+## Activate python everytime you work:
+Mac: source ./.venv/mac/bin/activate
+Windows: .\.venv\activate
+
 ### Clone repository:
 git clone https://github.com/lgf2111/AY1-app-dev-proj
 
