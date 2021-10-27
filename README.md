@@ -1,16 +1,3 @@
-## Before you work:
-### Mac: 
-source ./.venv/mac/bin/activate,
-cmd + shift + p,
-Python: Select Interpreter,
-./mac/bin/python
-### Windows: 
-.\.venv\win\Scripts\activate,
-ctrl + shift + p,
-Python: Select Interpreter,
-.\.venv\win\Scripts\python.exe
-
-
 ## Commands
 ### Clone repository:
 git clone https://github.com/lgf2111/AY1-app-dev-proj
