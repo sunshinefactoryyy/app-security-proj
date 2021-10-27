@@ -2,20 +2,20 @@
 ### Clone repository:
 git clone https://github.com/lgf2111/AY1-app-dev-proj
 
-### Create branch (Don't overwrite main branch):
-git checkout -b [your-name]
-
 ### Pull branch:
 git pull origin main
 
-### Redirect to your branch:
-git checkout [your-name]
+### Create branch (Don't overwrite main branch):
+git checkout -b [branch-name]
 
-### Append your work to branch:
+### Redirect to your branch:
+git checkout [branch-name]
+
+### Add your work to branch:
 git add .
 
 ### Commit to branch:
 git commit -m "[your-message]"
 
-### Push to main:
-git push origin [your-name]
+### Push to branch:
+git push origin [branch-name]
