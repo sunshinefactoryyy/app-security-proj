@@ -5,7 +5,7 @@ cmd + shift + p,
 Python: Select Interpreter,
 ./mac/bin/python
 ### Windows: 
-.\.venv\win\Scripts\activate
+.\.venv\win\Scripts\activate,
 ctrl + shift + p,
 Python: Select Interpreter,
 .\.venv\win\Scripts\python.exe
