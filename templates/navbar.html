@@ -1,47 +1,47 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{{url_for('home')}}">
+        <a class="navbar-brand" href="{{url_for('home')}}">
         <i class="bi bi-tools"></i>
         Repair Service
-    </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            {% if active == "home" %}
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-            {% else %}
-            <a class="nav-link" href="{{url_for('home')}}">Home</a>
-            {% endif %}
-          </li>
-          <li class="nav-item">
-            {% if active == "request" %}
-            <a class="nav-link active" aria-current="page" href="#">Request</a>
-            {% else %}
-            <a class="nav-link" href="{{url_for('request')}}">Request</a>
-            {% endif %}
-          </li>
-          <li class="nav-item">
-            {% if active == "tracking" %}
-            <a class="nav-link active" aria-current="page" href="#">Tracking</a>
-            {% else %}
-            <a class="nav-link" href="{{url_for('tracking')}}">Tracking</a>
-            {% endif %}
-          </li>
-          <li class="nav-item">
-            {% if active == "feedback" %}
-            <a class="nav-link active" aria-current="page" href="#">Feedback</a>
-            {% else %}
-            <a class="nav-link" href="{{url_for('feedback')}}">Feedback</a>
-            {% endif %}
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                {% if active == "home" %}
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                {% else %}
+                <a class="nav-link" href="{{url_for('home')}}">Home</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if active == "request" %}
+                <a class="nav-link active" aria-current="page" href="#">Request</a>
+                {% else %}
+                <a class="nav-link" href="{{url_for('request')}}">Request</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if active == "tracking" %}
+                <a class="nav-link active" aria-current="page" href="#">Tracking</a>
+                {% else %}
+                <a class="nav-link" href="{{url_for('tracking')}}">Tracking</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if active == "feedback" %}
+                <a class="nav-link active" aria-current="page" href="#">Feedback</a>
+                {% else %}
+                <a class="nav-link" href="{{url_for('feedback')}}">Feedback</a>
+                {% endif %}
+            </li>
+            </ul>
+            <div class="d-flex">
+                <a class="btn btn-secondary px-3 me-1">Register</a>
+                <a class="btn btn-primary px-4 ms-1">Login</a>
+            </div>
+        </div>
     </div>
-  </nav>
+</nav>
