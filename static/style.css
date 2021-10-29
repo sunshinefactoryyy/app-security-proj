@@ -1,4 +1,4 @@
-.background {
+#background {
     position: fixed;
     z-index: -1;
     background-image: url("/static/background.jpg");
@@ -8,4 +8,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  }
+}
+#navbar {
+    position: fixed;
+    width: 100vw;
+}
