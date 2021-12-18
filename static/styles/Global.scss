@@ -31,6 +31,11 @@ nav {
   justify-content: center;
   align-items: center;
 
+  img {
+    height: 540px;
+    width: 540px;
+  }
+
   .text {
     .hero-text-4 {
       font-weight: bold;
@@ -69,4 +74,21 @@ nav {
 /*Design of the footer*/
 .footer {
   background-color: #000;
+  color: #fff;
+
+  .company {
+    text-align: center;
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .col-right {
+      .bi {
+        color: #fff;
+      }
+    }
+  }
 }

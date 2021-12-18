@@ -1,1 +1,103 @@
-/* No CSS *//*# sourceMappingURL=Global.css.map */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap");
+* {
+  font-family: Montserrat;
+  font-size: auto;
+}
+
+section {
+  margin-top: 100px;
+}
+
+/*Design of the navbar*/
+nav .container-fluid {
+  margin-left: 1.5em;
+}
+
+nav .container-fluid .navbar-brand {
+  font-size: 2em;
+}
+
+nav .container-fluid .collapse {
+  font-size: 1.2em;
+  margin-left: 5em;
+}
+
+/*Design of the hero section*/
+.hero {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hero img {
+  height: 540px;
+  width: 540px;
+}
+
+.hero .text .hero-text-4 {
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.hero .text h4 {
+  margin-top: 40px;
+  font-weight: lighter;
+}
+
+/*Design of the services section*/
+.services .title {
+  font-weight: bold;
+  text-align: center;
+}
+
+.services .service-content > * {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 100px;
+}
+
+.services .service-content > * .service .service-no {
+  font-weight: lighter;
+}
+
+/*Design of the footer*/
+.footer {
+  background-color: #000;
+  color: #fff;
+}
+
+.footer .company {
+  text-align: center;
+}
+
+.footer .links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.footer .links .col-right .bi {
+  color: #fff;
+}
+/*# sourceMappingURL=Global.css.map */
