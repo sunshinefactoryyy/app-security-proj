@@ -7,6 +7,7 @@
 
 section {
   margin-top: 100px;
+  width: 100%;
 }
 
 /*Design of the navbar*/
@@ -73,8 +74,9 @@ nav {
 
 /*Design of the footer*/
 .footer {
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
+  padding: 1em;
 
   .company {
     text-align: center;
@@ -83,11 +85,31 @@ nav {
   .links {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+
+    ul {
+      list-style: none;
+    }
+
+    .col-left {
+      .list-title {
+        font-weight: bold;
+        text-align: center;
+      }
+
+      li {
+        text-align: center;
+      }
+    }
 
     .col-right {
-      .bi {
-        color: #fff;
+      .list-item {
+        line-height: 35px;
+
+        .bi {
+          color: #fff;
+          font-size: 1.5em;
+        }
       }
     }
   }

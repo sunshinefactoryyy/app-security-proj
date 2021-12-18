@@ -6,6 +6,7 @@
 
 section {
   margin-top: 100px;
+  width: 100%;
 }
 
 /*Design of the navbar*/
@@ -77,8 +78,9 @@ nav .container-fluid .collapse {
 
 /*Design of the footer*/
 .footer {
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
+  padding: 1em;
 }
 
 .footer .company {
@@ -92,12 +94,21 @@ nav .container-fluid .collapse {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
-.footer .links .col-right .bi {
+.footer .links ul {
+  list-style: none;
+}
+
+.footer .links .col-right .list-item {
+  line-height: 35px;
+}
+
+.footer .links .col-right .list-item .bi {
   color: #fff;
+  font-size: 1.5em;
 }
 /*# sourceMappingURL=Global.css.map */
