@@ -59,14 +59,42 @@ nav {
 
   .service-content > * {
     display: flex;
-    flex-wrap: wrap;
+    flex-basis: 100%;
     justify-content: space-evenly;
     align-items: center;
     margin-top: 100px;
+    column-gap: 1.5em;
+    padding: 1em;
 
-    .service {
-      .service-no {
-        font-weight: lighter;
+    .left-col,
+    .right-col {
+      .service {
+        display: grid;
+        grid-template-areas:
+          "s1 s2"
+          "s3 s4";
+        grid-template-columns: repeat(2, auto);
+        grid-template-rows: 1fr 1fr;
+
+        .service-no {
+          font-weight: lighter;
+        }
+      }
+
+      .s1 {
+        grid-area: s1;
+      }
+
+      .s2 {
+        grid-area: s2;
+      }
+
+      .s3 {
+        grid-area: s3;
+      }
+
+      .s4 {
+        grid-area: s4;
       }
     }
   }

@@ -61,8 +61,8 @@ nav .container-fluid .collapse {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
@@ -70,10 +70,53 @@ nav .container-fluid .collapse {
       -ms-flex-align: center;
           align-items: center;
   margin-top: 100px;
+  -webkit-column-gap: 1.5em;
+          column-gap: 1.5em;
+  padding: 1em;
 }
 
-.services .service-content > * .service .service-no {
+.services .service-content > * .left-col .service,
+.services .service-content > * .right-col .service {
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "s1 s2" "s3 s4";
+  -ms-grid-columns: (auto)[2];
+      grid-template-columns: repeat(2, auto);
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+}
+
+.services .service-content > * .left-col .service .service-no,
+.services .service-content > * .right-col .service .service-no {
   font-weight: lighter;
+}
+
+.services .service-content > * .left-col .s1,
+.services .service-content > * .right-col .s1 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: s1;
+}
+
+.services .service-content > * .left-col .s2,
+.services .service-content > * .right-col .s2 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: s2;
+}
+
+.services .service-content > * .left-col .s3,
+.services .service-content > * .right-col .s3 {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: s3;
+}
+
+.services .service-content > * .left-col .s4,
+.services .service-content > * .right-col .s4 {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: s4;
 }
 
 /*Design of the footer*/
