@@ -85,6 +85,7 @@ nav .container-fluid .collapse {
 
 .footer .company {
   text-align: center;
+  font-size: 1.2em;
 }
 
 .footer .links {
@@ -99,12 +100,27 @@ nav .container-fluid .collapse {
           justify-content: space-evenly;
 }
 
-.footer .links ul {
+.footer .links .col-right,
+.footer .links .col-left {
   list-style: none;
+}
+
+.footer .links .col-left .bi {
+  display: inline-block;
+  text-align: center;
+  font-size: 1.5em;
+  margin: 0.5em;
+}
+
+.footer .links .col-left .list-title {
+  font-weight: bold;
+  font-size: 2em;
 }
 
 .footer .links .col-right .list-item {
   line-height: 35px;
+  text-decoration: none;
+  display: block;
 }
 
 .footer .links .col-right .list-item .bi {

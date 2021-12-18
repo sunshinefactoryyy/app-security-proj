@@ -80,6 +80,7 @@ nav {
 
   .company {
     text-align: center;
+    font-size: 1.2em;
   }
 
   .links {
@@ -87,24 +88,30 @@ nav {
     align-items: center;
     justify-content: space-evenly;
 
-    ul {
+    .col-right,
+    .col-left {
       list-style: none;
     }
 
     .col-left {
-      .list-title {
-        font-weight: bold;
+      .bi {
+        display: inline-block;
         text-align: center;
+        font-size: 1.5em;
+        margin: 0.5em;
       }
 
-      li {
-        text-align: center;
+      .list-title {
+        font-weight: bold;
+        font-size: 2em;
       }
     }
 
     .col-right {
       .list-item {
         line-height: 35px;
+        text-decoration: none;
+        display: block;
 
         .bi {
           color: #fff;
