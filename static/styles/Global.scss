@@ -10,8 +10,11 @@ section {
   width: 100%;
 }
 
+/*navbar.html*/
 /*Design of the navbar*/
 nav {
+  box-shadow: 1px 1px 1px #000;
+
   .container-fluid {
     margin-left: 1.5em;
 
@@ -26,6 +29,7 @@ nav {
   }
 }
 
+/*index.html*/
 /*Design of the hero section*/
 .hero {
   display: flex;
@@ -35,12 +39,13 @@ nav {
   img {
     height: 540px;
     width: 540px;
+    filter: drop-shadow(20px 10px 4px rgb(143, 46, 173));
   }
 
   .text {
     .hero-text-4 {
       font-weight: bold;
-      font-size: 3em;
+      font-size: 5em;
     }
 
     h4 {

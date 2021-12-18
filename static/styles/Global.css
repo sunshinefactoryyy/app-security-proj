@@ -9,7 +9,13 @@ section {
   width: 100%;
 }
 
+/*navbar.html*/
 /*Design of the navbar*/
+nav {
+  -webkit-box-shadow: 1px 1px 1px #000;
+          box-shadow: 1px 1px 1px #000;
+}
+
 nav .container-fluid {
   margin-left: 1.5em;
 }
@@ -23,6 +29,7 @@ nav .container-fluid .collapse {
   margin-left: 5em;
 }
 
+/*index.html*/
 /*Design of the hero section*/
 .hero {
   display: -webkit-box;
@@ -39,11 +46,13 @@ nav .container-fluid .collapse {
 .hero img {
   height: 540px;
   width: 540px;
+  -webkit-filter: drop-shadow(20px 10px 4px #8f2ead);
+          filter: drop-shadow(20px 10px 4px #8f2ead);
 }
 
 .hero .text .hero-text-4 {
   font-weight: bold;
-  font-size: 3em;
+  font-size: 5em;
 }
 
 .hero .text h4 {
