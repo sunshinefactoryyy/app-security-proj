@@ -101,6 +101,10 @@ nav {
         margin: 0.5em;
       }
 
+      .bi-exclude {
+        transform: scaleX(-1);
+      }
+
       .list-title {
         font-weight: bold;
         font-size: 2em;
@@ -111,7 +115,7 @@ nav {
       .list-item {
         line-height: 35px;
         text-decoration: none;
-        display: block;
+        margin: 1em;
 
         .bi {
           color: #fff;

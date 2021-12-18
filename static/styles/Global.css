@@ -112,6 +112,11 @@ nav .container-fluid .collapse {
   margin: 0.5em;
 }
 
+.footer .links .col-left .bi-exclude {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+}
+
 .footer .links .col-left .list-title {
   font-weight: bold;
   font-size: 2em;
@@ -120,7 +125,7 @@ nav .container-fluid .collapse {
 .footer .links .col-right .list-item {
   line-height: 35px;
   text-decoration: none;
-  display: block;
+  margin: 1em;
 }
 
 .footer .links .col-right .list-item .bi {
