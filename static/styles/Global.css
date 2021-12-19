@@ -32,18 +32,54 @@ nav .container-fluid .collapse {
 
 nav .container-fluid .btn-container {
   font-size: 1.5em;
+  /*Design of the btn-primary button and  for login button when it is not hovered*/
+  /*Design for login button when the button is hovered*/
 }
 
-nav .container-fluid .btn-container .login {
+nav .container-fluid .btn-container .btn-primary {
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-nav .container-fluid .btn-container .login:hover {
-  background: #fff;
+nav .container-fluid .btn-container .btn-primary .login {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  color: #fff;
+}
+
+nav .container-fluid .btn-container .btn-primary .login:hover {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   color: #05a;
+}
+
+nav .container-fluid .btn-container .btn-primary:hover {
+  background: #fff;
   -webkit-transition: 0.2s;
   transition: 0.2s;
+}
+
+nav .container-fluid .btn-container .btn-primary:hover .login {
+  color: #0074e4;
+}
+
+nav .container-fluid .btn-container .btn-outline-primary {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+nav .container-fluid .btn-container .btn-outline-primary:hover {
+  background: #0074e4;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+nav .container-fluid .btn-container .btn-outline-primary:hover .sign-up {
+  color: #fff;
+}
+
+nav .container-fluid .btn-container .btn .btn-link {
+  text-decoration: none;
 }
 
 /*index.html*/
@@ -224,6 +260,30 @@ nav .container-fluid .btn-container .login:hover {
 .footer .links .col-right .list-item .bi {
   color: #fff;
   font-size: 1.5em;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  border-radius: 50%;
+}
+
+.footer .links .col-right .list-item .bi-facebook:hover {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  color: #3b5998;
+  background: #fff;
+}
+
+.footer .links .col-right .list-item .bi-instagram:hover {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  background: -webkit-gradient(linear, left top, left bottom, from(#833ab4), color-stop(#c13584), to(#e1306c));
+  background: linear-gradient(#833ab4, #c13584, #e1306c);
+}
+
+.footer .links .col-right .list-item .bi-linkedin:hover {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  color: #3b5998;
+  background: #fff;
 }
 
 /*About Us.html*/

@@ -31,14 +31,48 @@ nav {
     .btn-container {
       font-size: 1.5em;
 
-      .login {
+      /*Design of the btn-primary button and  for login button when it is not hovered*/
+      .btn-primary {
+        transition: 0.2s;
+
+        .login {
+          transition: 0.2s;
+          color: #fff;
+        }
+
+        .login:hover {
+          transition: 0.2s;
+          color: #05a;
+        }
+      }
+
+      /*Design for login button when the button is hovered*/
+      .btn-primary:hover {
+        background: #fff;
+        transition: 0.2s;
+
+        .login {
+          color: #0074e4;
+        }
+      }
+
+      .btn-outline-primary {
         transition: 0.2s;
       }
 
-      .login:hover {
-        background: #fff;
-        color: #05a;
+      .btn-outline-primary:hover {
+        background: #0074e4;
         transition: 0.2s;
+
+        .sign-up {
+          color: #fff;
+        }
+      }
+
+      .btn {
+        .btn-link {
+          text-decoration: none;
+        }
       }
     }
   }
@@ -185,6 +219,25 @@ nav {
         .bi {
           color: #fff;
           font-size: 1.5em;
+          transition: 0.2s;
+          border-radius: 50%;
+        }
+
+        .bi-facebook:hover {
+          transition: 0.2s;
+          color: #3b5998;
+          background: #fff;
+        }
+
+        .bi-instagram:hover {
+          transition: 0.2s;
+          background: linear-gradient(#833ab4, #c13584, #e1306c);
+        }
+
+        .bi-linkedin:hover {
+          transition: 0.2s;
+          color: #3b5998;
+          background: #fff;
         }
       }
     }
