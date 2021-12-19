@@ -17,6 +17,7 @@ nav {
 
   .container-fluid {
     margin-left: 1.5em;
+    margin-right: 1.5em;
 
     .navbar-brand {
       font-size: 2em;
@@ -25,6 +26,21 @@ nav {
     .collapse {
       font-size: 1.2em;
       margin-left: 5em;
+    }
+
+    .btn-container {
+      font-size: 1.5em;
+      line-height: inherit;
+
+      .login {
+        transition: 0.2s;
+      }
+
+      .login:hover {
+        background: #fff;
+        color: #05a;
+        transition: 0.2s;
+      }
     }
   }
 }
@@ -51,6 +67,19 @@ nav {
     h4 {
       margin-top: 40px;
       font-weight: lighter;
+    }
+
+    .btns {
+      .btn {
+        margin: 1em;
+        transition: 0.2s;
+      }
+
+      .btn:hover {
+        background: #fff;
+        color: #05a;
+        transition: 0.2s;
+      }
     }
   }
 }

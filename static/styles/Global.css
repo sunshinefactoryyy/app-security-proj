@@ -18,6 +18,7 @@ nav {
 
 nav .container-fluid {
   margin-left: 1.5em;
+  margin-right: 1.5em;
 }
 
 nav .container-fluid .navbar-brand {
@@ -27,6 +28,23 @@ nav .container-fluid .navbar-brand {
 nav .container-fluid .collapse {
   font-size: 1.2em;
   margin-left: 5em;
+}
+
+nav .container-fluid .btn-container {
+  font-size: 1.5em;
+  line-height: inherit;
+}
+
+nav .container-fluid .btn-container .login {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+nav .container-fluid .btn-container .login:hover {
+  background: #fff;
+  color: #05a;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 /*index.html*/
@@ -58,6 +76,19 @@ nav .container-fluid .collapse {
 .hero .text h4 {
   margin-top: 40px;
   font-weight: lighter;
+}
+
+.hero .text .btns .btn {
+  margin: 1em;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.hero .text .btns .btn:hover {
+  background: #fff;
+  color: #05a;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 /*Design of the services section*/
