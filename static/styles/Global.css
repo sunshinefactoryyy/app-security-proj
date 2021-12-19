@@ -32,7 +32,6 @@ nav .container-fluid .collapse {
 
 nav .container-fluid .btn-container {
   font-size: 1.5em;
-  line-height: inherit;
 }
 
 nav .container-fluid .btn-container .login {
@@ -103,7 +102,7 @@ nav .container-fluid .btn-container .login:hover {
 }
 
 /*Design of the services section*/
-.services .title {
+.services .service-title {
   font-weight: bold;
   text-align: center;
 }
@@ -225,5 +224,40 @@ nav .container-fluid .btn-container .login:hover {
 .footer .links .col-right .list-item .bi {
   color: #fff;
   font-size: 1.5em;
+}
+
+/*About Us.html*/
+.main {
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: ". . bug bug" "about about bug bug" ". . bug bug";
+  -ms-grid-rows: (1fr)[3];
+      grid-template-rows: repeat(3, 1fr);
+  -ms-grid-columns: (auto)[4];
+      grid-template-columns: repeat(4, auto);
+}
+
+.main .about {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: about;
+}
+
+.main img {
+  height: 523px;
+  width: 680px;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 2;
+  grid-area: bug;
 }
 /*# sourceMappingURL=Global.css.map */

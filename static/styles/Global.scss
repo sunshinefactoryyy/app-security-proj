@@ -30,7 +30,6 @@ nav {
 
     .btn-container {
       font-size: 1.5em;
-      line-height: inherit;
 
       .login {
         transition: 0.2s;
@@ -90,7 +89,7 @@ nav {
 
 /*Design of the services section*/
 .services {
-  .title {
+  .service-title {
     font-weight: bold;
     text-align: center;
   }
@@ -189,5 +188,28 @@ nav {
         }
       }
     }
+  }
+}
+
+/*About Us.html*/
+.main {
+  display: grid;
+  grid-template-areas:
+    ". . bug bug"
+    "about about bug bug"
+    ". . bug bug";
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, auto);
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    grid-area: about;
+  }
+
+  img {
+    height: 523px;
+    width: 680px;
+    grid-area: bug;
   }
 }
