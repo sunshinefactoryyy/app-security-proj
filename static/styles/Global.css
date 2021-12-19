@@ -68,6 +68,16 @@ nav .container-fluid .btn-container .login:hover {
           filter: drop-shadow(20px 10px 4px #8f2ead);
 }
 
+.hero .text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .hero .text .hero-text-4 {
   font-weight: bold;
   font-size: 5em;
@@ -82,6 +92,7 @@ nav .container-fluid .btn-container .login:hover {
   margin: 1em;
   -webkit-transition: 0.2s;
   transition: 0.2s;
+  font-size: 1.5em;
 }
 
 .hero .text .btns .btn:hover {

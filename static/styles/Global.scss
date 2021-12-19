@@ -59,6 +59,9 @@ nav {
   }
 
   .text {
+    display: flex;
+    flex-direction: column;
+
     .hero-text-4 {
       font-weight: bold;
       font-size: 5em;
@@ -73,6 +76,7 @@ nav {
       .btn {
         margin: 1em;
         transition: 0.2s;
+        font-size: 1.5em;
       }
 
       .btn:hover {
