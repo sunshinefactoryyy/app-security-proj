@@ -9,22 +9,44 @@ section {
   margin-top: 100px;
 }
 
+/*navbar.html*/
 /*Design of the navbar*/
 nav {
+  box-shadow: 1px 1px 1px #000;
+
   .container-fluid {
     margin-left: 1.5em;
+    margin-right: 1.5em;
 
     .navbar-brand {
-      font-size: 2em;
+      img {
+        height: 70px;
+        width: 189px;
+      }
     }
 
     .collapse {
       font-size: 1.2em;
       margin-left: 5em;
     }
+
+    .btn-container {
+      font-size: 1.5em;
+
+      button {
+        .btn-link {
+          text-decoration: none;
+        }
+
+        .sign-up {
+          color: #fff;
+        }
+      }
+    }
   }
 }
 
+/*index.html*/
 /*Design of the hero section*/
 .hero {
   display: flex;
@@ -34,38 +56,77 @@ nav {
   img {
     height: 540px;
     width: 540px;
+    filter: drop-shadow(20px 10px 4px rgb(143, 46, 173));
   }
 
   .text {
+    display: flex;
+    flex-direction: column;
+
     .hero-text-4 {
       font-weight: bold;
-      font-size: 3em;
+      font-size: 5em;
     }
 
     h4 {
       margin-top: 40px;
       font-weight: lighter;
     }
+
+    .btns {
+      .btn-primary {
+        margin: 1em;
+        font-size: 1.5em;
+      }
+    }
   }
 }
 
 /*Design of the services section*/
 .services {
-  .title {
+  .service-title {
     font-weight: bold;
     text-align: center;
   }
 
   .service-content > * {
     display: flex;
-    flex-wrap: wrap;
+    flex-basis: 100%;
     justify-content: space-evenly;
     align-items: center;
     margin-top: 100px;
+    column-gap: 1.5em;
+    padding: 1em;
 
-    .service {
-      .service-no {
-        font-weight: lighter;
+    .left-col,
+    .right-col {
+      .service {
+        display: grid;
+        grid-template-areas:
+          "s1 s2"
+          "s3 s4";
+        grid-template-columns: repeat(2, auto);
+        grid-template-rows: 1fr 1fr;
+
+        .service-no {
+          font-weight: lighter;
+        }
+      }
+
+      .s1 {
+        grid-area: s1;
+      }
+
+      .s2 {
+        grid-area: s2;
+      }
+
+      .s3 {
+        grid-area: s3;
+      }
+
+      .s4 {
+        grid-area: s4;
       }
     }
   }
@@ -73,22 +134,131 @@ nav {
 
 /*Design of the footer*/
 .footer {
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
+  padding: 1em;
 
   .company {
     text-align: center;
+    font-size: 1.2em;
   }
 
   .links {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+
+    .col-right,
+    .col-left {
+      list-style: none;
+    }
+
+    .col-left {
+      .bi {
+        display: inline-block;
+        text-align: center;
+        font-size: 1.5em;
+        margin: 0.5em;
+      }
+
+      .bi-exclude {
+        transform: scaleX(-1);
+      }
+
+      .list-title {
+        font-weight: bold;
+        font-size: 2em;
+      }
+    }
 
     .col-right {
-      .bi {
-        color: #fff;
+      .list-item {
+        line-height: 35px;
+        text-decoration: none;
+        margin: 1em;
+
+        .bi {
+          color: #fff;
+          font-size: 1.5em;
+          transition: 0.2s;
+          border-radius: 50%;
+        }
+
+        .bi-facebook:hover {
+          transition: 0.2s;
+          color: #3b5998;
+          background: #fff;
+        }
+
+        .bi-instagram:hover {
+          transition: 0.2s;
+          background: linear-gradient(#833ab4, #c13584, #e1306c);
+        }
+
+        .bi-linkedin:hover {
+          transition: 0.2s;
+          color: #3b5998;
+          background: #fff;
+        }
       }
+    }
+  }
+}
+
+/*About Us.html*/
+.about-content {
+  display: grid;
+  grid-template-areas: "about about about bug";
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+
+  .about {
+    grid-area: about;
+    display: flex;
+    flex-direction: column;
+
+    p {
+      margin-top: 20px;
+    }
+  }
+
+  .bug {
+    height: 523px;
+    width: 680px;
+    grid-area: bug;
+  }
+}
+
+/*login.html*/
+.login-content {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  img {
+    height: 406px;
+    width: 583px;
+  }
+
+  form {
+    .form-group {
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .line {
+      margin-top: 20px;
+      background-color: #000;
+    }
+
+    .btn-outline-dark {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
     }
   }
 }

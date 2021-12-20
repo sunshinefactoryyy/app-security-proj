@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Vision Core - Sign In/Login{% endblock %}
+
+{% block content %}
+<section class="login-content">
+    <img src="/static/public/Secure_login.svg">
+
+    <form action="GET" class="details">
+        <div class="form-group">
+            <label for="username" class="display-6">Username:</label>
+            <input type="text" class="form-control" id="usernameInput" placeholder="Enter username">
+        </div><!--form-group-->
+
+        <div class="form-group">
+            <label for="emailInput" class="display-6">Email Address:</label>
+            <input type="email address" class="form-control" id="emailInput" placeholder="Enter email address">
+            <small id="email" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div><!--form-group-->
+
+        <div class="form-group">
+            <label for="password" class="display-6">Password:</label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+            <small id="password" class="form-text text-muted">We'll never share your password with anyone else.</small>
+        </div><!--form-group-->
+
+        <button type="button" class="btn btn-primary btn-block">Login</button> <!--NEED TO CENTRALIZE-->
+        
+        <hr class="line">
+
+        <button type="button" class="btn btn-outline-dark"> <!--NEED TO CENTRALIZE-->
+            <i class="bi bi-google"></i>
+            Sign in with Google
+        </button>
+
+        <button type="button" class="btn btn-outline-dark"> <!--NEED TO CENTRALIZE-->
+            <i class="bi bi-microsoft"></i>
+            Sign in with Microsoft
+        </button>
+
+    </form><!--details-->
+</section><!--login-content-->
+{% endblock %}
