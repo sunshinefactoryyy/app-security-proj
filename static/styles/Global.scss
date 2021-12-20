@@ -7,7 +7,6 @@
 
 section {
   margin-top: 100px;
-  width: 100%;
 }
 
 /*navbar.html*/
@@ -20,7 +19,10 @@ nav {
     margin-right: 1.5em;
 
     .navbar-brand {
-      font-size: 2em;
+      img {
+        height: 70px;
+        width: 189px;
+      }
     }
 
     .collapse {

@@ -6,7 +6,6 @@
 
 section {
   margin-top: 100px;
-  width: 100%;
 }
 
 /*navbar.html*/
@@ -21,8 +20,9 @@ nav .container-fluid {
   margin-right: 1.5em;
 }
 
-nav .container-fluid .navbar-brand {
-  font-size: 2em;
+nav .container-fluid .navbar-brand img {
+  height: 70px;
+  width: 189px;
 }
 
 nav .container-fluid .collapse {
