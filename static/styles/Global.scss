@@ -245,24 +245,55 @@ nav {
 }
 
 /*About Us.html*/
-.main {
+.about-content {
   display: grid;
-  grid-template-areas:
-    ". . bug bug"
-    "about about bug bug"
-    ". . bug bug";
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(4, auto);
+  grid-template-areas: "about about about bug";
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
 
   .about {
+    grid-area: about;
     display: flex;
     flex-direction: column;
-    grid-area: about;
   }
 
-  img {
+  .bug {
     height: 523px;
     width: 680px;
     grid-area: bug;
+  }
+}
+
+/*login.html*/
+.login-content {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  img {
+    height: 406px;
+    width: 583px;
+  }
+
+  form {
+    .form-group {
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .line {
+      margin-top: 20px;
+      background-color: #000;
+    }
+
+    .btn-outline-dark {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
   }
 }

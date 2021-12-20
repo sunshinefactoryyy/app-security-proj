@@ -287,17 +287,21 @@ nav .container-fluid .btn-container .btn .btn-link {
 }
 
 /*About Us.html*/
-.main {
+.about-content {
   display: -ms-grid;
   display: grid;
-      grid-template-areas: ". . bug bug" "about about bug bug" ". . bug bug";
-  -ms-grid-rows: (1fr)[3];
-      grid-template-rows: repeat(3, 1fr);
-  -ms-grid-columns: (auto)[4];
-      grid-template-columns: repeat(4, auto);
+      grid-template-areas: "about about about bug";
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
 }
 
-.main .about {
+.about-content .about {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: about;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -305,19 +309,56 @@ nav .container-fluid .btn-container .btn .btn-link {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: about;
 }
 
-.main img {
+.about-content .bug {
   height: 523px;
   width: 680px;
   -ms-grid-row: 1;
-  -ms-grid-row-span: 3;
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 2;
+  -ms-grid-column: 4;
   grid-area: bug;
+}
+
+/*login.html*/
+.login-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.login-content img {
+  height: 406px;
+  width: 583px;
+}
+
+.login-content form .form-group {
+  margin-top: 20px;
+}
+
+.login-content form button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-content form .line {
+  margin-top: 20px;
+  background-color: #000;
+}
+
+.login-content form .btn-outline-dark {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=Global.css.map */
