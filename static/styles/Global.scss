@@ -31,47 +31,13 @@ nav {
     .btn-container {
       font-size: 1.5em;
 
-      /*Design of the btn-primary button and  for login button when it is not hovered*/
-      .btn-primary {
-        transition: 0.2s;
-
-        .login {
-          transition: 0.2s;
-          color: #fff;
+      button {
+        .btn-link {
+          text-decoration: none;
         }
-
-        .login:hover {
-          transition: 0.2s;
-          color: #05a;
-        }
-      }
-
-      /*Design for login button when the button is hovered*/
-      .btn-primary:hover {
-        background: #fff;
-        transition: 0.2s;
-
-        .login {
-          color: #0074e4;
-        }
-      }
-
-      .btn-outline-primary {
-        transition: 0.2s;
-      }
-
-      .btn-outline-primary:hover {
-        background: #0074e4;
-        transition: 0.2s;
 
         .sign-up {
           color: #fff;
-        }
-      }
-
-      .btn {
-        .btn-link {
-          text-decoration: none;
         }
       }
     }
@@ -106,16 +72,9 @@ nav {
     }
 
     .btns {
-      .btn {
+      .btn-primary {
         margin: 1em;
-        transition: 0.2s;
         font-size: 1.5em;
-      }
-
-      .btn:hover {
-        background: #fff;
-        color: #05a;
-        transition: 0.2s;
       }
     }
   }
@@ -255,6 +214,10 @@ nav {
     grid-area: about;
     display: flex;
     flex-direction: column;
+
+    p {
+      margin-top: 20px;
+    }
   }
 
   .bug {
