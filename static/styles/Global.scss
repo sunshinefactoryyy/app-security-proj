@@ -277,13 +277,16 @@ nav {
   }
 
   form {
+    h2 {
+      font-weight: bold;
+    }
+
     .form-group {
       margin-top: 20px;
     }
 
     button {
       margin-top: 20px;
-      text-align: center;
     }
 
     .line {
@@ -291,10 +294,16 @@ nav {
       background-color: #000;
     }
 
-    .btn-outline-dark {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
+    .submit {
+      text-align: center;
+    }
+
+    .alternative {
+      align-self: center;
+
+      .btn-outline-dark {
+        display: block;
+      }
     }
   }
 }
