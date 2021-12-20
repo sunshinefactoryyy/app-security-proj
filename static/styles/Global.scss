@@ -173,32 +173,31 @@ nav {
 
     .col-right {
       .list-item {
-        line-height: 35px;
         text-decoration: none;
         margin: 1em;
 
         .bi {
           color: #fff;
-          font-size: 1.5em;
-          transition: 0.2s;
           border-radius: 50%;
+          font-size: 2em;
+          text-align: center;
+          box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
         }
 
-        .bi-facebook:hover {
-          transition: 0.2s;
-          color: #3b5998;
-          background: #fff;
+        .bi:hover {
+          transform: translateY(0, -10px);
         }
 
-        .bi-instagram:hover {
-          transition: 0.2s;
-          background: linear-gradient(#833ab4, #c13584, #e1306c);
+        .bi:nth-child(1):hover {
+          color: #3b5999;
         }
 
-        .bi-linkedin:hover {
-          transition: 0.2s;
-          color: #3b5998;
-          background: #fff;
+        .bi:nth-child(2):hover {
+          color: rgb(143, 46, 173);
+        }
+
+        .bi:nth-child(3):hover {
+          color: #05c;
         }
       }
     }

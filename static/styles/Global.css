@@ -203,38 +203,34 @@ nav .container-fluid .btn-container button .sign-up {
 }
 
 .footer .links .col-right .list-item {
-  line-height: 35px;
   text-decoration: none;
   margin: 1em;
 }
 
 .footer .links .col-right .list-item .bi {
   color: #fff;
-  font-size: 1.5em;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
   border-radius: 50%;
+  font-size: 2em;
+  text-align: center;
+  -webkit-box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
 }
 
-.footer .links .col-right .list-item .bi-facebook:hover {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  color: #3b5998;
-  background: #fff;
+.footer .links .col-right .list-item .bi:hover {
+  -webkit-transform: translateY(0, -10px);
+          transform: translateY(0, -10px);
 }
 
-.footer .links .col-right .list-item .bi-instagram:hover {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  background: -webkit-gradient(linear, left top, left bottom, from(#833ab4), color-stop(#c13584), to(#e1306c));
-  background: linear-gradient(#833ab4, #c13584, #e1306c);
+.footer .links .col-right .list-item .bi:nth-child(1):hover {
+  color: #3b5999;
 }
 
-.footer .links .col-right .list-item .bi-linkedin:hover {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  color: #3b5998;
-  background: #fff;
+.footer .links .col-right .list-item .bi:nth-child(2):hover {
+  color: #8f2ead;
+}
+
+.footer .links .col-right .list-item .bi:nth-child(3):hover {
+  color: #05c;
 }
 
 /*About Us.html*/
