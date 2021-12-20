@@ -33,13 +33,34 @@ nav {
     .btn-container {
       font-size: 1.5em;
 
-      button {
+      .btn {
         .btn-link {
           text-decoration: none;
         }
-
         .sign-up {
           color: #fff;
+        }
+      }
+
+      .btn-outline-primary:hover {
+        .login:hover {
+          color: #fff;
+        }
+
+        .login {
+          color: #fff;
+        }
+      }
+
+      .btn-primary:hover {
+        background-color: #fff;
+
+        .sign-up:hover {
+          color: #05a;
+        }
+
+        .sign-up {
+          color: #05a;
         }
       }
     }
@@ -73,10 +94,27 @@ nav {
       font-weight: lighter;
     }
 
-    .btns {
+    .CTA-btns {
       .btn-primary {
         margin: 1em;
         font-size: 1.5em;
+
+        .btn-link {
+          text-decoration: none;
+          color: #fff;
+        }
+      }
+
+      .btn-primary:hover {
+        background-color: #fff;
+
+        .btn-link {
+          color: #05a;
+        }
+
+        .btn-link:hover {
+          color: #05a;
+        }
       }
     }
   }
@@ -172,32 +210,31 @@ nav {
     }
 
     .col-right {
-      .list-item {
+      a {
         text-decoration: none;
-        margin: 1em;
+        margin: 0 15px;
+        height: 60px;
+        width: 60px;
+        text-align: center;
+        position: relative;
 
         .bi {
           color: #fff;
-          border-radius: 50%;
+          line-height: 60px;
           font-size: 2em;
-          text-align: center;
-          box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
+          border-radius: 50%;
         }
 
-        .bi:hover {
-          transform: translateY(0, -10px);
-        }
-
-        .bi:nth-child(1):hover {
+        .bi-facebook:hover {
           color: #3b5999;
         }
 
-        .bi:nth-child(2):hover {
+        .bi-instagram:hover {
           color: rgb(143, 46, 173);
         }
 
-        .bi:nth-child(3):hover {
-          color: #05c;
+        .bi-linkedin:hover {
+          color: #05a;
         }
       }
     }
