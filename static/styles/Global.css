@@ -343,13 +343,7 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   text-align: center;
 }
 
-.login-content form .alternative {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-}
-
-.login-content form .alternative .btn-outline-dark {
-  display: block;
+.login-content form .btn-outline-dark {
+  text-align: center;
 }
 /*# sourceMappingURL=Global.css.map */
