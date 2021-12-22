@@ -16,7 +16,7 @@ def about():
 
 @app.route('/faq')
 def faq():
-    return render_template('workflow.html', title='Workflow')
+    return render_template('faq.html', title='FAQ')
 
 
 @app.route('/login')
