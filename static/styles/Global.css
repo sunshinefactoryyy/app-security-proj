@@ -62,7 +62,7 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   color: #05a;
 }
 
-/*index.html*/
+/*home.html*/
 /*Design of the hero section*/
 .hero {
   display: -webkit-box;
@@ -239,32 +239,74 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   font-size: 2em;
 }
 
-.footer .links .col-right a {
-  text-decoration: none;
-  margin: 0 15px;
-  height: 60px;
-  width: 60px;
-  text-align: center;
-  position: relative;
+.footer .links .col-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 2em;
+          column-gap: 2em;
 }
 
-.footer .links .col-right a .bi {
-  color: #fff;
-  line-height: 60px;
-  font-size: 2em;
+.footer .links .col-right .link {
+  height: 2.5em;
+  width: 2.5em;
   border-radius: 50%;
+  background-color: #fff;
+  text-align: center;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
-.footer .links .col-right a .bi-facebook:hover {
-  color: #3b5999;
+.footer .links .col-right .link a {
+  text-decoration: none;
+  font-size: 1.7em;
 }
 
-.footer .links .col-right a .bi-instagram:hover {
-  color: #8f2ead;
+.footer .links .col-right .link a .bi {
+  color: #000;
+  text-align: center;
 }
 
-.footer .links .col-right a .bi-linkedin:hover {
+.footer .links .col-right .link:hover {
+  -webkit-transform: translate(0, -15px);
+          transform: translate(0, -15px);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.footer .links .col-right .link:hover .bi-linkedin:hover {
   color: #05a;
+}
+
+.footer .links .col-right .link:nth-child(1):hover {
+  background-color: #3b5999;
+}
+
+.footer .links .col-right .link:nth-child(1):hover .bi-facebook {
+  color: #fff;
+}
+
+.footer .links .col-right .link:nth-child(2):hover {
+  background-color: #8f2ead;
+}
+
+.footer .links .col-right .link:nth-child(2):hover .bi-instagram {
+  color: #fff;
+}
+
+.footer .links .col-right .link:nth-child(3):hover {
+  background-color: #05a;
+}
+
+.footer .links .col-right .link:nth-child(3):hover .bi-linkedin {
+  color: #fff;
 }
 
 /*About Us.html*/
@@ -354,5 +396,60 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
 .sign-up-content form .btn-primary:hover {
   background: #fff;
   color: #05a;
+}
+
+/*Workflow.html*/
+.workflow {
+  margin: 40px 10px 0 10px;
+}
+
+.workflow .workflow-title {
+  font-weight: bolder;
+  margin-left: 100px;
+}
+
+.workflow .workflow-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 20px;
+  -webkit-column-gap: 4em;
+          column-gap: 4em;
+}
+
+.workflow .workflow-content .card > * {
+  margin: 20px auto 0 auto;
+}
+
+.workflow .workflow-content .card:hover {
+  -webkit-transform: translate(0, -15px);
+          transform: translate(0, -15px);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.workflow .workflow-content .card {
+  height: 500px;
+  width: 388px;
+  background-color: #e7e7e7;
+  border-radius: 25px;
+  -webkit-filter: drop-shadow(10px 5px 2px #444444);
+          filter: drop-shadow(10px 5px 2px #444444);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.workflow .workflow-content .card h2 {
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
 }
 /*# sourceMappingURL=Global.css.map */

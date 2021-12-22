@@ -67,7 +67,7 @@ nav {
   }
 }
 
-/*index.html*/
+/*home.html*/
 /*Design of the hero section*/
 .hero {
   display: flex;
@@ -210,31 +210,61 @@ nav {
     }
 
     .col-right {
-      a {
-        text-decoration: none;
-        margin: 0 15px;
-        height: 60px;
-        width: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 2em;
+
+      .link {
+        height: 2.5em;
+        width: 2.5em;
+        border-radius: 50%;
+        background-color: #fff;
         text-align: center;
-        position: relative;
+        transition: 0.2s;
 
-        .bi {
-          color: #fff;
-          line-height: 60px;
-          font-size: 2em;
-          border-radius: 50%;
-        }
+        a {
+          text-decoration: none;
+          font-size: 1.7em;
 
-        .bi-facebook:hover {
-          color: #3b5999;
+          .bi {
+            color: #000;
+            text-align: center;
+          }
         }
+      }
 
-        .bi-instagram:hover {
-          color: rgb(143, 46, 173);
-        }
+      .link:hover {
+        transform: translate(0, -15px);
+        transition: 0.2s;
+        cursor: pointer;
 
         .bi-linkedin:hover {
           color: #05a;
+        }
+      }
+
+      .link:nth-child(1):hover {
+        background-color: #3b5999;
+
+        .bi-facebook {
+          color: #fff;
+        }
+      }
+
+      .link:nth-child(2):hover {
+        background-color: rgb(143, 46, 173);
+
+        .bi-instagram {
+          color: #fff;
+        }
+      }
+
+      .link:nth-child(3):hover {
+        background-color: #05a;
+
+        .bi-linkedin {
+          color: #fff;
         }
       }
     }
@@ -302,6 +332,49 @@ nav {
     .btn-primary:hover {
       background: #fff;
       color: #05a;
+    }
+  }
+}
+
+/*Workflow.html*/
+.workflow {
+  margin: 40px 10px 0 10px;
+
+  .workflow-title {
+    font-weight: bolder;
+    margin-left: 100px;
+  }
+
+  .workflow-content {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    column-gap: 4em;
+
+    .card > * {
+      margin: 20px auto 0 auto;
+    }
+
+    .card:hover {
+      transform: translate(0, -15px);
+      transition: 0.2s;
+    }
+
+    .card {
+      height: 500px;
+      width: 388px;
+      background-color: rgb(231, 231, 231);
+      border-radius: 25px;
+      filter: drop-shadow(10px 5px 2px rgb(68, 68, 68));
+      transition: 0.2s;
+
+      h2 {
+        font-weight: bold;
+        font-size: 2em;
+        text-align: center;
+      }
     }
   }
 }
