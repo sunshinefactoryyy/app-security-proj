@@ -13,13 +13,20 @@ def home():
 def about():
     return render_template('about.html', title='About Us')
 
+
 @app.route('/faq')
 def faq():
     return render_template('faq.html', title='FAQ')
 
+
 @app.route('/login')
 def login():
     return render_template('login.html', title='Login')
+
+
+@app.route('/sign_up')
+def sign_up():
+    return render_template('sign_up.html', title="Sign Up")
 
 
 if __name__ == '__main__':

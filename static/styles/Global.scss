@@ -266,7 +266,8 @@ nav {
 }
 
 /*login.html*/
-.login-content {
+.login-content,
+.sign-up-content {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -285,10 +286,6 @@ nav {
       margin-top: 20px;
     }
 
-    button {
-      margin-top: 20px;
-    }
-
     .line {
       margin-top: 20px;
       background-color: #000;
@@ -300,6 +297,11 @@ nav {
 
     .btn-outline-dark {
       text-align: center;
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+      color: #05a;
     }
   }
 }
