@@ -1,126 +1,177 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <section class="hero">
-    <div class="text">
-        <h1 class='hero-text-4'>Top quality <br> repairs for your <br> computer parts</h1>
-        <h4>Your go-to solution for all your computer <br> hardware repairs</h4>
+  <div class="text">
+    <h1 class="hero-text-4">
+      Top quality <br />
+      repairs for your <br />
+      computer parts
+    </h1>
+    <h4>
+      Your go-to solution for all your computer <br />
+      hardware repairs
+    </h4>
 
-        <ul class="CTA-btns">
-            <button class="btn btn-primary">
-                <a href="#" class="btn-link">Request For Repair</a>
-            </button>
+    <ul class="CTA-btns">
+      <button class="btn btn-primary">
+        <a href="#" class="btn-link">Request For Repair</a>
+      </button>
 
-            <button class="btn btn-primary">
-                <a href="#" class="btn-link">Find Out More</a>
-            </button>
-        </ul><!--CTA-btns-->
-    </div><!--text-->
+      <button class="btn btn-primary">
+        <a href="#" class="btn-link">Find Out More</a>
+      </button>
+    </ul>
+    <!--CTA-btns-->
+  </div>
+  <!--text-->
 
-    <img src="/static/public/Gigabyte_X570_Aorus_Pro_Wifi.png">
-</section><!--hero-->
+  <img src="/static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" />
+</section>
+<!--hero-->
 
 <section class="services">
-    <h1 class="service-title">Services We Provide</h1>
+  <h1 class="service-title">Services We Provide</h1>
 
-    <div class="service-content">
-        <div class="left-col">
-            <div class="service s1">
-                <h3 class="service-no">Service 1</h3>
-                <h2 class="service-name">Service Name</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum molestias eaque natus nisi nemo repudiandae tempora officia nam sequi laboriosam.</p>
-            </div><!--s1-->
-        
-            <div class="service s2">
-                <h3 class="service-no">Service 2</h3>
-                <h2 class="service-name">Service Name</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum molestias eaque natus nisi nemo repudiandae tempora officia nam sequi laboriosam.</p>
-            </div><!--s2-->
-        </div><!--left-col-->
-    
-        <div class="right-col">
-            <div class="service s3">
-                <h3 class="service-no">Service 3</h3>
-                <h2 class="service-name">Service Name</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum molestias eaque natus nisi nemo repudiandae tempora officia nam sequi laboriosam.</p>
-            </div><!--s3-->
-        
-            <div class="service s4">
-                <h3 class="service-no">Service 4</h3>
-                <h2 class="service-name">Service Name</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum molestias eaque natus nisi nemo repudiandae tempora officia nam sequi laboriosam.</p>
-            </div><!--s4-->
-        </div><!--right-col-->
-    </div><!--service content-->
-</section><!--services-->
+  <div class="service-content">
+    <div class="left-col">
+      <div class="service s1">
+        <h2 class="service-name">Electronics Repairs</h2>
+        <p class="description">
+          We offer repair services for computers, mobile phones, and more. Our
+          repair process is entirely online, and you will receive constant
+          updates on the status of your product! Prices range from $50-$3000
+          depending on the issue and the product.
+        </p>
+      </div>
+      <!--s1-->
+
+      <div class="service s2">
+        <h2 class="service-name">Two-way Delivery Service</h2>
+        <p class="description">
+          No time to drop in personally with your computer? No problem! Just
+          engage our two-way delivery service that will deliver to and from your
+          doorstep at any time slot you choose.
+        </p>
+      </div>
+      <!--s2-->
+    </div>
+    <!--left-col-->
+
+    <div class="right-col">
+      <div class="service s3">
+        <h2 class="service-name">Computer Diagnostics</h2>
+        <p class="description">
+          Before we give you a quote for your repair, our company offers a free
+          computer diagnosis for all customers regardless of whether you decide
+          to proceed with the repair or not! This is only applicable if you
+          request for a quote.
+        </p>
+      </div>
+      <!--s3-->
+
+      <div class="service s4">
+        <h2 class="service-name">Contact Us</h2>
+        <p class="description">
+          Apart from our hotline that is open during office hours, our website
+          offers a chatbot that allows you to either chat with a bot online or
+          with one of our customer service staff!
+        </p>
+      </div>
+      <!--s4-->
+    </div>
+    <!--right-col-->
+  </div>
+  <!--service content-->
+</section>
+<!--services-->
 
 <section class="workflow">
-    <h1 class="workflow-title">How It Works</h1>
+  <h1 class="workflow-title">How It Works</h1>
 
-    <div class="workflow-content">
+  <div class="workflow-content">
+    <div class="card request">
+      <h2 class="card-title display-6">1. Request for repair</h2>
+      <div class="card-body">
+        <p class="card-text">
+          Sign up for a free account on our website. You can either pay the flat
+          price as stated, or request for a quote with our free diagnostics. All
+          payments will be done online on our website. Either drop off your item
+          in person, or use our two-way delivery service, and await the status
+          of your item.
+        </p>
+        <!--card-text-->
+      </div>
+      <!--card-body-->
+    </div>
+    <!--step request-->
 
-        <div class="card request">
-            <h2 class="card-title display-6">1. Request for repair</h2>
-            <div class="card-body">
-                <p class="card-text">Sign up for a free account on our website. You can either pay the flat price as stated, or request for a quote with our free diagnostics. 
-                    All payments will be done online on our website. Either drop off your item in person, or use our two-way delivery service,  and await the status of your item.
-                </p><!--card-text-->         
-            </div><!--card-body-->
-        </div><!--step request-->
+    <div class="card status">
+      <h2 class="card-title display-6">2. Await for item status</h2>
+      <div class="card-body">
+        <p class="card-text">
+          Check your account on this website for constant updates on your item.
+          You can also choose your preferred mode of communication. If needed,
+          you can chat with our chatbot or call our phone number (+65 9812
+          3456).
+        </p>
+        <!--card-text-->
+      </div>
+      <!--card-body-->
+    </div>
+    <!--step status-->
 
-        <div class="card status">
-            <h2 class="card-title display-6">2. Await for item status</h2>
-            <div class="card-body">
-                <p class="card-text">
-                    Check your account on this website for constant updates on your item. You can also choose your preferred mode of communication. If needed, you can chat with our chatbot or call our phone number (+65 9812 3456).
-                </p><!--card-text-->
-            </div><!--card-body-->
-        </div><!--step status-->
-
-        <div class="card collect">
-            <h2 class="card-title display-6">3. Collect repaired item</h2>
-            <div class="card-body">
-                <p class="card-text">
-                    After your item has been repaired, you can collect it in person or via delivery to your house. 
-                </p><!--card-text-->
-            </div><!--card-body-->
-        </div><!--step collect-->
-
-    </div><!--workflow-content-->
-</section><!--workflow-->
-
+    <div class="card collect">
+      <h2 class="card-title display-6">3. Collect repaired item</h2>
+      <div class="card-body">
+        <p class="card-text">
+          After your item has been repaired, you can collect it in person or via
+          delivery to your house.
+        </p>
+        <!--card-text-->
+      </div>
+      <!--card-body-->
+    </div>
+    <!--step collect-->
+  </div>
+  <!--workflow-content-->
+</section>
+<!--workflow-->
 
 <section class="footer">
-    <div class="links">
-        <ul class="col-left">
-            <li class="list-title">Partnerships</li><!--list-item-->
-            <i class="bi bi-apple list-item"></i>
-            <i class="bi bi-google list-item"></i>
-            <i class="bi bi-exclude list-item"></i>
-            <i class="bi bi-microsoft list-item"></i>
-        </ul><!--col-left-->
-    
-        <ul class="col-right">
-            <div class="link">
-                <a href="#" class="list-item">
-                    <i class="bi bi-facebook"></i>
-                </a><!--list-item-->
-            </div><!--link1-->
-            
-            <div class="link">
-                <a href="#" class="list-item">
-                    <i class="bi bi-instagram"></i>
-                </a><!--list-item-->
-            </div><!--link2-->
+  <div class="links">
+    <ul class="col-left">
+      <li class="list-title">Partnerships</li>
+      <!--list-item-->
+      <i class="bi bi-apple list-item"></i>
+      <i class="bi bi-google list-item"></i>
+      <i class="bi bi-exclude list-item"></i>
+      <i class="bi bi-microsoft list-item"></i>
+    </ul>
+    <!--col-left-->
 
-            <div class="link">
-                <a href="#" class="list-item">
-                    <i class="bi bi-linkedin"></i>
-                </a><!--list-item-->    
-            </div><!--link3-->
-        </ul><!--col-right-->
-    </div><!--links-->
+    <ul class="col-right">
+      <div class="link">
+        <a href="#" class="list-item"> <i class="bi bi-facebook"></i> </a
+        ><!--list-item-->
+      </div>
+      <!--link1-->
 
-    <p class="company">Vision Core &copy</p>
-</section><!--footer-->
+      <div class="link">
+        <a href="#" class="list-item"> <i class="bi bi-instagram"></i> </a
+        ><!--list-item-->
+      </div>
+      <!--link2-->
+
+      <div class="link">
+        <a href="#" class="list-item"> <i class="bi bi-linkedin"></i> </a
+        ><!--list-item-->
+      </div>
+      <!--link3-->
+    </ul>
+    <!--col-right-->
+  </div>
+  <!--links-->
+
+  <p class="company">Vision Core &copy</p>
+</section>
+<!--footer-->
 {% endblock %}

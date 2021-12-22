@@ -145,10 +145,6 @@ nav {
           "s3 s4";
         grid-template-columns: repeat(2, auto);
         grid-template-rows: 1fr 1fr;
-
-        .service-no {
-          font-weight: lighter;
-        }
       }
 
       .s1 {
@@ -286,25 +282,31 @@ nav {
 
       .link:nth-child(1):hover {
         background-color: #3b5999;
+        transition: 0.2s;
 
         .bi-facebook {
           color: #fff;
+          transition: 0.2s;
         }
       }
 
       .link:nth-child(2):hover {
         background-color: rgb(143, 46, 173);
+        transition: 0.2s;
 
         .bi-instagram {
           color: #fff;
+          transition: 0.2s;
         }
       }
 
       .link:nth-child(3):hover {
         background-color: #05a;
+        transition: 0.2s;
 
         .bi-linkedin {
           color: #fff;
+          transition: 0.2s;
         }
       }
     }
@@ -374,4 +376,8 @@ nav {
       color: #05a;
     }
   }
+}
+
+.sign-up-content {
+  margin-bottom: 100px;
 }
