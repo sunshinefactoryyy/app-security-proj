@@ -170,6 +170,46 @@ nav {
   }
 }
 
+.workflow {
+  .workflow-title {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .workflow-content {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    column-gap: 4em;
+
+    .card > * {
+      margin: 20px auto 0 auto;
+    }
+
+    .card:hover {
+      transform: translate(0, -15px);
+      transition: 0.2s;
+    }
+
+    .card {
+      height: 500px;
+      width: 388px;
+      background-color: rgb(231, 231, 231);
+      border-radius: 25px;
+      filter: drop-shadow(10px 5px 2px rgb(68, 68, 68));
+      transition: 0.2s;
+
+      h2 {
+        font-weight: bold;
+        font-size: 2em;
+        text-align: center;
+      }
+    }
+  }
+}
+
 /*Design of the footer*/
 .footer {
   background-color: rgba(0, 0, 0, 0.8);
@@ -332,49 +372,6 @@ nav {
     .btn-primary:hover {
       background: #fff;
       color: #05a;
-    }
-  }
-}
-
-/*Workflow.html*/
-.workflow {
-  margin: 40px 10px 0 10px;
-
-  .workflow-title {
-    font-weight: bolder;
-    margin-left: 100px;
-  }
-
-  .workflow-content {
-    display: flex;
-    flex-basis: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    column-gap: 4em;
-
-    .card > * {
-      margin: 20px auto 0 auto;
-    }
-
-    .card:hover {
-      transform: translate(0, -15px);
-      transition: 0.2s;
-    }
-
-    .card {
-      height: 500px;
-      width: 388px;
-      background-color: rgb(231, 231, 231);
-      border-radius: 25px;
-      filter: drop-shadow(10px 5px 2px rgb(68, 68, 68));
-      transition: 0.2s;
-
-      h2 {
-        font-weight: bold;
-        font-size: 2em;
-        text-align: center;
-      }
     }
   }
 }
