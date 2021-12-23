@@ -5,9 +5,9 @@
     <img src="/static/public/Secure_login.svg">
 
     <div class="form-container">
-        <div class="login-title">Login</div>
+        <div class="form-title">Login</div>
 
-        <form method="GET">
+        <form method="GET" id="form-details">
             <div class="form-group">
                 <input type="text" class="form-control" id="username" required>
                 <label for="username">Username</label>
@@ -24,12 +24,14 @@
                 <input type="checkbox" name="Remember Me" id="remember">
                 <label for="remember">Remember Me</label>
             </div><!--form-group-->
-    
-            <input class="login-btn" type="submit" value="Login">
+            
+            <div class="form-group submit">
+                <input class="login-btn" type="submit" value="Login">
+            </div><!--form-group-->
     
             <div class="form-group sign-up-container">
                <span>Not a member?</span> 
-               <a href="#" class="signUp" type="submit">Sign Up</a>
+               <a href="{{url_for('sign_up')}}" class="signUp-link" type="submit">Sign Up</a>
             </div><!--form-group-->
         </form>    
 

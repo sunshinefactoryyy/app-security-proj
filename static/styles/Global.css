@@ -428,11 +428,6 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   margin-bottom: 100px;
 }
 
-.sign-up-content img {
-  height: 406px;
-  width: 583px;
-}
-
 .sign-up-content form h2 {
   font-weight: bold;
 }
@@ -450,17 +445,9 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   text-align: center;
 }
 
-.sign-up-content form .btn-outline-dark {
-  text-align: center;
-}
-
-.sign-up-content form .btn-primary:hover {
-  background: #fff;
-  color: #05a;
-}
-
 /*login.html*/
-.login-content {
+.login-content,
+.sign-up-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -471,15 +458,19 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
           align-items: center;
 }
 
-.login-content img {
+.login-content img,
+.sign-up-content img {
   height: 406px;
   width: 583px;
 }
 
-.login-content .form-container {
+.login-content .form-container,
+.sign-up-content .form-container {
   border-radius: 10px;
   font-weight: bold;
   border: 2px solid #000;
+  width: 30%;
+  height: 100%;
   -webkit-animation: transitionIn 0.75s ease-in;
           animation: transitionIn 0.75s ease-in;
 }
@@ -510,7 +501,8 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   }
 }
 
-.login-content .form-container .login-title {
+.login-content .form-container .form-title,
+.sign-up-content .form-container .form-title {
   text-align: center;
   padding: 10px 0 20px 0;
   background: linear-gradient(120deg, #2980b9, #8e44ad);
@@ -519,19 +511,27 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   color: #fff;
 }
 
-.login-content .form-container form {
+.login-content .form-container form,
+.sign-up-content .form-container form {
   padding: 0 40px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
-.login-content .form-container .form-group {
+.login-content .form-container form .form-group,
+.sign-up-content .form-container form .form-group {
   position: relative;
   border-bottom: 2px solid #adadad;
   margin: 30px 0;
 }
 
-.login-content .form-container .form-group .form-control {
+.login-content .form-container form .form-group .form-check-input,
+.sign-up-content .form-container form .form-group .form-check-input {
+  margin-right: 5px;
+}
+
+.login-content .form-container form .form-group .form-control,
+.sign-up-content .form-container form .form-group .form-control {
   width: 100%;
   padding: 0 5px;
   height: 40px;
@@ -541,7 +541,8 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   outline: none;
 }
 
-.login-content .form-container .form-group .form-control span::before {
+.login-content .form-container form .form-group .form-control span::before,
+.sign-up-content .form-container form .form-group .form-control span::before {
   content: "";
   position: absolute;
   top: 40px;
@@ -553,18 +554,28 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   transition: 0.5s;
 }
 
-.login-content .form-container .form-group .form-control input:focus ~ label,
-.login-content .form-container .form-group .form-control input:valid ~ label {
+.login-content .form-container form .form-group .form-control input:focus ~ label,
+.login-content .form-container form .form-group .form-control input:valid ~ label,
+.sign-up-content .form-container form .form-group .form-control input:focus ~ label,
+.sign-up-content .form-container form .form-group .form-control input:valid ~ label {
   top: -5px;
   color: #2691d9;
 }
 
-.login-content .form-container .form-group .form-control input:focus ~ label::before,
-.login-content .form-container .form-group .form-control input:valid ~ span::before {
+.login-content .form-container form .form-group .form-control input:focus ~ label::before,
+.login-content .form-container form .form-group .form-control input:valid ~ span::before,
+.sign-up-content .form-container form .form-group .form-control input:focus ~ label::before,
+.sign-up-content .form-container form .form-group .form-control input:valid ~ span::before {
   width: 100%;
 }
 
-.login-content .form-container .form-group label {
+.login-content .form-container form .form-group .form-control .text-muted,
+.sign-up-content .form-container form .form-group .form-control .text-muted {
+  margin: 5px;
+}
+
+.login-content .form-container form .form-group label,
+.sign-up-content .form-container form .form-group label {
   position: absolute;
   color: #adadad;
   font-size: normal;
@@ -573,28 +584,52 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   transition: 0.5s;
 }
 
-.login-content .form-container .remember,
-.login-content .form-container .sign-up-container {
+.login-content .form-container form .remember,
+.login-content .form-container form .sign-up-container,
+.login-content .form-container form #sign-up-container,
+.login-content .form-container form #terms,
+.login-content .form-container form .black,
+.sign-up-content .form-container form .remember,
+.sign-up-content .form-container form .sign-up-container,
+.sign-up-content .form-container form #sign-up-container,
+.sign-up-content .form-container form #terms,
+.sign-up-content .form-container form .black {
   border-bottom: none;
 }
 
-.login-content .form-container .remember {
+.login-content .form-container form .black,
+.sign-up-content .form-container form .black {
+  text-align: center;
+}
+
+.login-content .form-container form .black .btn-outline-dark,
+.sign-up-content .form-container form .black .btn-outline-dark {
+  margin: 10px;
+}
+
+.login-content .form-container form .remember,
+.sign-up-content .form-container form .remember {
   margin: 10px 0 10px 5px;
   display: block;
 }
 
-.login-content .form-container .forgot {
+.login-content .form-container form .forgot,
+.sign-up-content .form-container form .forgot {
   color: #a6a6a6;
   cursor: pointer;
   text-decoration: none;
   margin-bottom: 10px;
 }
 
-.login-content .form-container .forgot:hover {
+.login-content .form-container form .forgot:hover,
+.sign-up-content .form-container form .forgot:hover {
   text-decoration: underline;
 }
 
-.login-content .form-container .login-btn {
+.login-content .form-container form .login-btn,
+.login-content .form-container form .sign-up-btn,
+.sign-up-content .form-container form .login-btn,
+.sign-up-content .form-container form .sign-up-btn {
   width: 100%;
   height: 50px;
   border: 1px solid;
@@ -607,7 +642,10 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   margin: 10px;
 }
 
-.login-content .form-container .login-btn:hover {
+.login-content .form-container form .login-btn:hover,
+.login-content .form-container form .sign-up-btn:hover,
+.sign-up-content .form-container form .login-btn:hover,
+.sign-up-content .form-container form .sign-up-btn:hover {
   border-color: #05a;
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
@@ -615,18 +653,21 @@ nav .container-fluid .btn-container .btn-primary:hover .sign-up {
   color: #05a;
 }
 
-.login-content .form-container .sign-up-container {
+.login-content .form-container form .sign-up-container,
+.sign-up-content .form-container form .sign-up-container {
   margin: 30px 0;
   text-align: center;
   color: #666666;
 }
 
-.login-content .form-container .sign-up-container .signUp {
+.login-content .form-container form .sign-up-container .signUp-link,
+.sign-up-content .form-container form .sign-up-container .signUp-link {
   color: #2691d9;
   text-decoration: none;
 }
 
-.login-content .form-container .sign-up-container .signUp:hover {
+.login-content .form-container form .sign-up-container .signUp-link:hover,
+.sign-up-content .form-container form .sign-up-container .signUp-link:hover {
   text-decoration: underline;
 }
 /*# sourceMappingURL=Global.css.map */
