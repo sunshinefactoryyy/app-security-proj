@@ -4,35 +4,36 @@
 <section class="login-content">
     <img src="/static/public/Secure_login.svg">
 
-    <form action="GET" class="details">
-        <h2>Login</h2>
+    <div class="form-container">
+        <div class="login-title">Login</div>
 
-        <div class="form-group">
-            <label for="username" class="display-6">Username:</label>
-            <input type="text" class="form-control" id="username" placeholder="Enter username" required>
-        </div><!--form-group-->
+        <form method="GET">
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" required>
+                <label for="username">Username</label>
+            </div><!--form-group-->
+    
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" required>
+                <label for="password">Password</label>
+            </div><!--form-group-->
 
-        <div class="form-group">
-            <label for="password" class="display-6">Password:</label>
-            <input type="password" class="form-control" id="passwordInput" placeholder="Password" required>
-        </div><!--form-group-->
+            <a href="#" class="forgot">Forgot Password?</a><!--forgot-->
+    
+            <div class="form-group remember">
+                <input type="checkbox" name="Remember Me" id="remember">
+                <label for="remember">Remember Me</label>
+            </div><!--form-group-->
+    
+            <input class="login-btn" type="submit" value="Login">
+    
+            <div class="form-group sign-up-container">
+               <span>Not a member?</span> 
+               <a href="#" class="signUp" type="submit">Sign Up</a>
+            </div><!--form-group-->
+        </form>    
 
-        <div class="form-group submit">
-            <button type="submit" class="btn btn-primary btn-block">Login</button> <!--NEED TO CENTRALIZE-->
-        </div><!--form-group-->
-        
-        <hr class="line">
+    </div><!--form-->
 
-        <button type="button" class="btn btn-outline-dark"> <!--NEED TO CENTRALIZE-->
-            <i class="bi bi-google pe-2"></i>
-            Login with Google
-        </button>
-
-        <button type="button" class="btn btn-outline-dark"> <!--NEED TO CENTRALIZE-->
-            <i class="bi bi-microsoft pe-2"></i>
-            Login with Microsoft
-        </button>
-
-    </form><!--details-->
 </section><!--login-content-->
 {% endblock %}
