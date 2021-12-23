@@ -349,75 +349,47 @@ nav {
   }
 }
 
-/*sign_up.html*/
-.sign-up-content {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 100px;
-
-  form {
-    h2 {
-      font-weight: bold;
-    }
-
-    .form-group {
-      margin-top: 20px;
-    }
-
-    .line {
-      margin-top: 20px;
-      background-color: #000;
-    }
-
-    .submit {
-      text-align: center;
-    }
-  }
-}
-
-/*login.html*/
-.login-content,
-.sign-up-content {
+.form-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
 
-  img {
-    height: 406px;
-    width: 583px;
+  animation: transitionIn 0.75s ease-in;
+
+  @keyframes transitionIn {
+    from {
+      opacity: 0;
+      transform: transitionX(-5px);
+    }
+
+    to {
+      opacity: 1;
+      transform: transitionX(0);
+    }
   }
 
-  .form-container {
+  img {
+    height: 406px;
+    width: 538px;
+  }
+
+  .login {
+    margin-bottom: 30px;
+  }
+
+  .login,
+  .sign_up {
+    width: 400px;
+    background: white;
     border-radius: 10px;
-    font-weight: bold;
     border: 2px solid #000;
-    width: 30%;
-    height: 100%;
 
-    animation: transitionIn 0.75s ease-in;
-
-    @keyframes transitionIn {
-      from {
-        opacity: 0;
-        transform: transitionX(-5px);
-      }
-
-      to {
-        opacity: 1;
-        transform: transitionX(0);
-      }
-    }
-
-    .form-title {
+    #title {
       text-align: center;
-      padding: 10px 0 20px 0;
-      background: linear-gradient(120deg, #2980b9, #8e44ad);
-      font-size: 30px;
-      border-radius: 10px;
-      color: #fff;
+      margin-top: 20px;
     }
 
+    /*Design of the form*/
     form {
       padding: 0 40px;
       box-sizing: border-box;
@@ -427,123 +399,119 @@ nav {
         border-bottom: 2px solid #adadad;
         margin: 30px 0;
 
-        .form-check-input {
-          margin-right: 5px;
+        label {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          color: #adadad;
+          transform: translate(-50%);
+          font-size: 16px;
+          pointer-events: none;
+          transition: 0.5s;
         }
 
-        .form-control {
+        input {
           width: 100%;
           padding: 0 5px;
           height: 40px;
-          font-size: normal;
+          font-size: 16px;
           border: none;
           background: none;
           outline: none;
-
-          span::before {
-            content: "";
-            position: absolute;
-            top: 40px;
-            left: 0;
-            height: 2px;
-            width: 0%;
-            background: #2691d9;
-            transition: 0.5s;
-          }
-
-          input:focus ~ label,
-          input:valid ~ label {
-            top: -5px;
-            color: #2691d9;
-          }
-
-          input:focus ~ label::before,
-          input:valid ~ span::before {
-            width: 100%;
-          }
-
-          .text-muted {
-            margin: 5px;
-          }
         }
 
-        label {
+        input:focus ~ label,
+        input:valid ~ label {
+          top: -5px;
+          color: #2691d9;
+        }
+
+        input:focus ~ label::before,
+        input:valid ~ span::before {
+          width: 100%;
+        }
+
+        span::before {
+          content: "";
           position: absolute;
-          color: #adadad;
-          font-size: normal;
-          pointer-events: none;
+          top: 40px;
+          left: 0;
+          height: 2px;
+          width: 0%;
+          background: #2691d9;
           transition: 0.5s;
         }
       }
 
-      .remember,
-      .sign-up-container,
-      #sign-up-container,
-      #terms,
-      .black {
-        border-bottom: none;
-      }
-
-      .black {
-        text-align: center;
-
-        .btn-outline-dark {
-          margin: 10px;
-        }
-      }
-
-      .remember {
-        margin: 10px 0 10px 5px;
-        display: block;
-      }
-
+      /*design of the forgot password section*/
       .forgot {
-        color: #a6a6a6;
-        cursor: pointer;
-        text-decoration: none;
-        margin-bottom: 10px;
+        margin: -5px 0 20px 5px;
+
+        .forgotlink {
+          color: #a6a6a6;
+          cursor: pointer;
+          text-decoration: none;
+        }
       }
 
       .forgot:hover {
         text-decoration: underline;
       }
 
-      .login-btn,
-      .sign-up-btn {
+      /*Design of the submit option*/
+      #login,
+      #sign_up_btn {
         width: 100%;
         height: 50px;
         border: 1px solid;
-        background: #05a;
+        background: #2691d9;
         border-radius: 25px;
         font-size: 18px;
         color: #e9f4fb;
         font-weight: 700;
+        cursor: pointer;
         outline: none;
-        margin: 10px;
       }
 
-      .login-btn:hover,
-      .sign-up-btn:hover {
-        border-color: #05a;
+      #login:hover,
+      #sign_up_btn:hover {
+        border-color: #2691d9;
         transition: 0.5s ease;
-        background-color: #fff;
-        color: #05a;
       }
 
-      .sign-up-container {
+      #dark {
+        border-bottom: none;
+        text-align: center;
+
+        .btn-outline-dark {
+          margin: 5px;
+        }
+      }
+
+      #terms {
+        margin-bottom: 20px;
+      }
+
+      /*Design of the sign up link*/
+      #not_member {
         margin: 30px 0;
         text-align: center;
+        font-size: 16px;
         color: #666666;
 
-        .signUp-link {
+        #sign_up_link {
           color: #2691d9;
           text-decoration: none;
         }
 
-        .signUp-link:hover {
+        #sign_up_link:hover {
           text-decoration: underline;
         }
       }
+    }
+
+    #sign_up_btn {
+      margin-bottom: 20px;
     }
   }
 }

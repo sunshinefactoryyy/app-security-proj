@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-<section class="sign-up-content">
+<!-- <section class="sign-up-content">
     <img src="../static/public/Secure_login.svg" />
 
     <div class="form-container">
@@ -10,32 +10,27 @@
                 <input type="text" class="form-control" id="username" required />
                 <label for="username">Username</label>
             </div>
-        <!--form-group-->
 
             <div class="form-group">
                 <input type="text" id="email" class="form-control" required />
                 <label for="email">Email Address</label>
-                <!-- <small id="email" class="form-text text-muted">We won't share your email with anyone else.</small> -->
+                <small id="email" class="form-text text-muted">We won't share your email with anyone else.</small>
             </div>
-        <!--form-group-->
 
             <div class="form-group">
                 <input type="password" class="form-control" id="password" required />
                 <label for="password">Password</label>
-                <!-- <small id="password" class="form-text text-muted">We'll never share your password with anyone else.</small> -->
+                <small id="password" class="form-text text-muted">We'll never share your password with anyone else.</small>
             </div>
-        <!--form-group-->
 
             <div class="form-group" id="terms">
                 <input type="checkbox" id="T&C" class="form-check-input" required />
                 <label for="T&C" class="form-check-label">I have read and agree to the Terms & Conditions</label>
             </div>
-        <!--form-group-->
 
             <div class="form-group" id="sign-up-container">
                 <input class="sign-up-btn" type="submit" value="Sign Up" />
             </div>
-        <!--form-group-->
 
             <hr class="line" />
 
@@ -49,10 +44,41 @@
                     <i class="bi bi-microsoft pe-2"></i>
                     Sign Up with Microsoft
                 </button>
-            </div><!--form-group-->
+            </div>
 
         </form>
-    </div><!--form-container-->
-</section>
-<!--sign-upo-content-->
+    </div>
+</section> -->
+
+<section class="form-container">
+    <img src="/static/public/Secure_login.svg">
+
+    <div class="sign_up">
+        <h1 id="title">Sign Up</h1>
+
+        <form method="post">
+            <div class="form-group">
+                <input type="text" id="username" required>
+                <label for="username">Username</label>
+            </div><!--form-group-->
+
+            <div class="form-group">
+                <input type="text"id="email" required>
+                <label for="email">Email Address</label>
+            </div><!--form-group-->
+
+            <div class="form-group">
+                <input type="password" id="password" required>
+                <label for="password">Password</label>
+            </div><!--form-group-->
+            
+            <div id="terms">
+                <input type="checkbox" id="T&C" class="form-check-input" required />
+                <label for="T&C" class="form-check-label">I agree to the Terms & Conditions</label>
+            </div>
+            
+            <button class="btn btn-primary" type="submit" id="sign_up_btn">Sign Up</button>
+        </form>
+    </div><!--login-->
+</section><!--form-container-->
 {% endblock %}

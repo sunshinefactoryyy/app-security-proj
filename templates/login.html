@@ -1,41 +1,48 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="login-content">
+<section class="form-container">
     <img src="/static/public/Secure_login.svg">
 
-    <div class="form-container">
-        <div class="form-title">Login</div>
+    <div class="login">
+        <h1 id="title">Login</h1>
 
-        <form method="GET" id="form-details">
+        <form method="post">
             <div class="form-group">
-                <input type="text" class="form-control" id="username" required>
+                <input type="text" id="username" required>
                 <label for="username">Username</label>
             </div><!--form-group-->
-    
+
             <div class="form-group">
-                <input type="password" class="form-control" id="password" required>
+                <input type="password" id="password" required>
                 <label for="password">Password</label>
             </div><!--form-group-->
 
-            <a href="#" class="forgot">Forgot Password?</a><!--forgot-->
-    
-            <div class="form-group remember">
-                <input type="checkbox" name="Remember Me" id="remember">
-                <label for="remember">Remember Me</label>
-            </div><!--form-group-->
-            
-            <div class="form-group submit">
-                <input class="login-btn" type="submit" value="Login">
-            </div><!--form-group-->
-    
-            <div class="form-group sign-up-container">
-               <span>Not a member?</span> 
-               <a href="{{url_for('sign_up')}}" class="signUp-link" type="submit">Sign Up</a>
-            </div><!--form-group-->
-        </form>    
+            <div class="forgot">
+                <a href="#" class="forgotlink">Forgot Password?</a>
+            </div><!--forgot-->
 
-    </div><!--form-->
+            <button class="btn btn-primary" type="submit" id="login">Login</button>
 
-</section><!--login-content-->
+            <div class="form-group" id="dark">
+                <button class="btn btn-outline-dark">
+                    <i class="bi bi-google"></i>
+                    Login with Google
+                </button>
+
+                <button class="btn btn-outline-dark">
+                    <i class="bi bi-microsoft"></i>
+                    Login with Microsoft
+                </button>
+            </div><!--form-group-->
+
+            <div id="not_member">
+            Not a member?  
+            <a href="#" id="sign_up_link">Sign Up</a>
+            </div>
+
+        </form>
+    </div><!--login-->
+</section><!--form-container-->
+
 {% endblock %}
