@@ -1,8 +1,6 @@
-{% extends "base.html" %} 
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <section class="hero">
-  <div class="text">
+  <div class="text col-md-6 col-xs-12">
     <h1 class="hero-text-4">
       Top quality <br />
       repairs for your <br />
@@ -26,16 +24,19 @@
   </div>
   <!--text-->
 
-  <img src="/static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" />
+  <img
+    class="col-md-6 col-xs-6"
+    src="/static/public/Gigabyte_X570_Aorus_Pro_Wifi.png"
+  />
 </section>
 <!--hero-->
 
-<section class="services">
+<section class="services blue">
   <h1 class="service-title">Services We Provide</h1>
 
   <div class="service-content">
-    <div class="left-col">
-      <div class="service s1">
+    <div class="service-container col-mds-6">
+      <div class="service s1 col-md-4">
         <h2 class="service-name">Electronics Repairs</h2>
         <p class="description">
           We offer repair services for computers, mobile phones, and more. Our
@@ -46,7 +47,7 @@
       </div>
       <!--s1-->
 
-      <div class="service s2">
+      <div class="service s2 col-md-4">
         <h2 class="service-name">Two-way Delivery Service</h2>
         <p class="description">
           No time to drop in personally with your computer? No problem! Just
@@ -56,10 +57,10 @@
       </div>
       <!--s2-->
     </div>
-    <!--left-col-->
+    <!--service-container1-->
 
-    <div class="right-col">
-      <div class="service s3">
+    <div class="service-container col-mds-6">
+      <div class="service s3 col-md-4">
         <h2 class="service-name">Computer Diagnostics</h2>
         <p class="description">
           Before we give you a quote for your repair, our company offers a free
@@ -70,7 +71,7 @@
       </div>
       <!--s3-->
 
-      <div class="service s4">
+      <div class="service s4 col-md-4">
         <h2 class="service-name">Contact Us</h2>
         <p class="description">
           Apart from our hotline that is open during office hours, our website
@@ -80,17 +81,43 @@
       </div>
       <!--s4-->
     </div>
-    <!--right-col-->
+    <!--service-container2s-->
   </div>
   <!--service content-->
+
+  <div id="triangle">
+    <svg
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1200 120"
+      preserveAspectRatio="none"
+    >
+      <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
+    </svg>
+  </div>
 </section>
 <!--services-->
 
-<section class="workflow">
+<section class="workflow black">
+  <div id="bottom-tilt">
+    <svg
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1200 120"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M1200 120L0 16.48 0 0 1200 0 1200 120z"
+        class="shape-fill"
+      ></path>
+    </svg>
+  </div>
+  <!--#bottom-tilt-->
+
   <h1 class="workflow-title">How It Works</h1>
 
-  <div class="workflow-content">
-    <div class="card request">
+  <div class="workflow-content col-xs-12">
+    <div class="card request col-lg-9">
       <h2 class="card-title display-6">1. Request for repair</h2>
       <div class="card-body">
         <i class="bi bi-tools"></i>
@@ -107,7 +134,7 @@
     </div>
     <!--step request-->
 
-    <div class="card status">
+    <div class="card status col-lg-9">
       <h2 class="card-title display-6">2. Await for item status</h2>
       <div class="card-body">
         <i class="bi bi-clipboard-check"></i>
@@ -123,7 +150,7 @@
     </div>
     <!--step status-->
 
-    <div class="card collect">
+    <div class="card collect col-lg-9">
       <h2 class="card-title display-6">3. Collect repaired item</h2>
       <div class="card-body">
         <i class="bi bi-truck"></i>
