@@ -2,7 +2,6 @@ from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
 
-
 @app.route('/')
 @app.route('/home')
 def home():
@@ -23,6 +22,10 @@ def faq():
 def login():
     return render_template('login.html', title='Login')
 
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store'
+    return response
 
 @app.route('/sign_up')
 def sign_up():

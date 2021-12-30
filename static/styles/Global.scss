@@ -14,64 +14,50 @@ section {
 }
 
 /*navbar.html*/
-/*Design of the navbar*/
-nav {
-  box-shadow: 1px 1px 1px #000;
+/*Custom css for navbar*/
+.nav-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 8px;
 
-  .container-fluid {
-    margin-left: 1.5em;
-    margin-right: 1.5em;
+  .nav-underline-effect {
+    position: relative;
+    text-decoration: none;
+    color: #a0a0a0;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    margin: 0;
+  }
 
-    .navbar-brand {
-      img {
-        height: 70px;
-        width: 189px;
-      }
-    }
-
-    .collapse {
-      font-size: 1.2em;
-      margin-left: 5em;
-    }
-
-    .btn-container {
-      font-size: 1.5em;
-
-      .btn {
-        .btn-link {
-          text-decoration: none;
-        }
-        .sign-up {
-          color: #fff;
-        }
-      }
-
-      .btn-outline-primary:hover {
-        .login:hover {
-          color: #fff;
-        }
-
-        .login {
-          color: #fff;
-        }
-      }
-
-      .btn-primary:hover {
-        background-color: #fff;
-
-        .sign-up:hover {
-          color: #05a;
-        }
-
-        .sign-up {
-          color: #05a;
-        }
-      }
-    }
+  .nav-underline-effect::after {
+    content: "";
+    position: absolute;
+    background-color: #e9467d;
+    height: 3px;
+    width: 0;
+    left: 0;
+    bottom: -10px;
+    transition: width 0.2s ease-in-out;
   }
 }
 
-/*home.html*/
+.nav-item-container:hover {
+  .nav-underline-effect {
+    color: #000000;
+  }
+
+  .nav-underline-effect::after {
+    width: 100%;
+  }
+}
+
+/*customButtonComponent.html*/
+/*Custom hover effects for the button*/
+
+/*index.html*/
 /*Design of the hero section*/
 .hero {
   display: flex;
