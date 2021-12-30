@@ -1,24 +1,34 @@
-{% extends "base.html" %} {% block content %}
-<section class="hero">
-  <div class="text col-md-6 col-xs-12">
-    <h1 class="hero-text-4">
+{% extends "base.html" %} 
+{% block content %}
+<section class="hero d-flex justify-content-center align-items-center">
+  <div class="text col-md-6 col-xs-12 d-flex flex-column">
+    <h1 class="hero-text-4 font-weight-bold">
       Top quality <br />
       repairs for your <br />
       computer parts
     </h1>
+    <!--hero-text-4-->
     <h4>
       Your go-to solution for all your computer <br />
       hardware repairs
     </h4>
 
-    <ul class="CTA-btns">
-      <button class="btn btn-primary">
-        <a href="#" class="btn-link">Request For Repair</a>
-      </button>
+    <ul class="CTA-btns d-flex justify-content-start">
+      <li class="nav-item">
+        <a href="#" class="btn-link">
+          {% with label='Request For Repair', color='Secondary' %}
+            {% include '/includes/customButtonComponent.html' %}
+          {% endwith %}
+        </a>
+      </li>
 
-      <button class="btn btn-primary">
-        <a href="#" class="btn-link">Find Out More</a>
-      </button>
+      <li class="nav-item">
+        <a href="#" class="btn-link">
+          {% with label='Find Out More', color='Secondary' %}
+            {% include '/includes/customButtonComponent.html' %}
+          {% endwith %} 
+        </a>
+      </li>
     </ul>
     <!--CTA-btns-->
   </div>
@@ -32,12 +42,12 @@
 <!--hero-->
 
 <section class="services blue">
-  <h1 class="service-title">Services We Provide</h1>
+  <h1 class="service-title display-6 text-center font-weight-bold">Services We Provide</h1>
 
   <div class="service-content">
-    <div class="service-container col-mds-6">
-      <div class="service s1 col-md-4">
-        <h2 class="service-name">Electronics Repairs</h2>
+    <div class="service-container col-mds-6 d-flex justify-content-around align-items-center bd-highlight">
+      <div class="service s1 col-md-4 order-1">
+        <h2 class="font-weight-bold display-6" id="service-name">Electronics Repairs</h2>
         <p class="description">
           We offer repair services for computers, mobile phones, and more. Our
           repair process is entirely online, and you will receive constant
@@ -47,8 +57,8 @@
       </div>
       <!--s1-->
 
-      <div class="service s2 col-md-4">
-        <h2 class="service-name">Two-way Delivery Service</h2>
+      <div class="service s2 col-md-4 order-2">
+        <h2 class="font-weight-bold display-6" id="service-name">Two-way Delivery Service</h2>
         <p class="description">
           No time to drop in personally with your computer? No problem! Just
           engage our two-way delivery service that will deliver to and from your
@@ -59,9 +69,9 @@
     </div>
     <!--service-container1-->
 
-    <div class="service-container col-mds-6">
+    <div class="service-container col-mds-6 d-flex justify-content-around align-items-center bd-highlight">
       <div class="service s3 col-md-4">
-        <h2 class="service-name">Computer Diagnostics</h2>
+        <h2 class="font-weight-bold display-6" id="service-name">Computer Diagnostics</h2>
         <p class="description">
           Before we give you a quote for your repair, our company offers a free
           computer diagnosis for all customers regardless of whether you decide
@@ -72,7 +82,7 @@
       <!--s3-->
 
       <div class="service s4 col-md-4">
-        <h2 class="service-name">Contact Us</h2>
+        <h2 class="font-weight-bold display-6" id="service-name">Contact Us</h2>
         <p class="description">
           Apart from our hotline that is open during office hours, our website
           offers a chatbot that allows you to either chat with a bot online or
@@ -114,12 +124,12 @@
   </div>
   <!--#bottom-tilt-->
 
-  <h1 class="workflow-title">How It Works</h1>
+  <h1 class="workflow-title font-weight-bold text-center display-6">How It Works</h1>
 
-  <div class="workflow-content col-xs-12">
+  <div class="workflow-content col-xs-12 d-flex justify-content-center align-items-center">
     <div class="card request col-lg-9">
-      <h2 class="card-title display-6">1. Request for repair</h2>
-      <div class="card-body">
+      <h2 class="card-title display-6 text-center font-weight-bold">1. Request for repair</h2>
+      <div class="card-body text-center">
         <i class="bi bi-tools"></i>
         <p class="card-text">
           Sign up for a free account on our website. You can either pay the flat
@@ -135,8 +145,8 @@
     <!--step request-->
 
     <div class="card status col-lg-9">
-      <h2 class="card-title display-6">2. Await for item status</h2>
-      <div class="card-body">
+      <h2 class="card-title display-6 text-center font-weight-bold">2. Await for item status</h2>
+      <div class="card-body text-center">
         <i class="bi bi-clipboard-check"></i>
         <p class="card-text">
           Check your account on this website for constant updates on your item.
@@ -151,8 +161,8 @@
     <!--step status-->
 
     <div class="card collect col-lg-9">
-      <h2 class="card-title display-6">3. Collect repaired item</h2>
-      <div class="card-body">
+      <h2 class="card-title display-6 text-center font-weight-bold">3. Collect repaired item</h2>
+      <div class="card-body text-center">
         <i class="bi bi-truck"></i>
         <p class="card-text">
           After your item has been repaired, you can collect it in person or via
@@ -169,31 +179,31 @@
 <!--workflow-->
 
 <section class="footer">
-  <div class="links">
+  <div class="links d-flex justify-content-around align-items-center">
     <ul class="col-left">
-      <li class="list-title">Partnerships</li>
+      <li class="list-title font-weight-bold">Partnerships</li>
       <!--list-item-->
-      <i class="bi bi-apple list-item"></i>
-      <i class="bi bi-google list-item"></i>
-      <i class="bi bi-exclude list-item"></i>
-      <i class="bi bi-microsoft list-item"></i>
+      <i class="bi bi-apple list-item text-center"></i>
+      <i class="bi bi-google list-item text-center"></i>
+      <i class="bi bi-exclude list-item text-center"></i>
+      <i class="bi bi-microsoft list-item text-center"></i>
     </ul>
     <!--col-left-->
 
-    <ul class="col-right">
-      <div class="link">
+    <ul class="col-right d-flex justify-content-center align-items-center">
+      <div class="link text-center">
         <a href="#" class="list-item"> <i class="bi bi-facebook"></i> </a
         ><!--list-item-->
       </div>
       <!--link1-->
 
-      <div class="link">
+      <div class="link text-center">
         <a href="#" class="list-item"> <i class="bi bi-instagram"></i> </a
         ><!--list-item-->
       </div>
       <!--link2-->
 
-      <div class="link">
+      <div class="link text-center">
         <a href="#" class="list-item"> <i class="bi bi-linkedin"></i> </a
         ><!--list-item-->
       </div>
@@ -203,7 +213,7 @@
   </div>
   <!--links-->
 
-  <p class="company">+65 9812 3456 &middot Vision Core &copy</p>
+  <p class="company text-center">+65 9812 3456 &middot Vision Core &copy</p>
 </section>
 <!--footer-->
 {% endblock %}
