@@ -62,18 +62,6 @@ section {
 /*Custom hover effects for the button*/
 /*index.html*/
 /*Design of the hero section*/
-.hero {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
 .hero img {
   height: 540px;
   width: 540px;
@@ -81,46 +69,21 @@ section {
           filter: drop-shadow(20px 10px 4px #8f2ead);
 }
 
-.hero .text {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
 .hero .text .hero-text-4 {
-  font-weight: bold;
   font-size: 3.5em;
 }
 
 .hero .text h4 {
-  margin-top: 40px;
+  margin-top: 20px;
   font-weight: lighter;
 }
 
-.hero .text .CTA-btns .btn-primary {
-  margin: 1em;
-  font-size: 1.5em;
+.hero .text .CTA-btns {
+  margin-top: 20px;
 }
 
-.hero .text .CTA-btns .btn-primary .btn-link {
-  text-decoration: none;
-  color: #fff;
-}
-
-.hero .text .CTA-btns .btn-primary:hover {
-  background-color: #fff;
-}
-
-.hero .text .CTA-btns .btn-primary:hover .btn-link {
-  color: #05a;
-}
-
-.hero .text .CTA-btns .btn-primary:hover .btn-link:hover {
-  color: #05a;
+.hero .text .CTA-btns > * {
+  margin: 10px;
 }
 
 /*Design of the services section*/
@@ -133,26 +96,11 @@ section {
 }
 
 .services .service-title {
-  font-weight: bold;
-  text-align: center;
   padding: 1em;
 }
 
 .services .service-content > * {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   margin-top: 100px;
-  -webkit-column-gap: 1.5em;
-          column-gap: 1.5em;
   padding: 1em;
 }
 
@@ -207,24 +155,11 @@ section {
 }
 
 .workflow .workflow-title {
-  font-weight: bold;
-  text-align: center;
   color: #fff;
   padding: 1em;
 }
 
 .workflow .workflow-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   margin-top: 20px;
   -webkit-column-gap: 4em;
           column-gap: 4em;
@@ -254,17 +189,7 @@ section {
 }
 
 .workflow .workflow-content .card h2 {
-  font-weight: bold;
   font-size: 2em;
-  text-align: center;
-}
-
-.workflow .workflow-content .card .card-body {
-  text-align: center;
-}
-
-.workflow .workflow-content .card .card-body .card-text {
-  text-align: left;
 }
 
 /*Design of the footer*/
@@ -275,20 +200,7 @@ section {
 }
 
 .footer .company {
-  text-align: center;
   font-size: 1.2em;
-}
-
-.footer .links {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
 }
 
 .footer .links .col-right,
@@ -298,7 +210,6 @@ section {
 
 .footer .links .col-left .bi {
   display: inline-block;
-  text-align: center;
   font-size: 1.5em;
   margin: 0.5em;
 }
@@ -309,20 +220,10 @@ section {
 }
 
 .footer .links .col-left .list-title {
-  font-weight: bold;
   font-size: 2em;
 }
 
 .footer .links .col-right {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-column-gap: 2em;
           column-gap: 2em;
 }
@@ -332,7 +233,6 @@ section {
   width: 2.5em;
   border-radius: 50%;
   background-color: #fff;
-  text-align: center;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -587,7 +487,6 @@ section {
   border: 1px solid;
   background: #2565c7;
   border-radius: 10px;
-  font-size: 18px;
   color: #e9f4fb;
   font-weight: 700;
   cursor: pointer;

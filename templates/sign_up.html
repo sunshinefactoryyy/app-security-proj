@@ -32,7 +32,11 @@
                 <label for="T&C" class="form-check-label">I agree to the Terms & Conditions</label>
             </div>
             
-            <button class="sign_up_btn" type="submit" id="sign_up_btn">Sign Up</button>
+            <button class="sign_up_btn" type="submit" id="sign_up_btn">
+                {% with label='Sign Up', color='Secondary' %}
+                    {% include '/includes/customButtonComponent.html' %}
+                {% endwith %}    
+            </button>
         </form>
     </div><!--login-->
 </section><!--form-container-->

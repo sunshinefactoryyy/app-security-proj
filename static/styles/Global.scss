@@ -60,10 +60,6 @@ section {
 /*index.html*/
 /*Design of the hero section*/
 .hero {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   img {
     height: 540px;
     width: 540px;
@@ -71,41 +67,21 @@ section {
   }
 
   .text {
-    display: flex;
-    flex-direction: column;
-
     .hero-text-4 {
-      font-weight: bold;
       font-size: 3.5em;
     }
 
     h4 {
-      margin-top: 40px;
+      margin-top: 20px;
       font-weight: lighter;
     }
 
     .CTA-btns {
-      .btn-primary {
-        margin: 1em;
-        font-size: 1.5em;
+      margin-top: 20px;
+    }
 
-        .btn-link {
-          text-decoration: none;
-          color: #fff;
-        }
-      }
-
-      .btn-primary:hover {
-        background-color: #fff;
-
-        .btn-link {
-          color: #05a;
-        }
-
-        .btn-link:hover {
-          color: #05a;
-        }
-      }
+    .CTA-btns > * {
+      margin: 10px;
     }
   }
 }
@@ -118,18 +94,11 @@ section {
   background-color: #2565c7;
 
   .service-title {
-    font-weight: bold;
-    text-align: center;
     padding: 1em;
   }
 
   .service-content > * {
-    display: flex;
-    flex-basis: 100%;
-    justify-content: space-evenly;
-    align-items: center;
     margin-top: 100px;
-    column-gap: 1.5em;
     padding: 1em;
   }
 
@@ -181,17 +150,11 @@ section {
   }
 
   .workflow-title {
-    font-weight: bold;
-    text-align: center;
     color: #fff;
     padding: 1em;
   }
 
   .workflow-content {
-    display: flex;
-    flex-basis: 100%;
-    justify-content: center;
-    align-items: center;
     margin-top: 20px;
     column-gap: 4em;
 
@@ -214,17 +177,7 @@ section {
       transition: 0.2s;
 
       h2 {
-        font-weight: bold;
         font-size: 2em;
-        text-align: center;
-      }
-
-      .card-body {
-        text-align: center;
-
-        .card-text {
-          text-align: left;
-        }
       }
     }
   }
@@ -237,15 +190,10 @@ section {
   padding: 1em;
 
   .company {
-    text-align: center;
     font-size: 1.2em;
   }
 
   .links {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-
     .col-right,
     .col-left {
       list-style: none;
@@ -254,7 +202,6 @@ section {
     .col-left {
       .bi {
         display: inline-block;
-        text-align: center;
         font-size: 1.5em;
         margin: 0.5em;
       }
@@ -264,15 +211,11 @@ section {
       }
 
       .list-title {
-        font-weight: bold;
         font-size: 2em;
       }
     }
 
     .col-right {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       column-gap: 2em;
 
       .link {
@@ -280,7 +223,6 @@ section {
         width: 2.5em;
         border-radius: 50%;
         background-color: #fff;
-        text-align: center;
         transition: 0.4s;
 
         a {
@@ -475,7 +417,6 @@ section {
         border: 1px solid;
         background: #2565c7;
         border-radius: 10px;
-        font-size: 18px;
         color: #e9f4fb;
         font-weight: 700;
         cursor: pointer;

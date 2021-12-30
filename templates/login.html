@@ -22,7 +22,11 @@
                 <a href="#" class="forgotlink">Forgot Password?</a>
             </div><!--forgot-->
 
-            <button class="login-btn" type="submit" id="login">Login</button>
+            <button class="login-btn" type="submit" id="login">
+                {% with label='Login', color='Secondary' %}
+                    {% include '/includes/customButtonComponent.html' %}
+                {% endwith %}    
+            </button>
 
             <div class="form-group" id="dark">
                 <button class="btn btn-outline-dark">
