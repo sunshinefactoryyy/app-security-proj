@@ -9,39 +9,53 @@ section {
 }
 
 /*navbar.html*/
-/*Design of the navbar*/
-nav {
-  -webkit-box-shadow: 1px 1px 1px #000;
-          box-shadow: 1px 1px 1px #000;
+/*Custom css for navbar*/
+.nav-item-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 48px;
+  padding: 0 8px;
 }
 
-nav .container-fluid {
-  margin-left: 1.5em;
-  margin-right: 1.5em;
-}
-
-nav .container-fluid .navbar-brand img {
-  height: 70px;
-  width: 189px;
-}
-
-nav .container-fluid .collapse {
-  font-size: 1.2em;
-  margin-left: 5em;
-}
-
-nav .container-fluid .btn-container {
-  font-size: 1.5em;
-}
-
-nav .container-fluid .btn-container button .btn-link {
+.nav-item-container .nav-underline-effect {
+  position: relative;
   text-decoration: none;
+  color: #A0A0A0;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  margin: 0;
 }
 
-nav .container-fluid .btn-container button .sign-up {
-  color: #fff;
+.nav-item-container .nav-underline-effect::after {
+  content: "";
+  position: absolute;
+  background-color: #E9467D;
+  height: 3px;
+  width: 0;
+  left: 0;
+  bottom: -10px;
+  -webkit-transition: width 0.2s ease-in-out;
+  transition: width 0.2s ease-in-out;
 }
 
+.nav-item-container:hover .nav-underline-effect {
+  color: #000000;
+}
+
+.nav-item-container:hover .nav-underline-effect::after {
+  width: 100%;
+}
+
+/*customButtonComponent.html*/
+/*Custom hover effects for the button*/
 /*index.html*/
 /*Design of the hero section*/
 .hero {

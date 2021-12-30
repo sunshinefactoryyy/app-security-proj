@@ -1,35 +1,68 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <div class="container-fluid">
+<div class="container">
+    <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
 
-        <a class="navbar-brand" href="{{url_for('home')}}">
-            <img src="/static/public/logo.png">
-        </a>
+            <a class="navbar-brand" href="{{url_for('home')}}">
+                Vision Core
+            </a>
 
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('home')}}">Home</a>
-                </li><!--nav-item-->
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('about')}}">About Us</a>
-                </li><!--nav-item-->
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('faq')}}">FAQ</a>
-                </li><!--nav-item-->
-            </ul><!--navbar-nav-->
-        </div><!--collapse navbar-collapse-->
-
-        <ul class="btn-container">
-            <button class="btn btn-outline-primary">
-                <a href="{{url_for('login')}}" class="btn-link login">Login</a>
+            <button 
+                class="navbar-toggler" 
+                type="button" 
+                data-bs-toggle="offcanvas" 
+                data-bs-target="#offcanvasNavbar" 
+                aria-controls="offcanvasNavbar"
+            >
+                <span class="navbar-toggler-icon"></span>
             </button>
 
-            <button class="btn btn-primary">
-                <a href="{{url_for('login')}}" class="btn-link sign-up">Sign Up</a>
-            </button>
-
-        </ul>
-    </div><!--container-fluid-->
-</nav><!--navbar-->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Vision Core</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('home')}}">
+                                <div class="nav-item-container">
+                                    <p class="nav-underline-effect">Home</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('about')}}">
+                                <div class="nav-item-container">
+                                    <p class="nav-underline-effect">About Us</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="{{url_for('faq')}}">
+                                <div class="nav-item-container">
+                                    <p class="nav-underline-effect">FAQ</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end d-flex">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('login')}}">
+                                {% with label='Login', color='Secondary' %}
+                                    {% include '/includes/customButtonComponent.html' %}
+                                {% endwith %}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('login')}}">
+                                {% with label='Sign Up', color='Primary' %}
+                                    {% include '/includes/customButtonComponent.html' %}
+                                {% endwith %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

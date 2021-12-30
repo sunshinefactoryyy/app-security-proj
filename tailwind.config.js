@@ -1,8 +1,12 @@
 module.exports = {
-    prefix: 'tw-',
-    content: ["./templates/**/*.{html}"],
-    theme: {
-        extend: {},
-    },
-    plugins: [],
+  mode: 'jit',
+  prefix: 'tw-',
+  content: ["./templates/**/*.html"],
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
 }
