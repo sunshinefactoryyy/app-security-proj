@@ -88,8 +88,10 @@ section {
 
 /*Design of the services section*/
 .services > * {
-  padding: 0.2em;
+  padding: 0;
+  margin: 0;
 }
+
 .services {
   background-color: #2565c7;
 
@@ -281,18 +283,9 @@ section {
 
 /*About Us.html*/
 .about-content {
-  display: grid;
-  grid-template-areas: "about about about bug";
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
-
   margin-bottom: 100px;
 
   .about {
-    grid-area: about;
-    display: flex;
-    flex-direction: column;
-
     p {
       margin-top: 20px;
     }

@@ -88,7 +88,8 @@ section {
 
 /*Design of the services section*/
 .services > * {
-  padding: 0.2em;
+  padding: 0;
+  margin: 0;
 }
 
 .services {
@@ -297,28 +298,7 @@ section {
 
 /*About Us.html*/
 .about-content {
-  display: -ms-grid;
-  display: grid;
-      grid-template-areas: "about about about bug";
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
-  -ms-grid-rows: 1fr;
-      grid-template-rows: 1fr;
   margin-bottom: 100px;
-}
-
-.about-content .about {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  grid-area: about;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
 .about-content .about p {
@@ -328,8 +308,6 @@ section {
 .about-content .bug {
   height: 523px;
   width: 680px;
-  -ms-grid-row: 1;
-  -ms-grid-column: 4;
   grid-area: bug;
 }
 
