@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="form-container">
+<section class="form-container d-flex justify-content-around align-items-center">
     <img src="/static/public/Secure_login.svg">
 
     <div class="login">
-        <h1 id="title">Login</h1>
+        <h1 id="title" class="text-center font-weight-bold display-4">Login</h1>
 
         <form method="post">
             <div class="form-group">
@@ -19,7 +19,7 @@
             </div><!--form-group-->
 
             <div class="forgot">
-                <a href="#" class="forgotlink">Forgot Password?</a>
+                <a href="#" class="forgot_link">Forgot Password?</a>
             </div><!--forgot-->
 
             <button class="login-btn" type="submit" id="login">
@@ -43,7 +43,7 @@
             <div id="not_member">
             Not a member?  
             <a href="{{url_for('sign_up')}}" id="sign_up_link">Sign Up</a>
-            </div>
+            </div><!--not_member-->
 
         </form>
     </div><!--login-->

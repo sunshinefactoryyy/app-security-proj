@@ -15,15 +15,6 @@ section {
 /*navbar.html*/
 /*Custom css for navbar*/
 .nav-item-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   height: 48px;
   padding: 0 8px;
 }
@@ -62,50 +53,51 @@ section {
 /*Custom hover effects for the button*/
 /*index.html*/
 /*Design of the hero section*/
-.hero img {
+#main {
+  margin: 0;
+  /*Design of the services section*/
+  /*Design of the footer*/
+}
+
+#main .hero img {
   height: 540px;
   width: 540px;
   -webkit-filter: drop-shadow(20px 10px 4px #8f2ead);
           filter: drop-shadow(20px 10px 4px #8f2ead);
 }
 
-.hero .text .hero-text-4 {
+#main .hero .text .hero-text-4 {
   font-size: 3.5em;
 }
 
-.hero .text h4 {
+#main .hero .text h4 {
   margin-top: 20px;
   font-weight: lighter;
 }
 
-.hero .text .CTA-btns {
+#main .hero .text .CTA-btns {
   margin-top: 20px;
 }
 
-.hero .text .CTA-btns > * {
+#main .hero .text .CTA-btns > * {
   margin: 10px;
 }
 
-/*Design of the services section*/
-.services > * {
+#main .services > * {
   padding: 0;
   margin: 0;
 }
 
-.services {
+#main .services {
   background-color: #2565c7;
 }
 
-.services .service-title {
-  padding: 1em;
-}
-
-.services .service-content > * {
+#main .services .service-content > * {
   margin-top: 100px;
   padding: 1em;
 }
 
-.services #triangle {
+#main .services #triangle {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -116,22 +108,22 @@ section {
           transform: rotate(180deg);
 }
 
-.services #triangle svg {
+#main .services #triangle svg {
   position: relative;
   display: block;
   width: calc(100% + 1.3px);
   height: 102px;
 }
 
-.services #triangle .shape-fill {
+#main .services #triangle .shape-fill {
   fill: #202731;
 }
 
-.workflow {
+#main .workflow {
   background-color: #202731;
 }
 
-.workflow #bottom-tilt {
+#main .workflow #bottom-tilt {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -142,7 +134,7 @@ section {
           transform: rotate(180deg);
 }
 
-.workflow #bottom-tilt svg {
+#main .workflow #bottom-tilt svg {
   position: relative;
   display: block;
   width: calc(100% + 1.3px);
@@ -151,33 +143,33 @@ section {
           transform: rotateY(180deg);
 }
 
-.workflow #bottom-tilt .shape-fill {
+#main .workflow #bottom-tilt .shape-fill {
   fill: #2565c7;
 }
 
-.workflow .workflow-title {
+#main .workflow .workflow-title {
   color: #fff;
   padding: 1em;
 }
 
-.workflow .workflow-content {
+#main .workflow .workflow-content {
   margin-top: 20px;
   -webkit-column-gap: 4em;
           column-gap: 4em;
 }
 
-.workflow .workflow-content .card > * {
+#main .workflow .workflow-content .card > * {
   margin: 20px auto 0 auto;
 }
 
-.workflow .workflow-content .card:hover {
+#main .workflow .workflow-content .card:hover {
   -webkit-transform: translate(0, -15px);
           transform: translate(0, -15px);
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-.workflow .workflow-content .card {
+#main .workflow .workflow-content .card {
   height: 500px;
   width: 388px;
   max-width: 30vw;
@@ -189,47 +181,41 @@ section {
   transition: 0.2s;
 }
 
-.workflow .workflow-content .card h2 {
+#main .workflow .workflow-content .card h2 {
   font-size: 2em;
 }
 
-/*Design of the footer*/
-.footer {
+#main .footer {
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 1em;
 }
 
-.footer .company {
+#main .footer .company {
   font-size: 1.2em;
 }
 
-.footer .links .col-right,
-.footer .links .col-left {
-  list-style: none;
-}
-
-.footer .links .col-left .bi {
+#main .footer .links .col-left .bi {
   display: inline-block;
   font-size: 1.5em;
   margin: 0.5em;
 }
 
-.footer .links .col-left .bi-exclude {
+#main .footer .links .col-left .bi-exclude {
   -webkit-transform: scaleX(-1);
           transform: scaleX(-1);
 }
 
-.footer .links .col-left .list-title {
+#main .footer .links .col-left .list-title {
   font-size: 2em;
 }
 
-.footer .links .col-right {
+#main .footer .links .col-right {
   -webkit-column-gap: 2em;
           column-gap: 2em;
 }
 
-.footer .links .col-right .link {
+#main .footer .links .col-right .link {
   height: 2.5em;
   width: 2.5em;
   border-radius: 50%;
@@ -238,17 +224,17 @@ section {
   transition: 0.4s;
 }
 
-.footer .links .col-right .link a {
+#main .footer .links .col-right .link a {
   text-decoration: none;
   font-size: 1.7em;
 }
 
-.footer .links .col-right .link a .bi {
+#main .footer .links .col-right .link a .bi {
   color: #000;
   text-align: center;
 }
 
-.footer .links .col-right .link:hover {
+#main .footer .links .col-right .link:hover {
   -webkit-transform: translate(0, -15px);
           transform: translate(0, -15px);
   -webkit-transition: 0.4s;
@@ -256,41 +242,41 @@ section {
   cursor: pointer;
 }
 
-.footer .links .col-right .link:hover .bi-linkedin:hover {
+#main .footer .links .col-right .link:hover .bi-linkedin:hover {
   color: #05a;
 }
 
-.footer .links .col-right .link:nth-child(1):hover {
+#main .footer .links .col-right .link:nth-child(1):hover {
   background-color: #3b5999;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-.footer .links .col-right .link:nth-child(1):hover .bi-facebook {
+#main .footer .links .col-right .link:nth-child(1):hover .bi-facebook {
   color: #fff;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-.footer .links .col-right .link:nth-child(2):hover {
+#main .footer .links .col-right .link:nth-child(2):hover {
   background-color: #8f2ead;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-.footer .links .col-right .link:nth-child(2):hover .bi-instagram {
+#main .footer .links .col-right .link:nth-child(2):hover .bi-instagram {
   color: #fff;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-.footer .links .col-right .link:nth-child(3):hover {
+#main .footer .links .col-right .link:nth-child(3):hover {
   background-color: #05a;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-.footer .links .col-right .link:nth-child(3):hover .bi-linkedin {
+#main .footer .links .col-right .link:nth-child(3):hover .bi-linkedin {
   color: #fff;
   -webkit-transition: 0.2s;
   transition: 0.2s;
@@ -312,14 +298,6 @@ section {
 }
 
 .form-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-animation: transitionIn 0.75s ease-in;
           animation: transitionIn 0.75s ease-in;
 }
@@ -368,7 +346,6 @@ section {
 
 .form-container .login #title,
 .form-container .sign_up #title {
-  text-align: center;
   margin-top: 20px;
 }
 
@@ -444,8 +421,8 @@ section {
   margin: -5px 0 20px 5px;
 }
 
-.form-container .login form .forgot .forgotlink,
-.form-container .sign_up form .forgot .forgotlink {
+.form-container .login form .forgot .forgot_link,
+.form-container .sign_up form .forgot .forgot_link {
   color: #a6a6a6;
   cursor: pointer;
   text-decoration: none;

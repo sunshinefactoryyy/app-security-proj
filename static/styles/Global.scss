@@ -16,9 +16,6 @@ section {
 /*navbar.html*/
 /*Custom css for navbar*/
 .nav-item-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 48px;
   padding: 0 8px;
 
@@ -59,222 +56,221 @@ section {
 
 /*index.html*/
 /*Design of the hero section*/
-.hero {
-  img {
-    height: 540px;
-    width: 540px;
-    filter: drop-shadow(20px 10px 4px rgb(143, 46, 173));
-  }
-
-  .text {
-    .hero-text-4 {
-      font-size: 3.5em;
-    }
-
-    h4 {
-      margin-top: 20px;
-      font-weight: lighter;
-    }
-
-    .CTA-btns {
-      margin-top: 20px;
-    }
-
-    .CTA-btns > * {
-      margin: 10px;
-    }
-  }
-}
-
-/*Design of the services section*/
-.services > * {
-  padding: 0;
+#main {
   margin: 0;
-}
 
-.services {
-  background-color: #2565c7;
-
-  .service-title {
-    padding: 1em;
-  }
-
-  .service-content > * {
-    margin-top: 100px;
-    padding: 1em;
-  }
-
-  #triangle {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-
-    svg {
-      position: relative;
-      display: block;
-      width: calc(100% + 1.3px);
-      height: 102px;
+  .hero {
+    img {
+      height: 540px;
+      width: 540px;
+      filter: drop-shadow(20px 10px 4px rgb(143, 46, 173));
     }
 
-    .shape-fill {
-      fill: #202731;
-    }
-  }
-}
+    .text {
+      .hero-text-4 {
+        font-size: 3.5em;
+      }
 
-.workflow {
-  background-color: #202731;
+      h4 {
+        margin-top: 20px;
+        font-weight: lighter;
+      }
 
-  #bottom-tilt {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
+      .CTA-btns {
+        margin-top: 20px;
+      }
 
-    svg {
-      position: relative;
-      display: block;
-      width: calc(100% + 1.3px);
-      height: 126px;
-      transform: rotateY(180deg);
-    }
-
-    .shape-fill {
-      fill: #2565c7;
+      .CTA-btns > * {
+        margin: 10px;
+      }
     }
   }
 
-  .workflow-title {
+  /*Design of the services section*/
+  .services > * {
+    padding: 0;
+    margin: 0;
+  }
+
+  .services {
+    background-color: #2565c7;
+
+    // .service-title {
+    //   padding: 1em;
+    // }
+
+    .service-content > * {
+      margin-top: 100px;
+      padding: 1em;
+    }
+
+    #triangle {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      transform: rotate(180deg);
+
+      svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 102px;
+      }
+
+      .shape-fill {
+        fill: #202731;
+      }
+    }
+  }
+
+  .workflow {
+    background-color: #202731;
+
+    #bottom-tilt {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      transform: rotate(180deg);
+
+      svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 126px;
+        transform: rotateY(180deg);
+      }
+
+      .shape-fill {
+        fill: #2565c7;
+      }
+    }
+
+    .workflow-title {
+      color: #fff;
+      padding: 1em;
+    }
+
+    .workflow-content {
+      margin-top: 20px;
+      column-gap: 4em;
+
+      .card > * {
+        margin: 20px auto 0 auto;
+      }
+
+      .card:hover {
+        transform: translate(0, -15px);
+        transition: 0.2s;
+      }
+
+      .card {
+        height: 500px;
+        width: 388px;
+        max-width: 30vw;
+        background-color: rgb(231, 231, 231);
+        border-radius: 25px;
+        filter: drop-shadow(10px 5px 2px rgb(68, 68, 68));
+        transition: 0.2s;
+
+        h2 {
+          font-size: 2em;
+        }
+      }
+    }
+  }
+
+  /*Design of the footer*/
+  .footer {
+    background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     padding: 1em;
-  }
 
-  .workflow-content {
-    margin-top: 20px;
-    column-gap: 4em;
-
-    .card > * {
-      margin: 20px auto 0 auto;
+    .company {
+      font-size: 1.2em;
     }
 
-    .card:hover {
-      transform: translate(0, -15px);
-      transition: 0.2s;
-    }
+    .links {
+      .col-left {
+        .bi {
+          display: inline-block;
+          font-size: 1.5em;
+          margin: 0.5em;
+        }
 
-    .card {
-      height: 500px;
-      width: 388px;
-      max-width: 30vw;
-      background-color: rgb(231, 231, 231);
-      border-radius: 25px;
-      filter: drop-shadow(10px 5px 2px rgb(68, 68, 68));
-      transition: 0.2s;
+        .bi-exclude {
+          transform: scaleX(-1);
+        }
 
-      h2 {
-        font-size: 2em;
-      }
-    }
-  }
-}
-
-/*Design of the footer*/
-.footer {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 1em;
-
-  .company {
-    font-size: 1.2em;
-  }
-
-  .links {
-    .col-right,
-    .col-left {
-      list-style: none;
-    }
-
-    .col-left {
-      .bi {
-        display: inline-block;
-        font-size: 1.5em;
-        margin: 0.5em;
+        .list-title {
+          font-size: 2em;
+        }
       }
 
-      .bi-exclude {
-        transform: scaleX(-1);
-      }
+      .col-right {
+        column-gap: 2em;
 
-      .list-title {
-        font-size: 2em;
-      }
-    }
+        .link {
+          height: 2.5em;
+          width: 2.5em;
+          border-radius: 50%;
+          background-color: #fff;
+          transition: 0.4s;
 
-    .col-right {
-      column-gap: 2em;
+          a {
+            text-decoration: none;
+            font-size: 1.7em;
 
-      .link {
-        height: 2.5em;
-        width: 2.5em;
-        border-radius: 50%;
-        background-color: #fff;
-        transition: 0.4s;
-
-        a {
-          text-decoration: none;
-          font-size: 1.7em;
-
-          .bi {
-            color: #000;
-            text-align: center;
+            .bi {
+              color: #000;
+              text-align: center;
+            }
           }
         }
-      }
 
-      .link:hover {
-        transform: translate(0, -15px);
-        transition: 0.4s;
-        cursor: pointer;
+        .link:hover {
+          transform: translate(0, -15px);
+          transition: 0.4s;
+          cursor: pointer;
 
-        .bi-linkedin:hover {
-          color: #05a;
+          .bi-linkedin:hover {
+            color: #05a;
+          }
         }
-      }
 
-      .link:nth-child(1):hover {
-        background-color: #3b5999;
-        transition: 0.2s;
-
-        .bi-facebook {
-          color: #fff;
+        .link:nth-child(1):hover {
+          background-color: #3b5999;
           transition: 0.2s;
+
+          .bi-facebook {
+            color: #fff;
+            transition: 0.2s;
+          }
         }
-      }
 
-      .link:nth-child(2):hover {
-        background-color: rgb(143, 46, 173);
-        transition: 0.2s;
-
-        .bi-instagram {
-          color: #fff;
+        .link:nth-child(2):hover {
+          background-color: rgb(143, 46, 173);
           transition: 0.2s;
+
+          .bi-instagram {
+            color: #fff;
+            transition: 0.2s;
+          }
         }
-      }
 
-      .link:nth-child(3):hover {
-        background-color: #05a;
-        transition: 0.2s;
-
-        .bi-linkedin {
-          color: #fff;
+        .link:nth-child(3):hover {
+          background-color: #05a;
           transition: 0.2s;
+
+          .bi-linkedin {
+            color: #fff;
+            transition: 0.2s;
+          }
         }
       }
     }
@@ -299,10 +295,6 @@ section {
 }
 
 .form-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
   animation: transitionIn 0.75s ease-in;
 
   @keyframes transitionIn {
@@ -332,7 +324,6 @@ section {
     background: white;
 
     #title {
-      text-align: center;
       margin-top: 20px;
     }
 
@@ -391,7 +382,7 @@ section {
       .forgot {
         margin: -5px 0 20px 5px;
 
-        .forgotlink {
+        .forgot_link {
           color: #a6a6a6;
           cursor: pointer;
           text-decoration: none;
