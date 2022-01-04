@@ -181,8 +181,9 @@ section {
   transition: 0.2s;
 }
 
-#main .workflow .workflow-content .card h2 {
-  font-size: 2em;
+#main .workflow .workflow-content .card .card-body #icon {
+  height: 150px;
+  width: 200px;
 }
 
 #main .footer {

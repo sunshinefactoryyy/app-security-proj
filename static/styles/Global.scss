@@ -174,8 +174,11 @@ section {
         filter: drop-shadow(10px 5px 2px rgb(68, 68, 68));
         transition: 0.2s;
 
-        h2 {
-          font-size: 2em;
+        .card-body {
+          #icon {
+            height: 150px;
+            width: 200px;
+          }
         }
       }
     }
