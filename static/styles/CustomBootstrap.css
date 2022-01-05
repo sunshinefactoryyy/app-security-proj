@@ -4352,7 +4352,7 @@ fieldset:disabled .btn {
 
 .nav-link {
   display: block;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   color: #0d6efd;
   text-decoration: none;
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
@@ -4598,8 +4598,8 @@ fieldset:disabled .btn {
     position: absolute;
   }
   .navbar-expand-sm .navbar-nav .nav-link {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding-right: 8px;
+    padding-left: 8px;
   }
   .navbar-expand-sm .navbar-nav-scroll {
     overflow: visible;
@@ -4669,8 +4669,8 @@ fieldset:disabled .btn {
     position: absolute;
   }
   .navbar-expand-md .navbar-nav .nav-link {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding-right: 8px;
+    padding-left: 8px;
   }
   .navbar-expand-md .navbar-nav-scroll {
     overflow: visible;
@@ -4740,8 +4740,8 @@ fieldset:disabled .btn {
     position: absolute;
   }
   .navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding-right: 8px;
+    padding-left: 8px;
   }
   .navbar-expand-lg .navbar-nav-scroll {
     overflow: visible;
@@ -4811,8 +4811,8 @@ fieldset:disabled .btn {
     position: absolute;
   }
   .navbar-expand-xl .navbar-nav .nav-link {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding-right: 8px;
+    padding-left: 8px;
   }
   .navbar-expand-xl .navbar-nav-scroll {
     overflow: visible;
@@ -4882,8 +4882,8 @@ fieldset:disabled .btn {
     position: absolute;
   }
   .navbar-expand-xxl .navbar-nav .nav-link {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding-right: 8px;
+    padding-left: 8px;
   }
   .navbar-expand-xxl .navbar-nav-scroll {
     overflow: visible;
@@ -4955,8 +4955,8 @@ fieldset:disabled .btn {
 }
 
 .navbar-expand .navbar-nav .nav-link {
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 
 .navbar-expand .navbar-nav-scroll {
