@@ -7,10 +7,10 @@
     <title>Vision Core - {{ title }}</title>
 
     <link rel="icon" href="/static/public/title-logo.png" type="image/x-icon">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/Global.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/CustomBootstrap.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/Main.css') }}">
-    <link rel= "stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/Global.css') }}"> // import custom css
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/CustomBootstrap.css') }}"> // import bootstrap classes
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/Main.css') }}"> // import tailwindcss utilities
+    <link rel= "stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> // import bootstrap icons
 </head>
 <body>
     {% include 'includes/navbar.html' %} 
