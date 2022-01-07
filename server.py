@@ -1,6 +1,21 @@
 from flask import Flask, render_template, url_for
+from flask_sqlalchemy import SQLAlchemy
+from data.forms import LoginForm
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'ab2d494b73d4d8ee5ef8f28b5d575bcd'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+    
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}'"
+
 
 @app.route('/')
 
@@ -19,7 +34,8 @@ def faq():
 
 @app.route('/login')
 def login():
-    return render_template('login.html', title='Login')
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)
   
 @app.route('/cusInfo')
 def cusInfo():
