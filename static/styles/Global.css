@@ -2,24 +2,19 @@
 * {
   font-family: Montserrat;
   font-size: auto;
+  padding: 0;
+  margin: 0;
 }
 
 section {
-  margin-top: 100px;
+  position: relative;
+  padding: 50px 5vw;
+  overflow: auto hidden;
 }
 
 /*navbar.html*/
 /*Custom css for navbar*/
 .nav-item-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   height: 48px;
   padding: 0 8px;
 }
@@ -27,7 +22,7 @@ section {
 .nav-item-container .nav-underline-effect {
   position: relative;
   text-decoration: none;
-  color: #A0A0A0;
+  color: #a0a0a0;
   font-size: 18px;
   letter-spacing: 0.5px;
   white-space: nowrap;
@@ -37,7 +32,7 @@ section {
 .nav-item-container .nav-underline-effect::after {
   content: "";
   position: absolute;
-  background-color: #E9467D;
+  background-color: #e9467d;
   height: 3px;
   width: 0;
   left: 0;
@@ -210,222 +205,239 @@ section {
 /*Custom hover effects for the button*/
 /*index.html*/
 /*Design of the hero section*/
-.hero {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+#main {
+  margin: 0;
+  /*Design of the services section*/
+  /*Design of the footer*/
 }
 
-.hero img {
+#main .hero img {
   height: 540px;
   width: 540px;
   -webkit-filter: drop-shadow(20px 10px 4px #8f2ead);
           filter: drop-shadow(20px 10px 4px #8f2ead);
 }
 
-.hero .text {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+#main .hero .text .hero-text-4 {
+  font-size: 3.5em;
 }
 
-.hero .text .hero-text-4 {
-  font-weight: bold;
-  font-size: 5em;
-}
-
-.hero .text h4 {
-  margin-top: 40px;
+#main .hero .text h4 {
+  margin-top: 20px;
   font-weight: lighter;
 }
 
-.hero .text .btns .btn-primary {
-  margin: 1em;
-  font-size: 1.5em;
+#main .hero .text .CTA-btns {
+  margin-top: 20px;
 }
 
-/*Design of the services section*/
-.services .service-title {
-  font-weight: bold;
-  text-align: center;
+#main .hero .text .CTA-btns > * {
+  margin: 10px;
 }
 
-.services .service-content > * {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+#main .services > * {
+  padding: 0;
+  margin: 0;
+}
+
+#main .services {
+  background-color: #2565c7;
+}
+
+#main .services .service-content > * {
   margin-top: 100px;
-  -webkit-column-gap: 1.5em;
-          column-gap: 1.5em;
   padding: 1em;
 }
 
-.services .service-content > * .left-col .service,
-.services .service-content > * .right-col .service {
-  display: -ms-grid;
-  display: grid;
-      grid-template-areas: "s1 s2" "s3 s4";
-  -ms-grid-columns: (auto)[2];
-      grid-template-columns: repeat(2, auto);
-  -ms-grid-rows: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
+#main .services #triangle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
-.services .service-content > * .left-col .service .service-no,
-.services .service-content > * .right-col .service .service-no {
-  font-weight: lighter;
+#main .services #triangle svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 102px;
 }
 
-.services .service-content > * .left-col .s1,
-.services .service-content > * .right-col .s1 {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  grid-area: s1;
+#main .services #triangle .shape-fill {
+  fill: #202731;
 }
 
-.services .service-content > * .left-col .s2,
-.services .service-content > * .right-col .s2 {
-  -ms-grid-row: 1;
-  -ms-grid-column: 2;
-  grid-area: s2;
+#main .workflow {
+  background-color: #202731;
 }
 
-.services .service-content > * .left-col .s3,
-.services .service-content > * .right-col .s3 {
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  grid-area: s3;
+#main .workflow #bottom-tilt {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
-.services .service-content > * .left-col .s4,
-.services .service-content > * .right-col .s4 {
-  -ms-grid-row: 2;
-  -ms-grid-column: 2;
-  grid-area: s4;
+#main .workflow #bottom-tilt svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 126px;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
 }
 
-/*Design of the footer*/
-.footer {
+#main .workflow #bottom-tilt .shape-fill {
+  fill: #2565c7;
+}
+
+#main .workflow .workflow-title {
+  color: #fff;
+  padding: 1em;
+}
+
+#main .workflow .workflow-content {
+  margin-top: 20px;
+  -webkit-column-gap: 4em;
+          column-gap: 4em;
+}
+
+#main .workflow .workflow-content .card > * {
+  margin: 20px auto 0 auto;
+}
+
+#main .workflow .workflow-content .card:hover {
+  -webkit-transform: translate(0, -15px);
+          transform: translate(0, -15px);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#main .workflow .workflow-content .card {
+  height: 500px;
+  width: 388px;
+  max-width: 30vw;
+  background-color: #e7e7e7;
+  border-radius: 25px;
+  -webkit-filter: drop-shadow(10px 5px 2px #444444);
+          filter: drop-shadow(10px 5px 2px #444444);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#main .workflow .workflow-content .card .card-body #icon {
+  height: 150px;
+  width: 200px;
+}
+
+#main .footer {
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 1em;
 }
 
-.footer .company {
-  text-align: center;
+#main .footer .company {
   font-size: 1.2em;
 }
 
-.footer .links {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-}
-
-.footer .links .col-right,
-.footer .links .col-left {
-  list-style: none;
-}
-
-.footer .links .col-left .bi {
+#main .footer .links .col-left .bi {
   display: inline-block;
-  text-align: center;
   font-size: 1.5em;
   margin: 0.5em;
 }
 
-.footer .links .col-left .bi-exclude {
+#main .footer .links .col-left .bi-exclude {
   -webkit-transform: scaleX(-1);
           transform: scaleX(-1);
 }
 
-.footer .links .col-left .list-title {
-  font-weight: bold;
+#main .footer .links .col-left .list-title {
   font-size: 2em;
 }
 
-.footer .links .col-right .list-item {
-  line-height: 35px;
-  text-decoration: none;
-  margin: 1em;
+#main .footer .links .col-right {
+  -webkit-column-gap: 2em;
+          column-gap: 2em;
 }
 
-.footer .links .col-right .list-item .bi {
-  color: #fff;
-  font-size: 1.5em;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
+#main .footer .links .col-right .link {
+  height: 2.5em;
+  width: 2.5em;
   border-radius: 50%;
+  background-color: #fff;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
-.footer .links .col-right .list-item .bi-facebook:hover {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  color: #3b5998;
-  background: #fff;
+#main .footer .links .col-right .link a {
+  text-decoration: none;
+  font-size: 1.7em;
 }
 
-.footer .links .col-right .list-item .bi-instagram:hover {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  background: -webkit-gradient(linear, left top, left bottom, from(#833ab4), color-stop(#c13584), to(#e1306c));
-  background: linear-gradient(#833ab4, #c13584, #e1306c);
+#main .footer .links .col-right .link a .bi {
+  color: #000;
+  text-align: center;
 }
 
-.footer .links .col-right .list-item .bi-linkedin:hover {
+#main .footer .links .col-right .link:hover {
+  -webkit-transform: translate(0, -15px);
+          transform: translate(0, -15px);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+#main .footer .links .col-right .link:hover .bi-linkedin:hover {
+  color: #05a;
+}
+
+#main .footer .links .col-right .link:nth-child(1):hover {
+  background-color: #3b5999;
   -webkit-transition: 0.2s;
   transition: 0.2s;
-  color: #3b5998;
-  background: #fff;
+}
+
+#main .footer .links .col-right .link:nth-child(1):hover .bi-facebook {
+  color: #fff;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#main .footer .links .col-right .link:nth-child(2):hover {
+  background-color: #8f2ead;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#main .footer .links .col-right .link:nth-child(2):hover .bi-instagram {
+  color: #fff;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#main .footer .links .col-right .link:nth-child(3):hover {
+  background-color: #05a;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#main .footer .links .col-right .link:nth-child(3):hover .bi-linkedin {
+  color: #fff;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 /*About Us.html*/
 .about-content {
-  display: -ms-grid;
-  display: grid;
-      grid-template-areas: "about about about bug";
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
-  -ms-grid-rows: 1fr;
-      grid-template-rows: 1fr;
-}
-
-.about-content .about {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  grid-area: about;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  margin-bottom: 100px;
 }
 
 .about-content .about p {
@@ -435,52 +447,207 @@ section {
 .about-content .bug {
   height: 523px;
   width: 680px;
-  -ms-grid-row: 1;
-  -ms-grid-column: 4;
   grid-area: bug;
 }
 
-/*login.html*/
-.login-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.form-container {
+  -webkit-animation: transitionIn 0.75s ease-in;
+          animation: transitionIn 0.75s ease-in;
 }
 
-.login-content img {
+@-webkit-keyframes transitionIn {
+  from {
+    opacity: 0;
+    -webkit-transform: transitionX(-5px);
+            transform: transitionX(-5px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: transitionX(0);
+            transform: transitionX(0);
+  }
+}
+
+@keyframes transitionIn {
+  from {
+    opacity: 0;
+    -webkit-transform: transitionX(-5px);
+            transform: transitionX(-5px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: transitionX(0);
+            transform: transitionX(0);
+  }
+}
+
+.form-container img {
   height: 406px;
-  width: 583px;
+  width: 538px;
 }
 
-.login-content form .form-group {
+.form-container .login {
+  margin-bottom: 30px;
+}
+
+.form-container .login,
+.form-container .sign_up {
+  width: 400px;
+  background: white;
+  /*Design of the form*/
+}
+
+.form-container .login #title,
+.form-container .sign_up #title {
   margin-top: 20px;
 }
 
-.login-content form button {
-  margin-top: 20px;
+.form-container .login form,
+.form-container .sign_up form {
+  padding: 0 40px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  /*design of the forgot password section*/
+  /*Design of the submit option*/
+  /*Design of the sign up link*/
+}
+
+.form-container .login form .form-group,
+.form-container .sign_up form .form-group {
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+
+.form-container .login form .form-group label,
+.form-container .sign_up form .form-group label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #adadad;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  pointer-events: none;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.form-container .login form .form-group input,
+.form-container .sign_up form .form-group input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  border: none;
+  outline: none;
+}
+
+.form-container .login form .form-group input:focus ~ label,
+.form-container .login form .form-group input:valid ~ label,
+.form-container .sign_up form .form-group input:focus ~ label,
+.form-container .sign_up form .form-group input:valid ~ label {
+  top: -5px;
+  color: #2691d9;
+}
+
+.form-container .login form .form-group input:focus ~ label::before,
+.form-container .login form .form-group input:valid ~ span::before,
+.form-container .sign_up form .form-group input:focus ~ label::before,
+.form-container .sign_up form .form-group input:valid ~ span::before {
+  width: 100%;
+}
+
+.form-container .login form .form-group span::before,
+.form-container .sign_up form .form-group span::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: #2691d9;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.form-container .login form .forgot,
+.form-container .sign_up form .forgot {
+  margin: -5px 0 20px 5px;
+}
+
+.form-container .login form .forgot .forgot_link,
+.form-container .sign_up form .forgot .forgot_link {
+  color: #a6a6a6;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.form-container .login form .forgot:hover,
+.form-container .sign_up form .forgot:hover {
+  text-decoration: underline;
+}
+
+.form-container .login form #login,
+.form-container .login form #sign_up_btn,
+.form-container .sign_up form #login,
+.form-container .sign_up form #sign_up_btn {
+  width: 100%;
+  height: 50px;
+  border: 1px solid;
+  background: #2565c7;
+  border-radius: 10px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+.form-container .login form #login:hover,
+.form-container .login form #sign_up_btn:hover,
+.form-container .sign_up form #login:hover,
+.form-container .sign_up form #sign_up_btn:hover {
+  border-color: #2565c7;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
+.form-container .login form #dark,
+.form-container .sign_up form #dark {
+  border-bottom: none;
   text-align: center;
 }
 
-.login-content form .line {
-  margin-top: 20px;
-  background-color: #000;
+.form-container .login form #dark .btn-outline-dark,
+.form-container .sign_up form #dark .btn-outline-dark {
+  margin: 5px;
 }
 
-.login-content form .btn-outline-dark {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.form-container .login form #terms,
+.form-container .sign_up form #terms {
+  margin-bottom: 20px;
+}
+
+.form-container .login form #not_member,
+.form-container .sign_up form #not_member {
+  margin: 30px 0;
+  text-align: center;
+  font-size: 16px;
+  color: #666666;
+}
+
+.form-container .login form #not_member #sign_up_link,
+.form-container .sign_up form #not_member #sign_up_link {
+  color: #2691d9;
+  text-decoration: none;
+}
+
+.form-container .login form #not_member #sign_up_link:hover,
+.form-container .sign_up form #not_member #sign_up_link:hover {
+  text-decoration: underline;
+}
+
+.form-container .login #sign_up_btn,
+.form-container .sign_up #sign_up_btn {
+  margin-bottom: 20px;
 }
 
 #cus_d {

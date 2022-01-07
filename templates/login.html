@@ -1,42 +1,52 @@
 {% extends "base.html" %}
-{% block title %}Vision Core - Sign In/Login{% endblock %}
 
 {% block content %}
-<section class="login-content">
+<section class="form-container d-flex justify-content-around align-items-center">
     <img src="/static/public/Secure_login.svg">
 
-    <form action="GET" class="details">
-        <div class="form-group">
-            <label for="username" class="display-6">Username:</label>
-            <input type="text" class="form-control" id="usernameInput" placeholder="Enter username">
-        </div><!--form-group-->
+    <div class="login">
+        <h1 id="title" class="text-center font-weight-bold display-4">Login</h1>
 
-        <div class="form-group">
-            <label for="emailInput" class="display-6">Email Address:</label>
-            <input type="email address" class="form-control" id="emailInput" placeholder="Enter email address">
-            <small id="email" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div><!--form-group-->
+        <form method="post">
+            <div class="form-group">
+                <input type="text" id="username" required>
+                <label for="username">Username</label>
+            </div><!--form-group-->
 
-        <div class="form-group">
-            <label for="password" class="display-6">Password:</label>
-            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
-            <small id="password" class="form-text text-muted">We'll never share your password with anyone else.</small>
-        </div><!--form-group-->
+            <div class="form-group">
+                <input type="password" id="password" required>
+                <label for="password">Password</label>
+            </div><!--form-group-->
 
-        <button type="button" class="btn btn-primary btn-block">Login</button> <!--NEED TO CENTRALIZE-->
-        
-        <hr class="line">
+            <div class="forgot">
+                <a href="#" class="forgot_link">Forgot Password?</a>
+            </div><!--forgot-->
 
-        <button type="button" class="btn btn-outline-dark"> <!--NEED TO CENTRALIZE-->
-            <i class="bi bi-google pe-2"></i>
-            Sign in with Google
-        </button>
+            <button class="login-btn" type="submit" id="login">
+                {% with label='Login', color='Secondary' %}
+                    {% include '/includes/customButtonComponent.html' %}
+                {% endwith %}    
+            </button>
 
-        <button type="button" class="btn btn-outline-dark"> <!--NEED TO CENTRALIZE-->
-            <i class="bi bi-microsoft pe-2"></i>
-            Sign in with Microsoft
-        </button>
+            <div class="form-group" id="dark">
+                <button class="btn btn-outline-dark">
+                    <i class="bi bi-google"></i>
+                    Login with Google
+                </button>
 
-    </form><!--details-->
-</section><!--login-content-->
+                <button class="btn btn-outline-dark">
+                    <i class="bi bi-microsoft"></i>
+                    Login with Microsoft
+                </button>
+            </div><!--form-group-->
+
+            <div id="not_member">
+            Not a member?  
+            <a href="{{url_for('sign_up')}}" id="sign_up_link">Sign Up</a>
+            </div><!--not_member-->
+
+        </form>
+    </div><!--login-->
+</section><!--form-container-->
+
 {% endblock %}
