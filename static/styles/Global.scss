@@ -3,25 +3,26 @@
 * {
   font-family: Montserrat;
   font-size: auto;
+  padding: 0;
+  margin: 0;
 }
 
 section {
-  margin-top: 100px;
+  position: relative;
+  padding: 50px 5vw;
+  overflow: auto hidden;
 }
 
 /*navbar.html*/
 /*Custom css for navbar*/
 .nav-item-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 48px;
   padding: 0 8px;
 
   .nav-underline-effect {
     position: relative;
     text-decoration: none;
-    color: #A0A0A0;
+    color: #a0a0a0;
     font-size: 18px;
     letter-spacing: 0.5px;
     white-space: nowrap;
@@ -31,7 +32,7 @@ section {
   .nav-underline-effect::after {
     content: "";
     position: absolute;
-    background-color: #E9467D;
+    background-color: #e9467d;
     height: 3px;
     width: 0;
     left: 0;
@@ -53,160 +54,222 @@ section {
 /*customButtonComponent.html*/
 /*Custom hover effects for the button*/
 
-
 /*index.html*/
 /*Design of the hero section*/
-.hero {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#main {
+  margin: 0;
 
-  img {
-    height: 540px;
-    width: 540px;
-    filter: drop-shadow(20px 10px 4px rgb(143, 46, 173));
-  }
-
-  .text {
-    display: flex;
-    flex-direction: column;
-
-    .hero-text-4 {
-      font-weight: bold;
-      font-size: 5em;
+  .hero {
+    img {
+      height: 540px;
+      width: 540px;
+      filter: drop-shadow(20px 10px 4px rgb(143, 46, 173));
     }
 
-    h4 {
-      margin-top: 40px;
-      font-weight: lighter;
-    }
+    .text {
+      .hero-text-4 {
+        font-size: 3.5em;
+      }
 
-    .btns {
-      .btn-primary {
-        margin: 1em;
-        font-size: 1.5em;
+      h4 {
+        margin-top: 20px;
+        font-weight: lighter;
+      }
+
+      .CTA-btns {
+        margin-top: 20px;
+      }
+
+      .CTA-btns > * {
+        margin: 10px;
       }
     }
   }
-}
 
-/*Design of the services section*/
-.services {
-  .service-title {
-    font-weight: bold;
-    text-align: center;
+  /*Design of the services section*/
+  .services > * {
+    padding: 0;
+    margin: 0;
   }
 
-  .service-content > * {
-    display: flex;
-    flex-basis: 100%;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 100px;
-    column-gap: 1.5em;
+  .services {
+    background-color: #2565c7;
+
+    .service-content > * {
+      margin-top: 100px;
+      padding: 1em;
+    }
+
+    #triangle {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      transform: rotate(180deg);
+
+      svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 102px;
+      }
+
+      .shape-fill {
+        fill: #202731;
+      }
+    }
+  }
+
+  .workflow {
+    background-color: #202731;
+
+    #bottom-tilt {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      transform: rotate(180deg);
+
+      svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 126px;
+        transform: rotateY(180deg);
+      }
+
+      .shape-fill {
+        fill: #2565c7;
+      }
+    }
+
+    .workflow-title {
+      color: #fff;
+      padding: 1em;
+    }
+
+    .workflow-content {
+      margin-top: 20px;
+      column-gap: 4em;
+
+      .card > * {
+        margin: 20px auto 0 auto;
+      }
+
+      .card:hover {
+        transform: translate(0, -15px);
+        transition: 0.2s;
+      }
+
+      .card {
+        height: 500px;
+        width: 388px;
+        max-width: 30vw;
+        background-color: rgb(231, 231, 231);
+        border-radius: 25px;
+        filter: drop-shadow(10px 5px 2px rgb(68, 68, 68));
+        transition: 0.2s;
+
+        .card-body {
+          #icon {
+            height: 150px;
+            width: 200px;
+          }
+        }
+      }
+    }
+  }
+
+  /*Design of the footer*/
+  .footer {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
     padding: 1em;
 
-    .left-col,
-    .right-col {
-      .service {
-        display: grid;
-        grid-template-areas:
-          "s1 s2"
-          "s3 s4";
-        grid-template-columns: repeat(2, auto);
-        grid-template-rows: 1fr 1fr;
-
-        .service-no {
-          font-weight: lighter;
-        }
-      }
-
-      .s1 {
-        grid-area: s1;
-      }
-
-      .s2 {
-        grid-area: s2;
-      }
-
-      .s3 {
-        grid-area: s3;
-      }
-
-      .s4 {
-        grid-area: s4;
-      }
-    }
-  }
-}
-
-/*Design of the footer*/
-.footer {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 1em;
-
-  .company {
-    text-align: center;
-    font-size: 1.2em;
-  }
-
-  .links {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-
-    .col-right,
-    .col-left {
-      list-style: none;
+    .company {
+      font-size: 1.2em;
     }
 
-    .col-left {
-      .bi {
-        display: inline-block;
-        text-align: center;
-        font-size: 1.5em;
-        margin: 0.5em;
-      }
-
-      .bi-exclude {
-        transform: scaleX(-1);
-      }
-
-      .list-title {
-        font-weight: bold;
-        font-size: 2em;
-      }
-    }
-
-    .col-right {
-      .list-item {
-        line-height: 35px;
-        text-decoration: none;
-        margin: 1em;
-
+    .links {
+      .col-left {
         .bi {
-          color: #fff;
+          display: inline-block;
           font-size: 1.5em;
-          transition: 0.2s;
+          margin: 0.5em;
+        }
+
+        .bi-exclude {
+          transform: scaleX(-1);
+        }
+
+        .list-title {
+          font-size: 2em;
+        }
+      }
+
+      .col-right {
+        column-gap: 2em;
+
+        .link {
+          height: 2.5em;
+          width: 2.5em;
           border-radius: 50%;
+          background-color: #fff;
+          transition: 0.4s;
+
+          a {
+            text-decoration: none;
+            font-size: 1.7em;
+
+            .bi {
+              color: #000;
+              text-align: center;
+            }
+          }
         }
 
-        .bi-facebook:hover {
-          transition: 0.2s;
-          color: #3b5998;
-          background: #fff;
+        .link:hover {
+          transform: translate(0, -15px);
+          transition: 0.4s;
+          cursor: pointer;
+
+          .bi-linkedin:hover {
+            color: #05a;
+          }
         }
 
-        .bi-instagram:hover {
+        .link:nth-child(1):hover {
+          background-color: #3b5999;
           transition: 0.2s;
-          background: linear-gradient(#833ab4, #c13584, #e1306c);
+
+          .bi-facebook {
+            color: #fff;
+            transition: 0.2s;
+          }
         }
 
-        .bi-linkedin:hover {
+        .link:nth-child(2):hover {
+          background-color: rgb(143, 46, 173);
           transition: 0.2s;
-          color: #3b5998;
-          background: #fff;
+
+          .bi-instagram {
+            color: #fff;
+            transition: 0.2s;
+          }
+        }
+
+        .link:nth-child(3):hover {
+          background-color: #05a;
+          transition: 0.2s;
+
+          .bi-linkedin {
+            color: #fff;
+            transition: 0.2s;
+          }
         }
       }
     }
@@ -215,16 +278,9 @@ section {
 
 /*About Us.html*/
 .about-content {
-  display: grid;
-  grid-template-areas: "about about about bug";
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
+  margin-bottom: 100px;
 
   .about {
-    grid-area: about;
-    display: flex;
-    flex-direction: column;
-
     p {
       margin-top: 20px;
     }
@@ -237,36 +293,158 @@ section {
   }
 }
 
-/*login.html*/
-.login-content {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+.form-container {
+  animation: transitionIn 0.75s ease-in;
+
+  @keyframes transitionIn {
+    from {
+      opacity: 0;
+      transform: transitionX(-5px);
+    }
+
+    to {
+      opacity: 1;
+      transform: transitionX(0);
+    }
+  }
 
   img {
     height: 406px;
-    width: 583px;
+    width: 538px;
   }
 
-  form {
-    .form-group {
+  .login {
+    margin-bottom: 30px;
+  }
+
+  .login,
+  .sign_up {
+    width: 400px;
+    background: white;
+
+    #title {
       margin-top: 20px;
     }
 
-    button {
-      margin-top: 20px;
-      text-align: center;
+    /*Design of the form*/
+    form {
+      padding: 0 40px;
+      box-sizing: border-box;
+
+      .form-group {
+        position: relative;
+        border-bottom: 2px solid #adadad;
+        margin: 30px 0;
+
+        label {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          color: #adadad;
+          transform: translate(-50%);
+          pointer-events: none;
+          transition: 0.5s;
+        }
+
+        input {
+          width: 100%;
+          padding: 0 5px;
+          height: 40px;
+          border: none;
+          outline: none;
+        }
+
+        input:focus ~ label,
+        input:valid ~ label {
+          top: -5px;
+          color: #2691d9;
+        }
+
+        input:focus ~ label::before,
+        input:valid ~ span::before {
+          width: 100%;
+        }
+
+        span::before {
+          content: "";
+          position: absolute;
+          top: 40px;
+          left: 0;
+          height: 2px;
+          width: 0%;
+          background: #2691d9;
+          transition: 0.5s;
+        }
+      }
+
+      /*design of the forgot password section*/
+      .forgot {
+        margin: -5px 0 20px 5px;
+
+        .forgot_link {
+          color: #a6a6a6;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+
+      .forgot:hover {
+        text-decoration: underline;
+      }
+
+      /*Design of the submit option*/
+      #login,
+      #sign_up_btn {
+        width: 100%;
+        height: 50px;
+        border: 1px solid;
+        background: #2565c7;
+        border-radius: 10px;
+        color: #e9f4fb;
+        font-weight: 700;
+        cursor: pointer;
+        outline: none;
+      }
+
+      #login:hover,
+      #sign_up_btn:hover {
+        border-color: #2565c7;
+        transition: 0.5s ease;
+      }
+
+      #dark {
+        border-bottom: none;
+        text-align: center;
+
+        .btn-outline-dark {
+          margin: 5px;
+        }
+      }
+
+      #terms {
+        margin-bottom: 20px;
+      }
+
+      /*Design of the sign up link*/
+      #not_member {
+        margin: 30px 0;
+        text-align: center;
+        font-size: 16px;
+        color: #666666;
+
+        #sign_up_link {
+          color: #2691d9;
+          text-decoration: none;
+        }
+
+        #sign_up_link:hover {
+          text-decoration: underline;
+        }
+      }
     }
 
-    .line {
-      margin-top: 20px;
-      background-color: #000;
-    }
-
-    .btn-outline-dark {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
+    #sign_up_btn {
+      margin-bottom: 20px;
     }
   }
 }

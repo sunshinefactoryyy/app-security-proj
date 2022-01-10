@@ -28,6 +28,7 @@ def home():
 def about():
     return render_template('about.html', title='About Us')
 
+
 @app.route('/faq')
 def faq():
     return render_template('faq.html', title='FAQ')
@@ -36,6 +37,10 @@ def faq():
 def login():
     form = LoginForm()
     return render_template('login.html', title='Login', form=form)
+
+@app.route('/sign_up')
+def sign_up():
+    return render_template('sign_up.html', title="Sign Up")
   
 @app.route('/cusInfo')
 def cusInfo():
@@ -49,6 +54,6 @@ def cusReq():
 def add_header(response):
     response.headers['Cache-Control'] = 'no-store'
     return response
-    
+
 if __name__ == '__main__':
     app.run(debug=True)

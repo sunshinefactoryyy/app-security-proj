@@ -24,21 +24,21 @@
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-4">
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('home')}}">
-                                <div class="nav-item-container">
+                                <div class="nav-item-container d-flex align-items-center justify-content-center">
                                     <p class="nav-underline-effect">Home</p>
                                 </div>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('about')}}">
-                                <div class="nav-item-container">
+                                <div class="nav-item-container d-flex align-items-center justify-content-center">
                                     <p class="nav-underline-effect">About Us</p>
                                 </div>
                             </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="{{url_for('faq')}}">
-                                <div class="nav-item-container">
+                                <div class="nav-item-container d-flex align-items-center justify-content-center">
                                     <p class="nav-underline-effect">FAQ</p>
                                 </div>
                             </a>
@@ -53,7 +53,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('login')}}">
+                            <a class="nav-link" href="{{url_for('sign_up')}}">
                                 {% with label='Sign Up', color='Primary' %}
                                     {% include '/includes/customButtonComponent.html' %}
                                 {% endwith %}
