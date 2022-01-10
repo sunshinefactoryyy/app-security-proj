@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
-from data.forms import LoginForm
+from data.forms import LoginForm, RegistrationForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ab2d494b73d4d8ee5ef8f28b5d575bcd'
@@ -38,10 +38,11 @@ def login():
     form = LoginForm()
     return render_template('login.html', title='Login', form=form)
 
-@app.route('/sign_up')
+@app.route('/register')
 def sign_up():
-    return render_template('sign_up.html', title="Sign Up")
-  
+    form = RegistrationForm()
+    return render_template('register.html', title="Sign Up", form=form)
+
 @app.route('/cusInfo')
 def cusInfo():
     return render_template('cus_info.html', title='Customer Info')

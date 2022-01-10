@@ -1,0 +1,44 @@
+{% extends "base.html" %} 
+
+{% block content %}
+<section class="form-container d-flex justify-content-around align-items-center">
+    <img src="/static/public/Secure_login.svg">
+
+    <div class="sign_up">
+        <h1 id="title" class="text-center font-weight-bold display-4">Sign Up</h1>
+
+        <form method="post" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label") }}
+                {{ form.username(class="form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {{ form.password(class="form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.confirm_password.label(class="form-control-label") }}
+                {{ form.confirm_password(class="form-control") }}
+            </div><!--form-group-->
+
+            
+            <div class="form-check">
+                {{ form.terms_and_conditions(class="form-check-input") }}
+                {{ form.terms_and_conditions.label(class="form-check-label") }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.submit(id="sign_up_btn") }}
+            </div>
+        </form>
+    </div><!--login-->
+</section><!--form-container-->
+{% endblock %}
