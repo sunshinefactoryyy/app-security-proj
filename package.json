@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "cross-env TAILWIND_MODE=watch postcss ./static/src/Style.css -o ./static/styles/Main.css -w"
+    "dev": "cross-env TAILWIND_MODE=watch postcss ./app/static/src/Style.css -o ./app/static/styles/Main.css -w"
   },
   "dependencies": {
     "bootstrap": "^5.1.3",
