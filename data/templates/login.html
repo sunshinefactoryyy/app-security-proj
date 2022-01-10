@@ -8,25 +8,26 @@
         <h1 id="title" class="text-center font-weight-bold display-4">Login</h1>
 
         <form method="post">
+            {{ form.hidden_tag() }}
+
             <div class="form-group">
-                <input type="text" id="username" required>
-                <label for="username">Username</label>
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control") }}
             </div><!--form-group-->
 
             <div class="form-group">
-                <input type="password" id="password" required>
-                <label for="password">Password</label>
+                {{ form.password.label(class="form-control-label") }}
+                {{ form.password(class="form-control") }}
             </div><!--form-group-->
 
             <div class="forgot">
                 <a href="#" class="forgot_link">Forgot Password?</a>
             </div><!--forgot-->
 
-            <button class="login-btn" type="submit" id="login">
-                {% with label='Login', color='Secondary' %}
-                    {% include '/includes/customButtonComponent.html' %}
-                {% endwith %}    
-            </button>
+            <div class="form-group">
+                {{ form.submit(id="login_btn") }}
+            </div>
+
 
             <div class="form-group" id="dark">
                 <button class="btn btn-outline-dark">
@@ -42,7 +43,7 @@
 
             <div id="not_member">
             Not a member?  
-            <a href="{{url_for('sign_up')}}" id="sign_up_link">Sign Up</a>
+            <a href="{{url_for('register')}}" id="sign_up_link">Sign Up</a>
             </div><!--not_member-->
 
         </form>
