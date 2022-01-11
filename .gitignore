@@ -1,3 +1,5 @@
 node_modules
 venv
-static/styles/Main.css
+app/static/styles/Main.css
+__pycache__
+app/__pycache__
