@@ -35,7 +35,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    {{ form.username(class="form-control form-control") }}
+                    {{ form.username(class="form-control", value=user.username) }}
                 </div><!--form-group-->
 
                 <div class="form-group">
@@ -48,7 +48,7 @@
                         {% endfor %}
                     </div>
                     {% endif %}
-                    {{ form.email(class="form-control") }}
+                    {{ form.email(class="form-control", value=user.email) }}
                 </div><!--form-group-->
 
                 <div class="form-group">
