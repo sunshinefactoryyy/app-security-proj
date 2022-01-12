@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt
 from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm
-from app.models import User
+from app.models import User, Inventory
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
@@ -90,4 +90,3 @@ def employeeInfo():
 def add_header(response):
     response.headers['Cache-Control'] = 'no-store'
     return response
-
