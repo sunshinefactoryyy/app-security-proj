@@ -35,6 +35,18 @@ class Inventory(db.Model):
     user = db.Column(db.String, unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
 
+    def create(self):
+        pass
+
+    def update(self):
+        pass
+
+    def read(self):
+        pass
+
+    def delete(self):
+        pass
+
     def __repr__(self):
         return f"Inventory('{self.part_name}', '{self.part_quantity}', '{self.user}', '{self.user_id}', '{self.date_posted}')"
 
