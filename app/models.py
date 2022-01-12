@@ -13,3 +13,8 @@ class User(db.Model, UserMixin):
     
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
+
+class Request(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    productName = db.Column(db.String(20), nullable=False)
+    productID = db.Column()

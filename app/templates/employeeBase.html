@@ -13,20 +13,12 @@
     <link rel= "stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- import bootstrap icons -->
 </head>
 <body>
-    {% include 'includes/navbar.html' %} 
+    <div class="tw-h-screen tw-w-screen tw-flex tw-flex-row">
+        {% include 'includes/employeeNavigation.html' %} 
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-        
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </div>
 
     {% block scripts %}
     <!-- Popper 2.10.2, Bootstrap 5.1.2 JavaScript -->

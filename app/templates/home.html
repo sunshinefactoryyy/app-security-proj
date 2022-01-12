@@ -1,227 +1,221 @@
 {% extends "base.html" %} 
 {% block content %}
 <main id="main">
-  <section class="hero d-flex justify-content-center align-items-center">
-    <div class="text col-md-6 col-xs-12 d-flex flex-column">
-      <strong class="hero-text-4 font-weight-bold">
-        Top quality <br />
-        repairs for your <br />
-        computer parts
-      </strong>
-      <!--hero-text-4-->
-      <h4 class="h4">
-        Your go-to solution for all your computer <br />
-        hardware repairs
-      </h4>
-  
-      <ul class="CTA-btns d-flex justify-content-start">
-        <li class="nav-item inline-item">
-          <a href="#" class="btn-link">
-            {% with label='Request For Repair', color='Secondary' %}
-              {% include '/includes/customButtonComponent.html' %}
-            {% endwith %}
-          </a>
-        </li>
-  
-        <li class="nav-item inline-item">
-          <a href="#" class="btn-link">
-            {% with label='Find Out More', color='Secondary' %}
-              {% include '/includes/customButtonComponent.html' %}
-            {% endwith %} 
-          </a>
-        </li>
-      </ul>
-      <!--CTA-btns-->
-    </div>
-    <!--text-->
-  
-    <img
-      class="col-md-6 col-xs-6"
-      src="/static/public/Gigabyte_X570_Aorus_Pro_Wifi.png"
-    />
-  </section>
-  <!--hero-->
-  
-  <section class="services blue">
-    <h1 class="h1 service-title display-6 text-center font-weight-bold">Services We Provide</h1>
-    <div class="service-content">
-      <div class="service-container col-mds-6 d-flex justify-content-around align-items-center bd-highlight">
-        <div class="service s1 col-md-4 order-1">
-          <h2 class="h2 font-weight-bold display-6" id="service-name">Electronics Repairs</h2>
-          <p class="description">
-            We offer repair services for computers, mobile phones, and more. Our
-            repair process is entirely online, and you will receive constant
-            updates on the status of your product! Prices range from $50-$3000
-            depending on the issue and the product.
-          </p>
-        </div>
-        <!--s1-->
-  
-        <div class="service s2 col-md-4 order-2">
-          <h2 class="h2 font-weight-bold display-6" id="service-name">Two-way Delivery Service</h2>
-          <p class="description">
-            No time to drop in personally with your computer? No problem! Just
-            engage our two-way delivery service that will deliver to and from your
-            doorstep at any time slot you choose.
-          </p>
-        </div>
-        <!--s2-->
-      </div>
-      <!--service-container1-->
-  
-      <div class="service-container col-mds-6 d-flex justify-content-around align-items-center bd-highlight">
-        <div class="service s3 col-md-4">
-          <h2 class="h2 font-weight-bold display-6" id="service-name">Computer Diagnostics</h2>
-          <p class="description">
-            Before we give you a quote for your repair, our company offers a free
-            computer diagnosis for all customers regardless of whether you decide
-            to proceed with the repair or not! This is only applicable if you
-            request for a quote.
-          </p>
-        </div>
-        <!--s3-->
-  
-        <div class="service s4 col-md-4">
-          <h2 class="h2 font-weight-bold display-6" id="service-name">Contact Us</h2>
-          <p class="description">
-            Apart from our hotline that is open during office hours, our website
-            offers a chatbot that allows you to either chat with a bot online or
-            with one of our customer service staff!
-          </p>
-        </div>
-        <!--s4-->
-      </div>
-      <!--service-container2s-->
-    </div>
-    <!--service content-->
-  
-    <div id="triangle">
-      <svg
-        data-name="Layer 1"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1200 120"
-        preserveAspectRatio="none"
-      >
-        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
-      </svg>
-    </div>
-  </section>
-  <!--services-->
-  
-  <section class="workflow black">
-    <div id="bottom-tilt">
-      <svg
-        data-name="Layer 1"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1200 120"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M1200 120L0 16.48 0 0 1200 0 1200 120z"
-          class="shape-fill"
-        ></path>
-      </svg>
-    </div>
-    <!--#bottom-tilt-->
-  
-    <h1 class="h1 workflow-title font-weight-bold text-center display-6">How It Works</h1>
-  
-    <div class="workflow-content col-xs-12 d-flex justify-content-center align-items-center">
-      <div class="card col-lg-9 text-center">
-        <strong class="card-title display-6 font-weight-bold">1. Request for repair</strong>
-        <div class="card-body text-center">
-          
-          <img src="/static/public/Repair.png" id="icon" class="rounded">
+    <section class="hero">
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="text col-md-6 d-flex flex-column">
+                <strong class="hero-text-4 font-weight-bold">
+                    Top quality repairs for your computer parts
+                </strong>
+                <!--hero-text-4-->
+                <h4 class="h4">
+                    Your go-to solution for all your computer hardware repairs
+                </h4>
 
-          <p class="card-text">
-            Sign up for a free account on our website. You can either pay the flat
-            price as stated, or request for a quote with our free diagnostics. All
-            payments will be done online on our website. Either drop off your item
-            in person, or use our two-way delivery service, and await the status
-            of your item.
-          </p>
-          <!--card-text-->
+                <ul class="mt-3 d-flex justify-content-start">
+                    <a class="me-3" href="{{url_for('login')}}">
+                        {% with label='Request For Repair', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %}
+                    </a>
+                    <a class="" href="{{url_for('about')}}">
+                        {% with label='Find Out More', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %} 
+                    </a>
+                </ul>
+                <!--CTA-btns-->
+            </div>
+            <!--text-->
+        
+            <img
+                class="col-md-6"
+                src="/static/public/Gigabyte_X570_Aorus_Pro_Wifi.png"
+            />
         </div>
-        <!--card-body-->
-      </div>
-      <!--step request-->
-  
-      <div class="card col-lg-9 text-center">
-        <strong class="card-title display-6 font-weight-bold">2. Await for item status</strong>
-        <div class="card-body text-center">
+    </section>
+    <!--hero-->
+    
+    <section class="services blue">
+        <h1 class="h1 service-title display-6 text-center font-weight-bold">Services We Provide</h1>
+        <div class="service-content">
+            <div class="service-container col-mds-6 d-flex justify-content-around align-items-center bd-highlight">
+                <div class="service s1 col-md-4 order-1">
+                    <h2 class="h2 font-weight-bold display-6" id="service-name">Electronics Repairs</h2>
+                    <p class="description">
+                        We offer repair services for computers, mobile phones, and more. Our
+                        repair process is entirely online, and you will receive constant
+                        updates on the status of your product! Prices range from $50-$3000
+                        depending on the issue and the product.
+                    </p>
+                </div>
+                <!--s1-->
 
-          <img src="/static/public/status.png" id="icon" class="rounded">
+                <div class="service s2 col-md-4 order-2">
+                    <h2 class="h2 font-weight-bold display-6" id="service-name">Two-way Delivery Service</h2>
+                    <p class="description">
+                        No time to drop in personally with your computer? No problem! Just
+                        engage our two-way delivery service that will deliver to and from your
+                        doorstep at any time slot you choose.
+                    </p>
+                </div>
+                <!--s2-->
+            </div>
+            <!--service-container1-->
 
-          <p class="card-text">
-            Check your account on this website for constant updates on your item.
-            You can also choose your preferred mode of communication. If needed,
-            you can chat with our chatbot or call our phone number (+65 9812
-            3456).
-          </p>
-          <!--card-text-->
-        </div>
-        <!--card-body-->
-      </div>
-      <!--step status-->
-  
-      <div class="card col-lg-9 text-center">
-        <strong class="card-title display-6 text-center font-weight-bold">3. Collect repaired item</strong>
-        <div class="card-body text-center">
+            <div class="service-container col-mds-6 d-flex justify-content-around align-items-center bd-highlight">
+                <div class="service s3 col-md-4">
+                    <h2 class="h2 font-weight-bold display-6" id="service-name">Computer Diagnostics</h2>
+                    <p class="description">
+                        Before we give you a quote for your repair, our company offers a free
+                        computer diagnosis for all customers regardless of whether you decide
+                        to proceed with the repair or not! This is only applicable if you
+                        request for a quote.
+                    </p>
+                </div>
+                <!--s3-->
 
-          <img src="/static/public/Delivery.png" id="icon" class="rounded">
+                <div class="service s4 col-md-4">
+                    <h2 class="h2 font-weight-bold display-6" id="service-name">Contact Us</h2>
+                    <p class="description">
+                        Apart from our hotline that is open during office hours, our website
+                        offers a chatbot that allows you to either chat with a bot online or
+                        with one of our customer service staff!
+                    </p>
+                </div>
+                <!--s4-->
+            </div>
+            <!--service-container2s-->
+        </div>
+        <!--service content-->
 
-          <p class="card-text">
-            After your item has been repaired, you can collect it in person or via
-            delivery to your house.
-          </p>
-          <!--card-text-->
+        <div id="triangle">
+            <svg
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1200 120"
+                preserveAspectRatio="none"
+            >
+                <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
+            </svg>
         </div>
-        <!--card-body-->
-      </div>
-      <!--step collect-->
-    </div>
-    <!--workflow-content-->
-  </section>
-  <!--workflow-->
-  
-  <section class="footer">
-    <div class="links d-flex justify-content-around align-items-center">
-      <ul class="col-left list-unstyled">
-        <li class="list-title font-weight-bold">Partnerships</li>
-        <!--list-item-->
-        <i class="bi bi-apple list-item text-center"></i>
-        <i class="bi bi-google list-item text-center"></i>
-        <i class="bi bi-exclude list-item text-center"></i>
-        <i class="bi bi-microsoft list-item text-center"></i>
-      </ul>
-      <!--col-left-->
-  
-      <ul class="col-right list-unstyled d-flex justify-content-center align-items-center">
-        <div class="link text-center inline-item">
-          <a href="#" class="list-item"> <i class="bi bi-facebook"></i> </a
-          ><!--list-item-->
+    </section>
+    <!--services-->
+    
+    <section class="workflow black">
+        <div id="bottom-tilt">
+            <svg
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1200 120"
+                preserveAspectRatio="none"
+            >
+                <path
+                d="M1200 120L0 16.48 0 0 1200 0 1200 120z"
+                class="shape-fill"
+                ></path>
+            </svg>
         </div>
-        <!--link1-->
-  
-        <div class="link text-center inline-item">
-          <a href="#" class="list-item"> <i class="bi bi-instagram"></i> </a
-          ><!--list-item-->
+        <!--#bottom-tilt-->
+
+        <h1 class="h1 workflow-title font-weight-bold text-center display-6">How It Works</h1>
+
+        <div class="workflow-content col-xs-12 d-flex justify-content-center align-items-center">
+            <div class="card col-lg-9 text-center">
+                <strong class="card-title display-6 font-weight-bold">1. Request for repair</strong>
+                <div class="card-body text-center">
+
+                    <img src="/static/public/Repair.png" id="icon" class="rounded">
+
+                    <p class="card-text">
+                        Sign up for a free account on our website. You can either pay the flat
+                        price as stated, or request for a quote with our free diagnostics. All
+                        payments will be done online on our website. Either drop off your item
+                        in person, or use our two-way delivery service, and await the status
+                        of your item.
+                    </p>
+                    <!--card-text-->
+                </div>
+                <!--card-body-->
+            </div>
+            <!--step request-->
+
+            <div class="card col-lg-9 text-center">
+                <strong class="card-title display-6 font-weight-bold">2. Await for item status</strong>
+                <div class="card-body text-center">
+
+                    <img src="/static/public/status.png" id="icon" class="rounded">
+
+                    <p class="card-text">
+                        Check your account on this website for constant updates on your item.
+                        You can also choose your preferred mode of communication. If needed,
+                        you can chat with our chatbot or call our phone number (+65 9812
+                        3456).
+                    </p>
+                    <!--card-text-->
+                </div>
+                <!--card-body-->
+            </div>
+            <!--step status-->
+
+            <div class="card col-lg-9 text-center">
+                <strong class="card-title display-6 text-center font-weight-bold">3. Collect repaired item</strong>
+                <div class="card-body text-center">
+
+                    <img src="/static/public/Delivery.png" id="icon" class="rounded">
+
+                    <p class="card-text">
+                        After your item has been repaired, you can collect it in person or via
+                        delivery to your house.
+                    </p>
+                <!--card-text-->
+                </div>
+                <!--card-body-->
+            </div>
+            <!--step collect-->
         </div>
-        <!--link2-->
-  
-        <div class="link text-center inline-item">
-          <a href="#" class="list-item"> <i class="bi bi-linkedin"></i> </a
-          ><!--list-item-->
+        <!--workflow-content-->
+    </section>
+    <!--workflow-->
+    
+    <section class="footer">
+        <div class="links d-flex justify-content-around align-items-center">
+            <ul class="col-left list-unstyled">
+                <li class="list-title font-weight-bold">Partnerships</li>
+                <!--list-item-->
+                <i class="bi bi-apple list-item text-center"></i>
+                <i class="bi bi-google list-item text-center"></i>
+                <i class="bi bi-exclude list-item text-center"></i>
+                <i class="bi bi-microsoft list-item text-center"></i>
+            </ul>
+            <!--col-left-->
+    
+            <ul class="col-right list-unstyled d-flex justify-content-center align-items-center">
+                <div class="link text-center inline-item">
+                    <a href="#" class="list-item"> <i class="bi bi-facebook"></i> </a
+                    ><!--list-item-->
+                </div>
+                <!--link1-->
+        
+                <div class="link text-center inline-item">
+                    <a href="#" class="list-item"> <i class="bi bi-instagram"></i> </a
+                    ><!--list-item-->
+                </div>
+                <!--link2-->
+        
+                <div class="link text-center inline-item">
+                    <a href="#" class="list-item"> <i class="bi bi-linkedin"></i> </a
+                    ><!--list-item-->
+                </div>
+                <!--link3-->
+            </ul>
+            <!--col-right-->
         </div>
-        <!--link3-->
-      </ul>
-      <!--col-right-->
-    </div>
-    <!--links-->
-  
-    <p class="company text-center">+65 9812 3456 &middot Vision Core &copy</p>
-  </section>
-  <!--footer-->
-  
+        <!--links-->
+    
+        <p class="company text-center">+65 9812 3456 &middot Vision Core &copy</p>
+    </section>
+    <!--footer-->
+
 </main>
 {% endblock %}

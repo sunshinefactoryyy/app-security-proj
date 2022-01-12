@@ -7,8 +7,9 @@
 }
 
 section {
+  width: 100vw;
   position: relative;
-  padding: 50px 5vw;
+  padding: 50px 0;
   overflow: auto hidden;
 }
 
@@ -54,16 +55,8 @@ section {
 /*index.html*/
 /*Design of the hero section*/
 #main {
-  margin: 0;
   /*Design of the services section*/
   /*Design of the footer*/
-}
-
-#main .hero img {
-  height: 540px;
-  width: 540px;
-  -webkit-filter: drop-shadow(20px 10px 4px #8f2ead);
-          filter: drop-shadow(20px 10px 4px #8f2ead);
 }
 
 #main .hero .text .hero-text-4 {
@@ -73,14 +66,6 @@ section {
 #main .hero .text h4 {
   margin-top: 20px;
   font-weight: lighter;
-}
-
-#main .hero .text .CTA-btns {
-  margin-top: 20px;
-}
-
-#main .hero .text .CTA-btns > * {
-  margin: 10px;
 }
 
 #main .services > * {
@@ -773,5 +758,17 @@ section {
   padding-right: 10px;
   padding-left: 10px;
   padding-top: 10px;
+}
+
+#update_btn {
+  width: 100%;
+  height: 50px;
+  border: 1px solid;
+  background: #2565c7;
+  border-radius: 10px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
 }
 /*# sourceMappingURL=Global.css.map */
