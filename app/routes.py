@@ -80,7 +80,7 @@ def deactivateAccount():
 @app.route('/cusReq')
 @login_required
 def cusReq():
-    return render_template('cusReq.html', title='Customer Request')
+    return render_template('cus_req.html', title='Customer Request')
 
 @app.route('/employeeInfo')
 def employeeInfo():
