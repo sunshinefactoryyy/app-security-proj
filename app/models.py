@@ -1,7 +1,8 @@
+from re import U
 from sqlalchemy.orm import backref
 from app import db, login_manager
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import date, datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -36,4 +37,14 @@ class Inventory(db.Model):
 
     def __repr__(self):
         return f"Inventory('{self.part_name}', '{self.part_quantity}', '{self.user}', '{self.user_id}', '{self.date_posted}')"
+
+    def __init__(self, part_name, part_quantity, part_cost, date_posted, user, user_id):
+        self.part_name = part_name
+        self.part_quantity = part_quantity
+        self.part_cost = part_cost
+        self.date_posted = date_posted
+        self.user = user
+        self.user_id = user_id
+    
+    
 
