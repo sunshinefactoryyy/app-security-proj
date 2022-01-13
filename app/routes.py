@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from app import app, db, bcrypt
 from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm
 from app.models import User, Inventory
@@ -90,3 +90,50 @@ def employeeInfo():
 def add_header(response):
     response.headers['Cache-Control'] = 'no-store'
     return response
+
+@app.route('/inventory/New', method=['GET', 'POST'])
+@login_required
+def new_part():
+    form = LoginForm()
+    if form.validate_on_submit():
+        # display the inventory parts created by the user. Else, create new part
+        new = Inventory(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(new)
+        db.session.commit()
+        return redirect(url_for('inventory.html'))
+    return render_template('newPart.html', title='New Part', form=form, legend='New Part')
+
+@app.route('/inventory/<int:part_id>')
+def part(part_id):
+    part = Inventory.query.get_or_404(part_id)
+    return render_template('part.html', title=part.title, part=part)
+
+@app.route('/inventory/<int:part_id>/update', method=['GET', 'POST'])
+@login_required
+def update_part(part_id):
+    part = Inventory.query.get_or_404(part_id)
+    if part.author != current_user:
+        abort(403)
+    form = LoginForm()
+    if form.validate_on_submit():
+        part.title = form.title.data
+        part.content = form.content.data
+        db.session.commit()
+        flash('The part has been updated', 'success')
+        return redirect(url_for('part', part_id=part.id))
+    
+    elif request.method == 'GET':
+        form.title.data = part.title
+        form.content.data = part.content
+    return render_template('newPart.html', title='Update Part', form=form, legend='Update Part')
+    
+@app.route('/inventory/<int:part_id>/delete', method=['GET', 'POST'])
+@login_required
+def delete_part(part_id):
+    part = Inventory.query.get_or_404(part_id)
+    if part.author != current_user:
+        abort(403)
+    db.session.delete(part)
+    db.session.commit()
+    flash('The part has been deleted.', 'success')
+    return redirect(url_for('inventory.html'))
