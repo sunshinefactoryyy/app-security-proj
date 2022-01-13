@@ -34,6 +34,6 @@ class Inventory(db.Model):
     date_posted = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
 
     def __repr__(self):
-        return f"Inventory('{self.part_name}', '{self.part_quantity}', '{self.date_posted}')"
+        return f"Inventory('{self.part_name}', '{self.part_quantity}' '{self.part_cost}', '{self.date_posted}')"
     
 

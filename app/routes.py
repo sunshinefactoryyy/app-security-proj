@@ -95,7 +95,7 @@ def add_header(response):
 @app.route('/inventory/new', method=['GET', 'POST'])
 @login_required
 def new_part():
-    form = LoginForm()
+    form = inventoryForm()
     if form.validate_on_submit():
         # display the inventory parts created by the user. Else, create new part
         new = Inventory(title=form.title.data, content=form.content.data, author=current_user)
@@ -115,7 +115,7 @@ def update_part(part_id):
     part = Inventory.query.get_or_404(part_id)
     if part.author != current_user:
         abort(403)
-    form = LoginForm()
+    form = inventoryForm()
     if form.validate_on_submit():
         part.title = form.title.data
         part.content = form.content.data
