@@ -91,7 +91,8 @@ def add_header(response):
     response.headers['Cache-Control'] = 'no-store'
     return response
 
-@app.route('/inventory/New', method=['GET', 'POST'])
+@app.route('/inventory')
+@app.route('/inventory/new', method=['GET', 'POST'])
 @login_required
 def new_part():
     form = LoginForm()
