@@ -166,9 +166,10 @@ section {
   transition: 0.2s;
 }
 
-#main .workflow .workflow-content .card .card-body #icon {
-  height: 150px;
-  width: 200px;
+#main .workflow .workflow-content .card .card-body svg {
+  height: 100px;
+  width: 100px;
+  margin-bottom: 10px;
 }
 
 #main .footer {

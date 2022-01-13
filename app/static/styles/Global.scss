@@ -160,9 +160,10 @@ section {
         transition: 0.2s;
 
         .card-body {
-          #icon {
-            height: 150px;
-            width: 200px;
+          svg {
+            height: 100px;
+            width: 100px;
+            margin-bottom: 10px;
           }
         }
       }
