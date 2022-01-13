@@ -84,10 +84,3 @@ class updateInventoryForm(FlaskForm):
         else:
             print("This part is still in stock. There is no need to restock.")
     
-
-
-    
-    
-
-
-    

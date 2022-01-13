@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, abort
 from app import app, db, bcrypt
-from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm
+from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, inventoryForm, updateInventoryForm
 from app.models import User, Inventory
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -92,24 +92,27 @@ def add_header(response):
     return response
 
 @app.route('/inventory')
-@app.route('/inventory/new', method=['GET', 'POST'])
+@login_required
+def inventory():
+    return render_template('inventory.html', title='Inventory')
+
+@app.route('/inventory/new', methods=['GET', 'POST'])
 @login_required
 def new_part():
     form = inventoryForm()
     if form.validate_on_submit():
-        # display the inventory parts created by the user. Else, create new part
         new = Inventory(title=form.title.data, content=form.content.data, author=current_user)
         db.session.add(new)
         db.session.commit()
-        return redirect(url_for('inventory.html'))
-    return render_template('newPart.html', title='New Part', form=form, legend='New Part')
+        redirect(url_for('inventory'))
+    return render_template('newPart.html', title='New Part', form=form)
 
 @app.route('/inventory/<int:part_id>')
 def part(part_id):
     part = Inventory.query.get_or_404(part_id)
     return render_template('part.html', title=part.title, part=part)
 
-@app.route('/inventory/<int:part_id>/update', method=['GET', 'POST'])
+@app.route('/inventory/<int:part_id>/update', methods=['GET', 'POST'])
 @login_required
 def update_part(part_id):
     part = Inventory.query.get_or_404(part_id)
@@ -128,7 +131,7 @@ def update_part(part_id):
         form.content.data = part.content
     return render_template('newPart.html', title='Update Part', form=form, legend='Update Part')
     
-@app.route('/inventory/<int:part_id>/delete', method=['GET', 'POST'])
+@app.route('/inventory/<int:part_id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_part(part_id):
     part = Inventory.query.get_or_404(part_id)

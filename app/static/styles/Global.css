@@ -333,6 +333,12 @@ section {
 .form-container .login #title,
 .form-container .sign_up #title {
   margin-top: 20px;
+  overflow-x: none;
+}
+
+.form-container .login #login,
+.form-container .sign_up #login {
+  border-bottom: none;
 }
 
 .form-container .login form,
@@ -503,8 +509,12 @@ section {
   margin: auto;
 }
 
-#edit_btn, #reset_btn, #chat_btn, #next_btn, #upload_btn {
-  background-color: #2565C7;
+#edit_btn,
+#reset_btn,
+#chat_btn,
+#next_btn,
+#upload_btn {
+  background-color: #2565c7;
   color: #fff;
   border-radius: 10px;
 }
@@ -516,15 +526,19 @@ section {
   background-color: #888 !important;
 }
 
-#cart_btn, #moreOpt_btn {
-  background-color: #2565C7;
+#cart_btn,
+#moreOpt_btn {
+  background-color: #2565c7;
   color: #fff;
   border-radius: 10px;
   margin-left: 7px;
 }
 
-#back_btn, #checkO_btn, #confirm_btn, #back_btn2 {
-  background-color: #2565C7;
+#back_btn,
+#checkO_btn,
+#confirm_btn,
+#back_btn2 {
+  background-color: #2565c7;
   color: #fff;
   border-radius: 10px;
   vertical-align: middle;
@@ -554,7 +568,7 @@ section {
 }
 
 .bi-question-circle-fill {
-  color: #2565C7;
+  color: #2565c7;
 }
 
 #cus_name {
@@ -579,7 +593,7 @@ section {
   text-align: center;
   display: table-cell;
   vertical-align: middle;
-  background-color: #F0723C;
+  background-color: #f0723c;
   color: #fff;
 }
 
@@ -699,12 +713,14 @@ section {
   list-style-type: none;
 }
 
-#choose_product1, #choose_product2 {
+#choose_product1,
+#choose_product2 {
   height: 88px;
   width: auto;
 }
 
-#modal_content2, #modal_content3 {
+#modal_content2,
+#modal_content3 {
   padding: 60px;
 }
 
