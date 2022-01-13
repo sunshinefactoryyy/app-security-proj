@@ -59,6 +59,7 @@ def account():
 @login_required
 def editCustomerAccount():
     form = UpdateCustomerAccountForm()
+    user = current_user
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -66,7 +67,7 @@ def editCustomerAccount():
         db.session.commit()
         flash('Your account details have been updated!', 'success')
         redirect(url_for('account'))
-    return render_template('editCustomerAccount.html', title='Customer Info', username=current_user.username, email=current_user.email, form=form)
+    return render_template('editCustomerAccount.html', title='Customer Info', username=current_user.username, email=current_user.email, form=form, user=current_user)
 
 @app.route('/account/deactivate')
 def deactivateAccount():
