@@ -353,57 +353,12 @@ section {
 
 .form-container .login form .form-group,
 .form-container .sign_up form .form-group {
-  position: relative;
-  border-bottom: 2px solid #adadad;
   margin: 30px 0;
 }
 
 .form-container .login form .form-group label,
 .form-container .sign_up form .form-group label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   color: #adadad;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
-  pointer-events: none;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.form-container .login form .form-group input,
-.form-container .sign_up form .form-group input {
-  width: 100%;
-  padding: 0 5px;
-  height: 40px;
-  border: none;
-  outline: none;
-}
-
-.form-container .login form .form-group input:focus ~ label,
-.form-container .login form .form-group input:valid ~ label,
-.form-container .sign_up form .form-group input:focus ~ label,
-.form-container .sign_up form .form-group input:valid ~ label {
-  top: -5px;
-  color: #2691d9;
-}
-
-.form-container .login form .form-group input:focus ~ label::before,
-.form-container .login form .form-group input:valid ~ span::before,
-.form-container .sign_up form .form-group input:focus ~ label::before,
-.form-container .sign_up form .form-group input:valid ~ span::before {
-  width: 100%;
-}
-
-.form-container .login form .form-group span::before,
-.form-container .sign_up form .form-group span::before {
-  content: "";
-  position: absolute;
-  top: 40px;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: #2691d9;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }

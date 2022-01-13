@@ -322,47 +322,10 @@ section {
       box-sizing: border-box;
 
       .form-group {
-        position: relative;
-        border-bottom: 2px solid #adadad;
         margin: 30px 0;
 
         label {
-          position: absolute;
-          top: 50%;
-          left: 50%;
           color: #adadad;
-          transform: translate(-50%);
-          pointer-events: none;
-          transition: 0.5s;
-        }
-
-        input {
-          width: 100%;
-          padding: 0 5px;
-          height: 40px;
-          border: none;
-          outline: none;
-        }
-
-        input:focus ~ label,
-        input:valid ~ label {
-          top: -5px;
-          color: #2691d9;
-        }
-
-        input:focus ~ label::before,
-        input:valid ~ span::before {
-          width: 100%;
-        }
-
-        span::before {
-          content: "";
-          position: absolute;
-          top: 40px;
-          left: 0;
-          height: 2px;
-          width: 0%;
-          background: #2691d9;
           transition: 0.5s;
         }
       }
