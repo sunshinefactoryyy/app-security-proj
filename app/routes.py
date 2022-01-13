@@ -69,7 +69,7 @@ def editCustomerAccount():
         redirect(url_for('account'))
     return render_template('editCustomerAccount.html', title='Customer Info', username=current_user.username, email=current_user.email, form=form, user=current_user)
 
-@app.route('/account/deactivate')
+@app.route('/account/deactivate', methods=["GET", "POST"])
 def deactivateAccount():
     deleted_user_id=current_user.id
     logout_user()
@@ -86,6 +86,18 @@ def cusReq():
 @app.route('/employeeInfo')
 def employeeInfo():
     return render_template('employeeInfo.html', title='Employee Info')
+
+@app.errorhandler(404)
+def error_404(e):
+    return render_template('errors/404.html'), 404
+
+@app.errorhandler(403)
+def error_403(e):
+    return render_template('errors/403.html'), 403
+
+@app.errorhandler(500)
+def error_500(e):
+    return render_template('errors/500.html'), 500
 
 @app.after_request
 def add_header(response):
