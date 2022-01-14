@@ -123,8 +123,8 @@ def update_part(part_id):
         part.title = form.title.data
         part.content = form.content.data
         db.session.commit()
-        flash('The part has been updated', 'success')
-        return redirect(url_for('part', part_id=part.id))
+        flash('The part has been updated.', 'success')
+        redirect(url_for('part', part_id=part.id))
     
     elif request.method == 'GET':
         form.title.data = part.title
@@ -140,4 +140,4 @@ def delete_part(part_id):
     db.session.delete(part)
     db.session.commit()
     flash('The part has been deleted.', 'success')
-    return redirect(url_for('inventory.html'))
+    redirect(url_for('inventory.html'))
