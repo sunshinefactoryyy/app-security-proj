@@ -55,32 +55,44 @@ class inventoryForm(FlaskForm):
     part_quantity = IntegerField("Part Quantity", validators=[DataRequired()])
     part_cost = IntegerField("Part Cost", validators=[DataRequired()])
     date_posted = DateField("Date Posted", validators=[DataRequired()])
+    add = SubmitField("Add Part")
 
     def validate_part_quantity(self, part_quantity):
         try:
             type(part_quantity)
+
+            if part_quantity <= 0:
+                raise ValidationError("Part quantity cannot be 0. Please try again.")
+            
         except ValueError:
-            print("Sorry, please enter a number.")
+            raise ValidationError("Please enter a number.")
 
     def validate_part_cost(self, part_cost):
         try:
             type(part_cost)
+            if part_cost <= 0:
+                raise ValidationError("Please enter a valid cost")
+
         except ValueError:
-            print("Sorry, please enter a number.")
+            raise ValidationError("Please enter a number.")
     
 class updateInventoryForm(FlaskForm):
     part_name = StringField("Part Name", validators=[DataRequired()])
     part_quantity = IntegerField("Part Quantity", validators=[DataRequired()])
     part_cost = IntegerField("Part Cost", validators=[DataRequired()])
     date_posted = DateField("Date Posted", validators=[DataRequired()])
+    update = SubmitField("Update")
     
     def validate_part_quantity(self, part_quantity):
         if (part_quantity.data < 50) or part_quantity.data == 0:
             try:
                 type(part_quantity)
+                if part_quantity <= 0:
+                    raise ValidationError("Please enter a valid cost")
+
             except ValueError:
-                print("Sorry, please enter a number.")
+                raise ValidationError("Please enter a number.")
             
         else:
-            print("This part is still in stock. There is no need to restock.")
+            raise Exception("This part is still in stock. No need to restock.")
     

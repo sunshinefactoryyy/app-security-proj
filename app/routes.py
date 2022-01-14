@@ -105,12 +105,12 @@ def new_part():
         db.session.add(new)
         db.session.commit()
         redirect(url_for('inventory'))
-    return render_template('newPart.html', title='New Part', form=form)
+    return render_template('newPart.html', title='New Part', form=form, legend='New Part')
 
-@app.route('/inventory/<int:part_id>')
-def part(part_id):
-    part = Inventory.query.get_or_404(part_id)
-    return render_template('part.html', title=part.title, part=part)
+# @app.route('/inventory/<int:part_id>')
+# def part(part_id):
+#     part = Inventory.query.get_or_404(part_id)
+#     return render_template('part.html', title=part.title, part=part)
 
 @app.route('/inventory/<int:part_id>/update', methods=['GET', 'POST'])
 @login_required
