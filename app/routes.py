@@ -1,8 +1,12 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, session
 from app import app, db, bcrypt
 from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm
 from app.models import User
+from app.config import Auth
 from flask_login import login_user, current_user, logout_user, login_required
+from app.utils import get_google_auth
+from requests.exceptions import HTTPError
+import json
 
 @app.route('/')
 def home():
@@ -34,6 +38,9 @@ def register():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('account'))
+    google = get_google_auth()
+    auth_url, state = google.authorization_url(Auth.AUTH_URI, access_type='offline')
+    session['oauth_state'] = state
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -43,9 +50,49 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('account'))
         else:
             flash("Login Unsuccessful. Please check email and password", "danger")
-    return render_template('login.html', title='Login', form=form)
+    return render_template('login.html', title='Login', form=form, auth_url=auth_url)
+
+@app.route('/login/callback')
+def callback():
+    if current_user is not None and current_user.is_authenticated:
+        return redirect(url_for('home'))
+    if 'error' in request.args:
+        if request.args.get('error') == 'access_denied':
+            return 'You denied access.'
+        return 'Error encountered.'
+    if 'code' not in request.args and 'state' not in request.args:
+        return redirect(url_for('login'))
+    else:
+        google = get_google_auth(state=session.get('oauth_state'))
+        try:
+            token = google.fetch_token(
+                Auth.TOKEN_URI,
+                client_secret=Auth.CLIENT_SECRET,
+                authorization_response=request.url)
+        except HTTPError:
+            return 'HTTPError occurred.'
+        google = get_google_auth(token=token)
+        resp = google.get(Auth.USER_INFO)
+        if resp.status_code == 200:
+            user_data = resp.json()
+            email = user_data['email']
+            user = User.query.filter_by(email=email).first()
+            if user is None:
+                user = User()
+                user.email = email
+            user.username = user_data['name']
+            user.tokens = json.dumps(token)
+            user.avatar = user_data['picture']
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            return redirect(url_for('home'))
+        return 'Could not fetch your information.'
+
+
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for("home"))

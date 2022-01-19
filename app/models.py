@@ -13,11 +13,12 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
-    access = db.Column(db.Integer, nullable=False)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-    # tokens = db.Column(db.Text)
+    access = db.Column(db.Integer, nullable=False, default=1)
+    username = db.Column(db.String(100), unique=True, nullable=False) # String should be cap 20
+    avatar = db.Column(db.String(200))
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=True)
+    tokens = db.Column(db.Text)
     def is_admin(self):
         return True if self.access == ACCESS['admin'] else False
     def access_level(self, access):
