@@ -1,5 +1,6 @@
 from app import db, login_manager
 from flask_login import UserMixin
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -9,17 +10,21 @@ ACCESS = {'customer': 1,
           'admin': 2}
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow())
+    access = db.Column(db.Integer, nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    access = db.Column(db.Integer, nullable=False)
+    # tokens = db.Column(db.Text)
     def is_admin(self):
         return True if self.access == ACCESS['admin'] else False
     def access_level(self, access):
         return True if self.access <= access else False
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.password}', {dict((v, k) for k, v in ACCESS.items())[self.access].capitalize()})"
+        role = dict((v, k) for k, v in ACCESS.items())[self.access].capitalize()
+        return f"{role}('{self.username}', '{self.email}', '{self.password}')"
 
 # @login_manager.user_loader
 # def load_user(user_id):
