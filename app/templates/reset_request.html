@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="form-container d-flex justify-content-around align-items-center">
+    <img src="/static/public/Secure_login.svg">
+
+    <div class="login">
+        <h1 id="title" class="text-center font-weight-bold display-4">Reset Password</h1>
+
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.submit(id="login_btn") }}
+            </div>
+
+
+
+
+        </form>
+    </div><!--login-->
+</section><!--form-container-->
+
+{% endblock %}

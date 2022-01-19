@@ -1,5 +1,6 @@
 from requests_oauthlib import OAuth2Session
 from app.config import Auth
+from app import mail
 
 def get_google_auth(state=None, token=None):
     if token:
@@ -14,3 +15,4 @@ def get_google_auth(state=None, token=None):
         redirect_uri=Auth.REDIRECT_URI,
         scope=Auth.SCOPE)
     return oauth
+
