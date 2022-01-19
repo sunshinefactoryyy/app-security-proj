@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt
 from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm
-from app.models import Customer
+from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
@@ -23,7 +23,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = Customer(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password, access=1)
         db.session.add(user)
         db.session.commit()
         flash(f"Your account has been created! You are now able to login.", "success")
@@ -36,7 +36,7 @@ def login():
         return redirect(url_for('account'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = Customer.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
             next_page = request.args.get("next")
@@ -73,7 +73,7 @@ def editCustomerAccount():
 def deactivateAccount():
     deleted_user_id=current_user.id
     logout_user()
-    Customer.query.filter_by(id=deleted_user_id).delete()
+    User.query.filter_by(id=deleted_user_id).delete()
     db.session.commit()
     flash('Account has been successfully deleted!', 'success')
     return redirect(url_for('home'))
