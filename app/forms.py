@@ -52,10 +52,9 @@ class RequestResetForm(FlaskForm):
     email = StringField("Email Address", validators=[DataRequired(), Email()])
     submit = SubmitField("Request Password Reset")
     def validate_email(self, email):
-        if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
-            if user is None:
-                raise ValidationError("There is no account with that email. You must register first.")
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError("There is no account with that email. You must register first.")
             
 class ResetPasswordForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])

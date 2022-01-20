@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request, session
-from app import app, db, bcrypt
+from app import app, db, bcrypt, mail
 from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm
 from app.models import User
 from app.config import Auth
@@ -94,6 +94,7 @@ def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message('Password Reset Request', sender='213587x@gmail.com', recipients=[user.email])
     msg.body = f"To reset your password, visit the following link:\n{url_for('reset_token', token=token, _external=True)}\nIf you did not make this request then simply ignore this email and no changes will be made."
+    mail.send(msg)
 
 @app.route('/reset_password', methods=['GET', 'POST'])
 def reset_reqeust():

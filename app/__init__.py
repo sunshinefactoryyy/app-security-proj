@@ -17,9 +17,11 @@ login_manager.login_message_category = "info"
 login_manager.session_protection = "strong"
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
+# app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = ''
-app.config['MAIL_PASSWORD'] = ''
+# app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = '213587x@gmail.com'
+app.config['MAIL_PASSWORD'] = 'GrM_Hp3BsmM3VwR'
 mail = Mail(app)
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'

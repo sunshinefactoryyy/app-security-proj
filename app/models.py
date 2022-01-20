@@ -34,9 +34,6 @@ class User(db.Model, UserMixin):
             return None
         return User.query.get(user_id)
     
-    
-    
-    
     def is_admin(self):
         return True if self.access == ACCESS['admin'] else False
     def access_level(self, access):
