@@ -1,42 +1,24 @@
-{% extends "base.html" %}
+{% extends "customer/base.html" %}
 {% block title %}My Requests{% endblock %}
 
-{% block content %}
-<div class="row" id="cus_d">
-    <div class="col-3">
-        <nav class ="navbar navbar-light" id="cus_nav">
-            <ul class ="nav navbar-nav">
-                <li class ="nav-item">
-                    <a class ="nav-link" href="{{url_for('account')}}"> Personal Information </a>
-                </li>
-                <li class ="nav-item">
-                    <a class ="nav-link active" href="{{url_for('cusReq')}}"> My Requests </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <div class="col-7" id="p_info1">
-        <div class="container-fluid">
-            <h1 class="display-6 d-inline-block align-middle" id="p_info_h1">My Requests</h1>
-            <button type="button" class="btn float-end" id="cart_btn"><i class="bi bi-cart-plus-fill"></i></button>
-            <button type="button" class="btn float-end" id="chat_btn"><i class="bi bi-chat-right-fill"></i></button>
-            <div class="card" id="p_card1">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-5 text-center">
-                            <img src="../static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" id="cus_product1">
-                        </div>
-                        <div class="col-7" id="p_info2">
-                            <p id="prod1_name">Gigabyte X570 | Aorus Pro Wifi</p>
-                            <p><b> Date Requested: </b> 19 October 2021</p>
-                            <p><b>Issue Description: </b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+{% block customerContent %}
+<h1 class="display-6 d-inline-block align-middle" id="p_info_h1">My Requests</h1>
+<button type="button" class="btn float-end" id="cart_btn"><i class="bi bi-cart-plus-fill"></i></button>
+<button type="button" class="btn float-end" id="chat_btn"><i class="bi bi-chat-right-fill"></i></button>
+<div class="card" id="p_card1">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-5 text-center">
+                <img src="../static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" id="cus_product1">
+            </div>
+            <div class="col-7" id="p_info2">
+                <p id="prod1_name">Gigabyte X570 | Aorus Pro Wifi</p>
+                <p><b> Date Requested: </b> 19 October 2021</p>
+                <p><b>Issue Description: </b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-                            <button type="button" class="btn float-end" id="moreOpt_btn"><i class="bi bi-three-dots"></i></button>
-                            <div class="alert alert-danger d-inline-block float-end" role="alert" id="status">Pending Quote</div>
-                            
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="btn float-end" id="moreOpt_btn"><i class="bi bi-three-dots"></i></button>
+                <div class="alert alert-danger d-inline-block float-end" role="alert" id="status">Pending Quote</div>
+                
             </div>
         </div>
     </div>
