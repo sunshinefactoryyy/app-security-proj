@@ -3,7 +3,7 @@ from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, validators
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
-from app.models import User
+from app.models import Customer, Employee
 
 class LoginForm(FlaskForm):
     email = StringField("Email Address", validators=[DataRequired(), Email()])
@@ -19,12 +19,12 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField("Sign Up")
 
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
+        user = Customer.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError("That username is taken. Please choose a different one.")
         
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
+        user = Customer.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError("That email is taken. Please choose a different one.")
 
@@ -37,13 +37,47 @@ class UpdateCustomerAccountForm(FlaskForm):
 
     def validate_username(self, username):
         if username.data != current_user.username:
-            user = User.query.filter_by(username=username.data).first()
+            user = Customer.query.filter_by(username=username.data).first()
             if user:
                 raise ValidationError("That username is taken. Please choose a different one.")
         
     def validate_email(self, email):
         if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
+            user = Customer.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError("That email is taken. Please choose a different one.")
+
+class EmployeeCreationForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField("Email Address", validators=[DataRequired(), Email(message='Invalid email')])
+    password = PasswordField("Password", validators=[DataRequired()])
+    confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
+
+    def validate_username(self, username):
+        user = Employee.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError("That username is taken. Please choose a different one.")
+        
+    def validate_email(self, email):
+        user = Employee.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError("That email is taken. Please choose a different one.")
+
+class UpdateEmployeeCreationForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField("Email Address", validators=[DataRequired(), Email(message='Invalid email')])
+    password = PasswordField("Password", validators=[DataRequired()])
+    confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
+
+    def validate_username(self, username):
+        if username.data != current_user.username:
+            user = Employee.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError("That username is taken. Please choose a different one.")
+        
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            user = Employee.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError("That email is taken. Please choose a different one.")
 
