@@ -9,6 +9,7 @@ class AccountCredentials(db.Model, UserMixin):
     __abstract__ = True
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    contactNumber = db.Column(db.Integer)
     password = db.Column(db.String(60), nullable=False)
 
 class Customer(AccountCredentials):
@@ -20,7 +21,7 @@ class Employee(AccountCredentials):
 class Request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     productName = db.Column(db.String(100), nullable=False)
-    productID = db.Column(db.Integer, primary_key=True)
+    productID = db.Column(db.Integer)
     # image = db.Column(db.)
     repairStatus = db.Column(db.String(20), nullable=False)
     repairCost = db.Column(db.Float, nullable=True)

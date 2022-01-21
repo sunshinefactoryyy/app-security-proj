@@ -34,7 +34,7 @@ def faq():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('account'))
+        return redirect(url_for('customerAccount'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -43,7 +43,7 @@ def register():
         db.session.commit()
         login_user(user, remember=True)
         flash(f"Your account has been created! You are now logged in!", "success")
-        return redirect(url_for("account"))
+        return redirect(url_for("customerAccount"))
 
     return render_template(
         'authentication/register.html', 
@@ -54,14 +54,14 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('account'))
+        return redirect(url_for('customerAccount'))
     form = LoginForm()
     if form.validate_on_submit():
         user = Customer.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
             next_page = request.args.get("next")
-            return redirect(next_page) if next_page else redirect(url_for('account'))
+            return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
         else:
             flash("Login Unsuccessful. Please check email and password", "danger")
 
@@ -86,8 +86,10 @@ def customerAccount():
         'customer/account.html', 
         title='Customer Info', 
         navigation='Account',
-        username=current_user.username, 
-        email=current_user.email
+        userData={
+            'username' : current_user.username,
+            'email' : current_user.email
+        }
     )
 
 @app.route('/account/edit', methods=['GET', 'POST'])
@@ -101,7 +103,7 @@ def editCustomerAccount():
         current_user.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         db.session.commit()
         flash('Your account details have been updated!', 'success')
-        redirect(url_for('account'))
+        redirect(url_for('customerAccount'))
 
     return render_template(
         'customer/editAccount.html', 
