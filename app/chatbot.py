@@ -5,7 +5,6 @@ bot = ChatBot(
     'Johnny',
     storage_adapter='chatterbot.storage.SQLStorageAdapter',
     logic_adapters=[
-        'chatterbot.logic.MathematicalEvaluation',
         'chatterbot.logic.TimeLogicAdapter',
         'chatterbot.logic.BestMatch',
         {
@@ -21,7 +20,7 @@ bot = ChatBot(
             'output_text': 'Please input your device model.'
         }
     ],
-    #modify the input statement that a chat bot receives
+    #modify the input statement that chatbot receives
     preprocessors=[ 
         'chatterbot.preprocessors.clean_whitespace'
     ],
