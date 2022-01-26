@@ -1,15 +1,49 @@
+from re import U
+from sqlalchemy.orm import backref
 from app import db, login_manager, app
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import date, datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return Customer.query.get(int(user_id))
 
 ACCESS = {'customer': 1,
           'admin': 2}
 
+class AccountCredentials(db.Model, UserMixin):
+    __abstract__ = True
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+
+class Customer(AccountCredentials):
+    id = db.Column(db.Integer, primary_key = True)
+
+class Employee(AccountCredentials):
+    id = db.Column(db.Integer, primary_key = True)
+
+
+class Request(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    productName = db.Column(db.String(20), nullable=False)
+    productID = db.Column()
+
+
+class Inventory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    productName = db.Column(db.String(100), nullable=False)
+    productID = db.Column(db.Integer, primary_key=True)
+    # image = db.Column(db.)
+    repairStatus = db.Column(db.String(20), nullable=False)
+    repairCost = db.Column(db.Float, nullable=True)
+    issueDes = db.Column(db.String(300), nullable=False)
+    warranty = db.Column(db.Boolean, nullable=False)
+    prodPrice = db.Column(db.Boolean, nullable=False)
+
+    def __repr__(self):
+        return f"Inventory('{self.part_name}', '{self.part_quantity}' '{self.part_cost}', '{self.date_posted}')"
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -41,23 +75,3 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         role = dict((v, k) for k, v in ACCESS.items())[self.access].capitalize()
         return f"{role}('{self.username}', '{self.email}', '{self.password}')"
-
-class Request(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    productName = db.Column(db.String(20), nullable=False)
-    productID = db.Column()
-
-
-class Inventory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    productName = db.Column(db.String(100), nullable=False)
-    productID = db.Column(db.Integer, primary_key=True)
-    # image = db.Column(db.)
-    repairStatus = db.Column(db.String(20), nullable=False)
-    repairCost = db.Column(db.Float, nullable=True)
-    issueDes = db.Column(db.String(300), nullable=False)
-    warranty = db.Column(db.Boolean, nullable=False)
-    prodPrice = db.Column(db.Boolean, nullable=False)
-
-    def __repr__(self):
-        return f"Inventory('{self.part_name}', '{self.part_quantity}' '{self.part_cost}', '{self.date_posted}')"
