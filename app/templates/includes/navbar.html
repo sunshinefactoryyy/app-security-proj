@@ -20,59 +20,31 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-4">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('home')}}">
-                            <div class="nav-item-container d-flex align-items-center justify-content-center">
-                                <p class="nav-underline-effect">Home</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('about')}}">
-                            <div class="nav-item-container d-flex align-items-center justify-content-center">
-                                <p class="nav-underline-effect">About Us</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('faq')}}">
-                            <div class="nav-item-container d-flex align-items-center justify-content-center">
-                                <p class="nav-underline-effect">FAQ</p>
-                            </div>
-                        </a>
-                    </li>
+                    {% with link='home', label='Home' %}
+                        {% include '/includes/navbarNavigationItem.html' %}
+                    {% endwith %}
+                    {% with link='about', label='About Us' %}
+                        {% include '/includes/navbarNavigationItem.html' %}
+                    {% endwith %}
+                    {% with link='faq', label='FAQ' %}
+                        {% include '/includes/navbarNavigationItem.html' %}
+                    {% endwith %}
                 </ul>
                 <ul class="navbar-nav justify-content-end d-flex">
                     {% if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('account')}}">
-                                {% with label='Account', color='primary' %}
-                                    {% include '/includes/customButtonComponent.html' %}
-                                {% endwith %}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('logout')}}">
-                                {% with label='Logout', color='primary' %}
-                                    {% include '/includes/customButtonComponent.html' %}
-                                {% endwith %}
-                            </a>
-                        </li>
+                        {% with link='customerRequest', nav=True, label='Account', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %}
+                        {% with link='logout', nav=True, label='Logout', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %}
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('login')}}">
-                                {% with label='Login', color='primary' %}
-                                    {% include '/includes/customButtonComponent.html' %}
-                                {% endwith %}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('register')}}">
-                                {% with label='Sign Up', color='primary' %}
-                                    {% include '/includes/customButtonComponent.html' %}
-                                {% endwith %}
-                            </a>
-                        </li>
+                        {% with link='login', nav=True, label='Login', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %}
+                        {% with link='register', nav=True, label='Sign Up', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %}
                     {% endif %}
                 </ul>
             </div>

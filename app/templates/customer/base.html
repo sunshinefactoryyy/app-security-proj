@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Personal Information{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex flex-row justify-content-start align-content-center mt-5">
+    <div class="me-5">
+        <nav class ="navbar navbar-light">
+            <ul class ="nav navbar-nav">
+                <li class ="nav-item">
+                    <a class="nav-link text-nowrap {{'active' if navigation == 'Request'}}" href="{{url_for('customerRequest')}}">My Requests</a>
+                </li>
+                <li class ="nav-item">
+                    <a class="nav-link text-nowrap {{'active' if navigation == 'Account'}}" href="{{url_for('customerAccount')}}">Account Information</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="flex-grow-1" id="p_info1">
+        <div class="ms-5">
+            {% block customerContent %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
