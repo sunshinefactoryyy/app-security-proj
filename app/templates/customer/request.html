@@ -4,7 +4,7 @@
 {% block customerContent %}
 <h1 class="display-6 d-inline-block align-middle" id="p_info_h1">My Requests</h1>
 <button type="button" class="btn float-end" id="cart_btn"><i class="bi bi-cart-plus-fill"></i></button>
-<button type="button" class="btn float-end" id="chat_btn"><i class="bi bi-chat-right-fill"></i></button>
+<a href="{{url_for('chatbot')}}"><button type="button" class="btn float-end" id="chat_btn"><i class="bi bi-chat-right-fill"></i></button></a>
 <div class="card" id="p_card1">
     <div class="card-body">
         <div class="row">

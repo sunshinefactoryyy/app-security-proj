@@ -1,17 +1,44 @@
 {% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
 
 {% block content %}
-<h1>Chat Bot</h1>
-    <h3>Simple ChatBot using <a href="https://chatterbot.readthedocs.io/en/stable/#">ChatterBot</a> and integrated with flask</h3>
+<center><h1 id="chat_heading">Chat Support</h1></center>
+
+<!-- <div class="box"></div> -->
+<div class="boxed">
     <div>
         <div id="chatbox">
-            <p class="botText"><span>Hi! I'm Johnny.</span></p>
+            <p class="botText">
+            <span>Hi! I'm Johnny, your guide to Vision Core.</span>
+            </p>
         </div>
         <div id="userInput">
-            <input id="textInput" type="text" name="msg" placeholder="Enter Message here">
-            <input id="buttonInput" type="submit" value="Send">
+            <input id="textInput" type="text" name="msg" placeholder="Type something!" />
         </div>
-
-        <script src="/static/js/main.js"></script>
     </div>
+</div>
+
+<script>
+    function getBotResponse() {
+      var rawText = $("#textInput").val();
+      var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+      $("#textInput").val("");
+      $("#chatbox").append(userHtml);
+      document
+        .getElementById("userInput")
+        .scrollIntoView({ block: "start", behavior: "smooth" });
+      $.get("/get", { msg: rawText }).done(function(data) {
+        var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+        $("#chatbox").append(botHtml);
+        document
+          .getElementById("userInput")
+          .scrollIntoView({ block: "start", behavior: "smooth" });
+      });
+    }
+    $("#textInput").keypress(function(e) {
+      if (e.which == 13) {
+        getBotResponse();
+      }
+    });
+</script>
 {% endblock %}

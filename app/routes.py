@@ -1,9 +1,9 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt
-from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm
+from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, CustomerRequestForm
 from app.models import Customer
+from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
-
 
 
 # Public Routes
@@ -124,11 +124,15 @@ def deactivateAccount():
 @app.route('/cusReq')
 @login_required
 def customerRequest():
-    return render_template(
-        'customer/request.html', 
-        title='Customer Request',
-        navigation='Request'
-    )
+    form = CustomerRequestForm()
+    img_path = '../static/public/'
+    prodList = [
+        {'id': 1, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'id': 2, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+        {'id': 3, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'id': 4, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+    ]
+    return render_template('customer/request.html', title='Customer Request',navigation='Request', prodList = prodList, form=form)
 
 
 
@@ -140,6 +144,16 @@ def employeeInfo():
         title='Employee Info'
     )
 
+
+#Chatbot
+@app.route('/chat')
+def chatbot():
+    return render_template("chat.html")
+
+@app.route("/get")
+def get_chat_response():
+    userText = request.args.get('msg')
+    return str(bot.get_response(userText))
 
 
 # Error Handling
