@@ -20,20 +20,20 @@
                 {{ form.password(class="form-control") }}
             </div><!--form-group-->
 
-            <div class="forgot text-center">
-                <a href="#" class="forgot_link">Forgot Password?</a>
+            <div class="forgot">
+                <a href="{{url_for('reset_reqeust')}}" class="forgot_link">Forgot Password?</a>
             </div><!--forgot-->
 
-            <div class="form-group" id="login">
+            <div class="form-group">
                 {{ form.submit(id="login_btn") }}
             </div>
 
 
             <div class="form-group" id="dark">
-                <button class="btn btn-outline-dark">
+                <a href="{{auth_url}}" class="btn btn-outline-dark">
                     <i class="bi bi-google"></i>
                     Login with Google
-                </button>
+                </a>
 
                 <button class="btn btn-outline-dark">
                     <i class="bi bi-microsoft"></i>
