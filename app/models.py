@@ -21,10 +21,10 @@ class Employee(AccountCredentials):
     id = db.Column(db.Integer, primary_key = True)
 
 
-# class Request(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     productName = db.Column(db.String(20), nullable=False)
-#     productID = db.Column()
+class Request(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    productName = db.Column(db.String(20), nullable=False)
+    productID = db.Column()
 
 
 class Inventory(db.Model):
