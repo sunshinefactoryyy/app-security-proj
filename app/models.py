@@ -6,18 +6,19 @@ from datetime import date, datetime
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return Customer.query.get(int(user_id))
 
-
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
+class AccountCredentials(db.Model, UserMixin):
+    __abstract__ = True
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    # inventory_posts = db.relationship('Inventory', backref='user', lazy=True)
 
-    def __repr__(self):
-        return f"User('{self.username}', '{self.email}')"
+class Customer(AccountCredentials):
+    id = db.Column(db.Integer, primary_key = True)
+
+class Employee(AccountCredentials):
+    id = db.Column(db.Integer, primary_key = True)
 
 
 # class Request(db.Model):
@@ -28,12 +29,15 @@ class User(db.Model, UserMixin):
 
 class Inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    part_name = db.Column(db.String, unique=True, nullable=False)
-    part_quantity = db.Column(db.Integer, nullable=False)
-    part_cost = db.Column(db.Integer, unique=True, nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
+    productName = db.Column(db.String(100), nullable=False)
+    productID = db.Column(db.Integer, primary_key=True)
+    # image = db.Column(db.)
+    repairStatus = db.Column(db.String(20), nullable=False)
+    repairCost = db.Column(db.Float, nullable=True)
+    issueDes = db.Column(db.String(300), nullable=False)
+    warranty = db.Column(db.Boolean, nullable=False)
+    prodPrice = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
         return f"Inventory('{self.part_name}', '{self.part_quantity}' '{self.part_cost}', '{self.date_posted}')"
-    
 

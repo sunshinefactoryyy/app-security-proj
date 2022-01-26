@@ -3,3 +3,4 @@ venv
 __pycache__
 app/__pycache__
 app/static/styles/Main.css
+app/site.db
