@@ -34,7 +34,7 @@ def faq():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('customerAccount'))
+        return redirect(url_for('customerRequest'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -43,7 +43,7 @@ def register():
         db.session.commit()
         login_user(user, remember=True)
         flash(f"Your account has been created! You are now logged in!", "success")
-        return redirect(url_for("customerAccount"))
+        return redirect(url_for("customerRequest"))
 
     return render_template(
         'authentication/register.html', 
@@ -84,7 +84,7 @@ def logout():
 def customerAccount():
     return render_template(
         'customer/account.html', 
-        title='Customer Info', 
+        title='My Information', 
         navigation='Account',
         userData={
             'username' : current_user.username,
@@ -107,7 +107,7 @@ def editCustomerAccount():
 
     return render_template(
         'customer/editAccount.html', 
-        title='Customer Info', 
+        title='My Information', 
         navigation='Account',
         username=current_user.username, 
         email=current_user.email, 
@@ -128,18 +128,25 @@ def deactivateAccount():
 def customerRequest():
     return render_template(
         'customer/request.html', 
-        title='Customer Request',
+        title='My Requests',
         navigation='Request'
     )
 
 
 
 # Employee Routes
-@app.route('/employeeInfo')
-def employeeInfo():
+@app.route('/employeeInformation')
+def employeeInformation():
     return render_template(
         'employee/account.html', 
-        title='Employee Info'
+        title='Employee Account'
+    )
+
+@app.route('/requestManagement')
+def requestManagement():
+    return render_template(
+        'employee/request.html', 
+        title='Customer Requests'
     )
 
 

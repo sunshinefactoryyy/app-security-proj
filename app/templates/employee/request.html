@@ -1,0 +1,14 @@
+{% extends "employeeBase.html" %} 
+{% block content %}
+<div class="d-flex flex-row align-items-start justify-content-between mt-2 w-100">
+    <h2 class="fs-1 fw-bold pb-1">Customer Request Management</h2>
+    {% with link='employeeInformation', label='Edit', color='primary' %}
+        {% include '/includes/customButtonComponent.html' %}
+    {% endwith %}
+</div>
+<div class="d-flex flex-column align-items-start justify-content-start mt-4 w-100">
+    <table class="">
+        
+    </table>
+</div>
+{% endblock %}

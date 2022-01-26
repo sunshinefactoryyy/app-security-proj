@@ -16,8 +16,13 @@
     <div class="tw-h-screen tw-w-screen tw-flex tw-flex-row">
         {% include 'includes/employeeNavigation.html' %} 
 
-        {% block content %}
-        {% endblock %}
+        <div class="container">
+            <h1 class="fs-1 fw-normal ms-4 my-5">Vision Core</h1>
+            <div class="d-flex flex-column align-items-start justify-content-start mx-5">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
     </div>
 
     {% block scripts %}
