@@ -43,7 +43,7 @@ def register():
         db.session.commit()
         login_user(user, remember=True)
         flash(f"Your account has been created! You are now logged in!", "success")
-        return redirect(url_for("account"))
+        return redirect(url_for("customerAccount"))
 
     return render_template(
         'authentication/register.html', 
