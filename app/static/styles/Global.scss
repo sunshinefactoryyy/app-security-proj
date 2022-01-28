@@ -16,6 +16,10 @@ section {
 
 /*navbar.html*/
 /*Custom css for navbar*/
+#container {
+  width: 100vw;
+}
+
 .nav-item-container {
   height: 48px;
   padding: 0 8px;
@@ -80,9 +84,28 @@ section {
   .services {
     background-color: #2565c7;
 
+    .service-title {
+      color: #fff;
+      font-weight: 700;
+    }
+
     .service-content > * {
       margin-top: 100px;
       padding: 1em;
+    }
+
+    .service-content {
+      margin-bottom: 5em;
+
+      .service-container {
+        .service {
+          color: #fff;
+
+          #service-name {
+            font-weight: 500;
+          }
+        }
+      }
     }
 
     #triangle {

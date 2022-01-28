@@ -15,6 +15,10 @@ section {
 
 /*navbar.html*/
 /*Custom css for navbar*/
+#container {
+  width: 100vw;
+}
+
 .nav-item-container {
   height: 48px;
   padding: 0 8px;
@@ -77,9 +81,26 @@ section {
   background-color: #2565c7;
 }
 
+#main .services .service-title {
+  color: #fff;
+  font-weight: 700;
+}
+
 #main .services .service-content > * {
   margin-top: 100px;
   padding: 1em;
+}
+
+#main .services .service-content {
+  margin-bottom: 5em;
+}
+
+#main .services .service-content .service-container .service {
+  color: #fff;
+}
+
+#main .services .service-content .service-container .service #service-name {
+  font-weight: 500;
 }
 
 #main .services #triangle {
