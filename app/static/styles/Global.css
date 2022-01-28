@@ -15,8 +15,8 @@ section {
 
 /*navbar.html*/
 /*Custom css for navbar*/
-#container {
-  width: 100vw;
+.active {
+  background-color: #fff;
 }
 
 .nav-item-container {
