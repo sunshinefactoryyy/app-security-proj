@@ -1,12 +1,13 @@
 from flask import render_template, url_for, flash, redirect, request, session
-from app import app, db, bcrypt
-from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm
+from app import app, db, bcrypt, mail
+from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm
 from app.models import Customer
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
 from app.utils import get_google_auth, generate_password
 from app.config import Auth
+from flask_mail import Message
 
 
 
@@ -39,7 +40,7 @@ def faq():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('account'))
+        return redirect(url_for('customerAccount'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -48,7 +49,7 @@ def register():
         db.session.commit()
         login_user(user, remember=True)
         flash(f"Your account has been created! You are now logged in!", "success")
-        return redirect(url_for("account"))
+        return redirect(url_for("customerAccount"))
 
     return render_template(
         'authentication/register.html', 
@@ -59,7 +60,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('account'))
+        return redirect(url_for('customerAccount'))
     google = get_google_auth()
     auth_url, state = google.authorization_url(Auth.AUTH_URI, access_type='offline')
     session['oauth_state'] = state
@@ -69,7 +70,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
             next_page = request.args.get("next")
-            return redirect(next_page) if next_page else redirect(url_for('account'))
+            return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
         else:
             flash("Login Unsuccessful. Please check email and password", "danger")
 
@@ -119,6 +120,41 @@ def callback():
             return redirect(url_for('home'))
         return 'Could not fetch your information.'
 
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request', sender='213587x@gmail.com', recipients=[user.email])
+    msg.body = f"To reset your password, visit the following link:\n{url_for('reset_token', token=token, _external=True)}\nIf you did not make this request then simply ignore this email and no changes will be made."
+    mail.send(msg)
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_reqeust():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = Customer.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash("An email has been sent with instructions to reset your password.", "info")
+        return redirect(url_for('home'))
+    return render_template('authentication/reset_request.html', title='Reset Password', form=form)
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    user = Customer.verify_reset_token(token)
+    if user is None:
+        flash('Thas is an invalid or expires token', 'warning')
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash(f"Your password has been updated! You are now able to login.", "success")
+        return redirect(url_for("login"))
+
+    return render_template('authentication/reset_token.html', title='Reset Password', form=form)
 
 
 @app.route('/logout')
@@ -151,7 +187,7 @@ def editCustomerAccount():
         current_user.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         db.session.commit()
         flash('Your account details have been updated!', 'success')
-        redirect(url_for('account'))
+        redirect(url_for('customerAccount'))
 
     return render_template(
         'customer/editAccount.html', 
