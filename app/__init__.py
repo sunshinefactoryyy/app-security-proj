@@ -7,6 +7,7 @@ from flask_mail import Mail
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ab2d494b73d4d8ee5ef8f28b5d575bcd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -19,5 +20,4 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = '213587x@gmail.com'
 app.config['MAIL_PASSWORD'] = 'GrM_Hp3BsmM3VwR'
 mail = Mail(app)
-
 from app import routes
