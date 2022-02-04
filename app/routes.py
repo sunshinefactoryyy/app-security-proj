@@ -73,7 +73,7 @@ def login():
             flash("Login Unsuccessful. Please check email and password", "danger")
 
     return render_template(
-        'login.html',
+        'authentication/login.html',
         title='Login',
         form=form, 
         auth_url=auth_url
