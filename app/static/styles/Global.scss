@@ -16,8 +16,16 @@ section {
 
 /*navbar.html*/
 /*Custom css for navbar*/
-.active {
-  background-color: #fff;
+.fixed-top {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.changeColor {
+  background: rgba(255, 255, 255, 0.7);
+  transition-timing-function: linear;
+  transition: ease-in-out 0.25s;
 }
 
 .nav-item-container {
