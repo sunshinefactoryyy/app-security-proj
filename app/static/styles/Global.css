@@ -137,7 +137,6 @@ section {
 
 #main .workflow {
   background-color: #202731;
-  /*For medium devices, 768px width and below*/
 }
 
 #main .workflow #bottom-tilt {
@@ -169,25 +168,7 @@ section {
   padding: 1em;
 }
 
-@media (max-width: 768px) {
-  #main .workflow .workflow-content {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-flex: flex-wrap;
-        -ms-flex: flex-wrap;
-            flex: flex-wrap;
-  }
-  #main .workflow .workflow-content .card:hover {
-    -webkit-transform: none;
-            transform: none;
-    -webkit-transition: none;
-    transition: none;
-  }
-}
-
-#main .workflow .workflow-content {
+#main .workflow #card-section {
   margin-top: 20px;
   -webkit-column-gap: 4em;
           column-gap: 4em;
@@ -196,32 +177,24 @@ section {
   display: flex;
 }
 
-#main .workflow .workflow-content .card > * {
+#main .workflow #card-section .card > * {
   margin: 20px auto 0 auto;
 }
 
-#main .workflow .workflow-content .card:hover {
+#main .workflow #card-section .card:hover {
   -webkit-transform: translate(0, -15px);
           transform: translate(0, -15px);
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-#main .workflow .workflow-content .card {
-  height: 600px;
-  width: 280px;
+#main .workflow #card-section .card {
   background-color: #e7e7e7;
   border-radius: 25px;
   -webkit-filter: drop-shadow(10px 5px 2px #444444);
           filter: drop-shadow(10px 5px 2px #444444);
   -webkit-transition: 0.2s;
   transition: 0.2s;
-}
-
-#main .workflow .workflow-content .card .card-body svg {
-  height: 100px;
-  width: 100px;
-  margin-bottom: 10px;
 }
 
 #main .workflow .workflow-content > * {

@@ -168,20 +168,7 @@ section {
       padding: 1em;
     }
 
-    /*For medium devices, 768px width and below*/
-    @media (max-width: 768px) {
-      .workflow-content {
-        flex-direction: column;
-        flex: flex-wrap;
-
-        .card:hover {
-          transform: none;
-          transition: none;
-        }
-      }
-    }
-
-    .workflow-content {
+    #card-section {
       margin-top: 20px;
       column-gap: 4em;
       display: flex;
@@ -196,20 +183,10 @@ section {
       }
 
       .card {
-        height: 600px;
-        width: 280px;
         background-color: rgb(231, 231, 231);
         border-radius: 25px;
         filter: drop-shadow(10px 5px 2px rgb(68, 68, 68));
         transition: 0.2s;
-
-        .card-body {
-          svg {
-            height: 100px;
-            width: 100px;
-            margin-bottom: 10px;
-          }
-        }
       }
     }
 
