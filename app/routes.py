@@ -133,7 +133,7 @@ def send_reset_email(user):
     mail.send(msg)
 
 @app.route('/reset_password', methods=['GET', 'POST'])
-def reset_reqeust():
+def reset_request():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = RequestResetForm()
@@ -150,7 +150,7 @@ def reset_token(token):
         return redirect(url_for('home'))
     user = Customer.verify_reset_token(token)
     if user is None:
-        flash('Thas is an invalid or expires token', 'warning')
+        flash('That is an invalid or expires token', 'warning')
         return redirect(url_for('reset_request'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
@@ -319,81 +319,7 @@ def delete_part(part_id):
     flash('The part has been deleted.', 'success')
     redirect(url_for(
         'inventory.html'
-        )
-    )
-
-@app.route('/login/callback')
-def callback():
-    if current_user is not None and current_user.is_authenticated:
-        return redirect(url_for('home'))
-    if 'error' in request.args:
-        if request.args.get('error') == 'access_denied':
-            return 'You denied access.'
-        return 'Error encountered.'
-    if 'code' not in request.args and 'state' not in request.args:
-        return redirect(url_for('login'))
-    else:
-        google = get_google_auth(state=session.get('oauth_state'))
-        try:
-            token = google.fetch_token(
-                Auth.TOKEN_URI,
-                client_secret=Auth.CLIENT_SECRET,
-                authorization_response=request.url)
-        except HTTPError:
-            return 'HTTPError occurred.'
-        google = get_google_auth(token=token)
-        resp = google.get(Auth.USER_INFO)
-        if resp.status_code == 200:
-            user_data = resp.json()
-            email = user_data['email']
-            user = Customer.query.filter_by(email=email).first()
-            if user is None:
-                user = Customer()
-                user.email = email
-            user.username = user_data['name']
-            user.tokens = json.dumps(token)
-            user.avatar = user_data['picture']
-            db.session.add(user)
-            db.session.commit()
-            login_user(user)
-            return redirect(url_for('home'))
-        return 'Could not fetch your information.'
-
-def send_reset_email(user):
-    token = user.get_reset_token()
-    msg = Message('Password Reset Request', sender='213587x@gmail.com', recipients=[user.email])
-    msg.body = f"To reset your password, visit the following link:\n{url_for('reset_token', token=token, _external=True)}\nIf you did not make this request then simply ignore this email and no changes will be made."
-    mail.send(msg)
-
-@app.route('/reset_password', methods=['GET', 'POST'])
-def reset_request():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    form = RequestResetForm()
-    if form.validate_on_submit():
-        user = Customer.query.filter_by(email=form.email.data).first()
-        send_reset_email(user)
-        flash("An email has been sent with instructions to reset your password.", "info")
-        return redirect(url_for('home'))
-    return render_template('reset_request.html', title='Reset Password', form=form)
-
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
-def reset_token(token):
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    user = Customer.verify_reset_token(token)
-    if user is None:
-        flash('That is an invalid or expires token', 'warning')
-        return redirect(url_for('reset_request'))
-    form = ResetPasswordForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user.password = hashed_password
-        db.session.commit()
-        flash(f"Your password has been updated! You are now able to login.", "success")
-        return redirect(url_for("login"))
-
-    return render_template('reset_token.html', title='Reset Password', form=form)
+        ))
 
 @app.route('/account')
 @login_required
