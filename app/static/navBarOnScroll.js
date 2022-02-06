@@ -1,12 +1,12 @@
 
 jQuery(function ($) {
-    var $navbar = $('.fixed-top');
+    var $navBar = $('.fixed-top');
     $(window).scroll(function (event) {
         var $current = $(this).scrollTop();
         if ($current > $(window).height()) {
-            $navbar.addClass('changeColor');
+            $navBar.addClass('changeColor');
         } else {
-            $navbar.removeClass('changeColor');
+            $navBar.removeClass('changeColor');
         }
     });
 });

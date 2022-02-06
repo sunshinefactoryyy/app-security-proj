@@ -168,9 +168,23 @@ section {
       padding: 1em;
     }
 
+    /*For medium devices, 768px width and below*/
+    @media (max-width: 768px) {
+      .workflow-content {
+        flex-direction: column;
+        flex: flex-wrap;
+
+        .card:hover {
+          transform: none;
+          transition: none;
+        }
+      }
+    }
+
     .workflow-content {
       margin-top: 20px;
       column-gap: 4em;
+      display: flex;
 
       .card > * {
         margin: 20px auto 0 auto;
@@ -182,9 +196,8 @@ section {
       }
 
       .card {
-        height: 500px;
-        width: 388px;
-        max-width: 30vw;
+        height: 600px;
+        width: 280px;
         background-color: rgb(231, 231, 231);
         border-radius: 25px;
         filter: drop-shadow(10px 5px 2px rgb(68, 68, 68));
@@ -198,6 +211,10 @@ section {
           }
         }
       }
+    }
+
+    .workflow-content > * {
+      flex: 1 1 10em;
     }
   }
 

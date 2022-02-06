@@ -13,9 +13,19 @@ import json
 # Public Routes
 @app.route('/')
 def home():
+    procedure = [{'title': 'Request for repair',
+                  'icon': "bi bi-tools",
+                  'desc': 'Sign up for a free account on our website. You can either pay the stated flat price, or request for a quote with our free diagnostics. All payments are done online. Either physically drop off your item, or use our 2-way delivery service & await the status of your item.'},
+                  {'title': 'Await for item status',
+                  'icon': "bi bi-clipboard-check",
+                  'desc': 'Check your account on this website for constant updates on your item. You may also choose your preferred mode of communication. If needed, you can interact with our chatbot or call our hotline (+65 9812 3456).'},
+                  {'title': 'Collect repaired item',
+                  'icon': "bi bi-truck",
+                  'desc': 'After your item has been repaired, you can physically collect it or via delivery to your house.'},]
     return render_template(
         'public/home.html', 
-        title='Home'
+        title='Home',
+        procedure = procedure
     )
 
 @app.route('/about')
