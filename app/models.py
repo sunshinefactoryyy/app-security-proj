@@ -58,7 +58,6 @@ class Inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     productName = db.Column(db.String(100), nullable=False)
     productID = db.Column(db.Integer, primary_key=True)
-    # image = db.Column(db.)
     repairStatus = db.Column(db.String(20), nullable=False)
     repairCost = db.Column(db.Float, nullable=True)
     issueDes = db.Column(db.String(300), nullable=False)
