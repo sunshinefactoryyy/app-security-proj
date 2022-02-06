@@ -17,7 +17,7 @@ class RegistrationForm(FlaskForm):
     email = StringField("Email Address", validators=[DataRequired(), Email(message='Invalid email')])
     password = PasswordField("Password", validators=[DataRequired(), Length(min=8, max=20)])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
-    terms_and_conditions = BooleanField("I agree to the Terms & Conditions")
+    terms_and_conditions = BooleanField("I agree to the Terms & Conditions", validators=[DataRequired()])
     submit = SubmitField("Sign Up")
 
     def validate_username(self, username):
@@ -139,12 +139,13 @@ class CustomerRequestForm(FlaskForm):
     price = SelectField('Price', [validators.DataRequired()], choices = [('1','300.00'),('0', 'Get A Quote')], default='')
 
     delivery = SelectField('Doorstep Delivery', [validators.DataRequired()], choices = [('1','10.00'),('0', 'No')], default='')
-    submit = SubmitField('Confirm Order')      
+    submit = SubmitField('Confirm Order')
+    
 class RequestResetForm(FlaskForm):
     email = StringField("Email Address", validators=[DataRequired(), Email()])
     submit = SubmitField("Request Password Reset")
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
+        user = Customer.query.filter_by(email=email.data).first()
         if user is None:
             raise ValidationError("There is no account with that email. You must register first.")
             

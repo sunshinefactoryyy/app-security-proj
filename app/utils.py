@@ -1,6 +1,7 @@
 from requests_oauthlib import OAuth2Session
 from app.config import Auth
-from app import mail
+import string
+import secrets
 
 def get_google_auth(state=None, token=None):
     if token:
@@ -16,3 +17,12 @@ def get_google_auth(state=None, token=None):
         scope=Auth.SCOPE)
     return oauth
 
+def generate_password():
+    alphabet = string.ascii_letters + string.digits
+    while True:
+        password = ''.join(secrets.choice(alphabet) for i in range(8))
+        if (any(c.islower() for c in password)
+                and any(c.isupper() for c in password)
+                and sum(c.isdigit() for c in password) >= 3):
+            break
+    return password
