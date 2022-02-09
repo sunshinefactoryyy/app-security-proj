@@ -19,7 +19,7 @@ class AccountCredentials(db.Model, UserMixin):
     # id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
     username = db.Column(db.String(20), unique=True, nullable=False) # String should be cap 20
-    picture = db.Column(db.String(200), nullable=False)
+    picture = db.Column(db.String(200))
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone_no = db.Column(db.String(20), unique=True)
     address = db.Column(db.String(200))
@@ -51,7 +51,7 @@ class Employee(AccountCredentials):
 class Request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     productName = db.Column(db.String(20), nullable=False)
-    productID = db.Column()
+    # productID = db.Column()
 
 
 class Inventory(db.Model):
