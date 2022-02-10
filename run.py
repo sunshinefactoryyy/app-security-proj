@@ -1,14 +1,18 @@
 from app import app
-from livereload import Server
+from threading import Thread
+from os import system
 
-if __name__ == '__main__':
+def run():
     # macOS/Linux
-    # app.run(debug=True, ssl_context=('./ssl.crt', './ssl.key'))
+    app.run(debug=True, ssl_context=('./ssl.crt', './ssl.key'), use_reloader=False)
     
     # Windows
     # app.run(debug=True, ssl_context=('.\\ssl.crt', '.\\ssl.key'))
     
-    # Auto Reload Browser (Don't Login with Google)
-    app.debug = True
-    server = Server(app.wsgi_app)
-    server.serve()
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
+if __name__ == '__main__':
+    keep_alive()
+    system("npm run dev")
