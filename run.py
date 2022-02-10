@@ -7,7 +7,7 @@ def run():
     app.run(debug=True, ssl_context=('./ssl.crt', './ssl.key'), use_reloader=False)
     
     # Windows
-    # app.run(debug=True, ssl_context=('.\\ssl.crt', '.\\ssl.key'))
+    # app.run(debug=True, ssl_context=('.\\ssl.crt', '.\\ssl.key', use_reloader=False))
     
 def keep_alive():
     t = Thread(target=run)
