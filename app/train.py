@@ -10,7 +10,7 @@ trainer.train(['How do I contact Vision Core?', 'Apart from our hotline that is 
 trainer.train(['What steps are involved when I decide to repair with Vision Core?', '1. Request for repair -> 2. Await for item status -> 3.Collect repair item'])
 trainer.train(['What are the payment methods accepted?', 'We accept Paypal, Mastercard or your preferred bank app.'])
 trainer.train(['How much is two-way delivery fee?', 'Two-way delivery fee has a $10 flat fee.'])
-trainer.train([''])
+trainer.train(['What to do when I cannot drop off the product myself?', 'No problem! Just engage our two-way delivery service that will deliver to and from your doorstep at any time slot you choose.'])
 trainer.train(['Thank you', "You're welcome!"])
 trainer.train(['Thank you', 'I got you buddy!'])
 trainer = ChatterBotCorpusTrainer #allows the chat bot to be trained using data from the ChatterBot dialog corpus.
