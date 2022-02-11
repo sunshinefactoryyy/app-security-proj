@@ -761,4 +761,66 @@ section {
   cursor: pointer;
   outline: none;
 }
+
+/* chatbot styles */
+#chat_heading {
+  display: inline-block;
+  font-size: 3em;
+  margin: 0;
+  padding: 14px;
+}
+#chatbox {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  margin-top: 60px;
+}
+#userInput {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  margin-top: 60px;
+}
+#textInput {
+  width: 90%;
+  border: none;
+  border-bottom: 3px solid black;
+  font-size: 17px;
+}
+.userText {
+  color: white;
+  font-size: 17px;
+  text-align: right;
+  line-height: 30px;
+}
+.userText span {
+  background-color: #808080;
+  padding: 10px;
+  border-radius: 10px;
+}
+.botText {
+  color: white;
+  font-size: 17px;
+  text-align: left;
+  line-height: 30px;
+}
+.botText span {
+  background-color: #2565C7;
+  padding: 10px;
+  border-radius: 10px;
+}
+#tidbit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+}
+.boxed {
+  margin-left: auto;
+  margin-right: auto;
+  width: 78%;
+  margin-top: 60px;
+  border: 0.5px solid #2565C7;
+  border-radius: 10px;
+}
 /*# sourceMappingURL=Global.css.map */
