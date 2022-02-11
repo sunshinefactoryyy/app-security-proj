@@ -1,0 +1,1 @@
+/*To collapse the accordion when clicked on*/
