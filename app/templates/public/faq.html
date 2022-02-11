@@ -5,19 +5,16 @@
   <div id="accordion">
     {% for faq in collapse %}
     <div class="card">
-      <div class="card-header" id="headingOne">
-        <h5 class="m-auto">
-          <button class="btn btn-link" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            {{collapse.index(faq)+1}}. {{ faq['question'] }}
-          </button><!--btn-link-->
-        </h5><!--mb-0-->
+      <div class="card-header">
+        <button class="btn btn-primary-outline" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOne">
+          {{collapse.index(faq)+1}}. {{ faq['question'] }}
+        </button><!--card-title-->
       </div><!--card-header-->
-  
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-        <div class="card-body">
-          {{ faq['answer'] }}
-        </div><!--card-body-->
-      </div><!--show-->
+
+      <div class="card-content collapse" id="collapseOne">
+        {{ faq['answer'] }}
+      </div><!--card-content-->
+
     </div><!--card-->
     {% endfor %}
   </div><!--#accordion-->
