@@ -23,11 +23,27 @@ def home():
                   'icon': "bi bi-truck",
                   'desc': 'After your item has been repaired, you can physically collect it or via delivery to your house.'
                   },
-                ]
+            ]
+
+    service = [{'service-title': 'Electronics Repairs',
+                'service-desc': 'We offer repair services for computers, mobile phones, and more. Our repair process is entirely online, and you will receive constant updates on the status of your product! Prices range from $50-$3000 depending on the issue and the product.'
+                },
+                {'service-title': '2-way Delivery Service',
+                'service-desc': 'No time to drop in personally with your computer? No problem! Just engage our two-way delivery service that will deliver to and from your doorstep at any time slot you choose.'
+                },
+                {'service-title': 'Computer Diagnostics',
+                'service-desc': 'Before we give you a quote for your repair, our company offers a free computer diagnosis for all customers regardless of whether you decide to proceed with the repair or not! This is only applicable if you request for a quote.',
+                },
+                {'service-title': 'Contact Us',
+                'service-desc': 'Apart from our hotline that is open during office hours, our website offers a chatbot that allows you to either chat with a bot online or with one of our customer service staff!'
+                }          
+            ]
+
     return render_template(
         'public/home.html', 
         title='Home',
-        procedure = procedure
+        procedure = procedure,
+        service = service
     )
 
 @app.route('/about')
@@ -39,9 +55,20 @@ def about():
 
 @app.route('/faq')
 def faq():
+    collapse = [{'question': 'Question 1',
+                'answer': 'Answer 1'
+                },
+                {'question': 'Question 2',
+                    'answer': 'Answer 2'
+                },
+                {'question': 'Question 3',
+                    'answer': 'Answer 3'
+                }
+            ]
     return render_template(
         'public/faq.html', 
-        title='FAQ'
+        title='FAQ',
+        collapse = collapse
     )
 
 

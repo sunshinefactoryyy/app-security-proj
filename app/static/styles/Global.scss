@@ -23,7 +23,7 @@ section {
 }
 
 .changeColor {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.9);
   transition-timing-function: linear;
   transition: ease-in-out 0.25s;
 }
@@ -92,28 +92,15 @@ section {
   .services {
     background-color: #2565c7;
 
-    .service-title {
-      color: #fff;
-      font-weight: 700;
+    .service-content {
+      .service-container {
+        z-index: 1000;
+      }
     }
 
     .service-content > * {
       margin-top: 100px;
       padding: 1em;
-    }
-
-    .service-content {
-      margin-bottom: 5em;
-
-      .service-container {
-        .service {
-          color: #fff;
-
-          #service-name {
-            font-weight: 500;
-          }
-        }
-      }
     }
 
     #triangle {

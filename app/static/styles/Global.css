@@ -22,7 +22,7 @@ section {
 }
 
 .changeColor {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.9);
   -webkit-transition-timing-function: linear;
           transition-timing-function: linear;
   -webkit-transition: ease-in-out 0.25s;
@@ -91,26 +91,13 @@ section {
   background-color: #2565c7;
 }
 
-#main .services .service-title {
-  color: #fff;
-  font-weight: 700;
+#main .services .service-content .service-container {
+  z-index: 1000;
 }
 
 #main .services .service-content > * {
   margin-top: 100px;
   padding: 1em;
-}
-
-#main .services .service-content {
-  margin-bottom: 5em;
-}
-
-#main .services .service-content .service-container .service {
-  color: #fff;
-}
-
-#main .services .service-content .service-container .service #service-name {
-  font-weight: 500;
 }
 
 #main .services #triangle {

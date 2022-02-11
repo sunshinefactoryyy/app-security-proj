@@ -1,7 +1,26 @@
 {% extends 'base.html' %} 
 {% block content %}
-<div class="container-fluid" id="faq-container">
+<section class="container-fluid" id="faq-container">
   <h1 class="fs-1 fw-bold mt-4 ms-4">FAQ</h1>
-</div>
+  {% for faq in collapse %}
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header" id="card-header">
+          <h5 class="mb-0 fw-bold">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              {{collapse.index(question)+1}}. {{ faq['question'] }}
+            </button><!--btn-link-->
+          </h5><!--mb-0-->
+        </div><!--card-header-->
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            {{ faq['answer'] }}
+          </div><!--card-body-->
+        </div><!--#collapseOne show-->
+      </div><!--card-->
+      {% endfor %}
+    </div><!--accordion-->
+</section>
 
 {% endblock %}

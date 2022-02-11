@@ -38,54 +38,15 @@
     
     <section class="services blue">
         <h1 class="h1 service-title display-6 text-center font-weight-bold">Services We Provide</h1>
-        <div class="service-content">
-            <div class="service-container col-mds-6 d-flex justify-content-around align-items-center bd-highlight">
-                <div class="service s1 col-md-4 order-1">
-                    <h2 class="h2 font-weight-bold display-6" id="service-name">Electronics Repairs</h2>
-                    <p class="description">
-                        We offer repair services for computers, mobile phones, and more. Our
-                        repair process is entirely online, and you will receive constant
-                        updates on the status of your product! Prices range from $50-$3000
-                        depending on the issue and the product.
-                    </p>
-                </div>
-                <!--s1-->
-
-                <div class="service s2 col-md-4 order-2">
-                    <h2 class="h2 font-weight-bold display-6" id="service-name">Two-way Delivery Service</h2>
-                    <p class="description">
-                        No time to drop in personally with your computer? No problem! Just
-                        engage our two-way delivery service that will deliver to and from your
-                        doorstep at any time slot you choose.
-                    </p>
-                </div>
-                <!--s2-->
-            </div>
-            <!--service-container1-->
-
-            <div class="service-container col-mds-6 d-flex justify-content-around align-items-center bd-highlight">
-                <div class="service s3 col-md-4">
-                    <h2 class="h2 font-weight-bold display-6" id="service-name">Computer Diagnostics</h2>
-                    <p class="description">
-                        Before we give you a quote for your repair, our company offers a free
-                        computer diagnosis for all customers regardless of whether you decide
-                        to proceed with the repair or not! This is only applicable if you
-                        request for a quote.
-                    </p>
-                </div>
-                <!--s3-->
-
-                <div class="service s4 col-md-4">
-                    <h2 class="h2 font-weight-bold display-6" id="service-name">Contact Us</h2>
-                    <p class="description">
-                        Apart from our hotline that is open during office hours, our website
-                        offers a chatbot that allows you to either chat with a bot online or
-                        with one of our customer service staff!
-                    </p>
-                </div>
-                <!--s4-->
-            </div>
-            <!--service-container2s-->
+        <div class="service-content d-flex flex-wrap" style="color:white;">
+            {% for summary in service %}
+                <div class="service-container col-md-6 d-flex justify-content-around align-items-center">
+                    <div class="service">
+                        <h2 class="fw-bold display-6">{{service.index(summary)+1}}. {{ summary['service-title'] }}</h2><!--fw-bold-->
+                        <p class="description">{{ summary['service-desc'] }}</p><!--description-->
+                    </div><!--service-->
+                </div><!--service-container-->
+            {% endfor %}
         </div>
         <!--service content-->
 
@@ -123,14 +84,14 @@
         {% for work in procedure %}
             <div class="card col-sm-10 col-md-3 p-1 bg-light mt-1 mx-auto">
                 <div class="card-body">
-                <h5 class="card-title fw-bold text-center">{{procedure.index(work)+1}}. {{ work['title'] }}</h5>
-                <i class="{{ work['icon'] }} d-flex justify-content-center p-2"
-                    style="font-size: 5em;"
-                    >
-                </i>
-                <p class="card-text text-center">{{ work['desc'] }}</p>
+                    <h5 class="card-title fw-bold text-center">{{procedure.index(work)+1}}. {{ work['title'] }}</h5>
+                    <i class="{{ work['icon'] }} d-flex justify-content-center p-2"
+                        style="font-size: 5em;"
+                        >
+                    </i>
+                    <p class="card-text text-center">{{ work['desc'] }}</p>
+                </div>
             </div>
-          </div>
         {% endfor %}
         </div>
         <!--workflow-content-->
