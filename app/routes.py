@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt
-from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm
-from app.models import Customer
+from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, NewInventoryItem
+from app.models import Customer, Inventory
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -123,7 +123,7 @@ def deactivateAccount():
     flash('Account has been successfully deleted!', 'success')
     return redirect(url_for('home'))
 
-@app.route('/cusReq')
+@app.route('/my-requests')
 @login_required
 def customerRequest():
     return render_template(
@@ -135,18 +135,33 @@ def customerRequest():
 
 
 # Employee Routes
-@app.route('/employeeInformation')
+@app.route('/employee-information')
 def employeeInformation():
     return render_template(
         'employee/account.html', 
         title='Employee Account'
     )
 
-@app.route('/requestManagement')
+@app.route('/request-management')
 def requestManagement():
     return render_template(
         'employee/request.html', 
         title='Customer Requests'
+    )
+
+@app.route('/inventory')
+def inventoryManagement():
+    form = NewInventoryItem()
+    if form.validate_on_submit():
+        item = Inventory(name=form.name.data, descriprion=form.description.data, quantity=form.quantity.data)
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('inventoryManagement'))
+
+    return render_template(
+        'employee/inventory.html',
+        title='Inventory Management',
+        form=form
     )
 
 

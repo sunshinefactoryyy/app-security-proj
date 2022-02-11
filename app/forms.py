@@ -90,3 +90,9 @@ class CustomerRequestForm(FlaskForm):
 
     delivery = SelectField('Doorstep Delivery', [validators.DataRequired()], choices = [('1','10.00'),('0', 'No')], default='')
     submit = SubmitField('Confirm Order')
+
+class NewInventoryItem(FlaskForm):
+    name = StringField("Part Name", validators=[DataRequired()])
+    description = TextAreaField("Part Description", validators=[DataRequired()])
+    quantity = StringField("Quantity", validators=[DataRequired()])
+    submit = SubmitField('Add Part')
