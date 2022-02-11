@@ -17,11 +17,11 @@ class AccountCredentials(db.Model, UserMixin):
     # password = db.Column(db.String(60), nullable=False)
     
     # id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow())
+    creation_datetime = db.Column(db.DateTime, default=datetime.utcnow())
     username = db.Column(db.String(20), unique=True, nullable=False) # String should be cap 20
     picture = db.Column(db.String(200))
     email = db.Column(db.String(100), unique=True, nullable=False)
-    phone_no = db.Column(db.String(20), unique=True)
+    contact_no = db.Column(db.String(20), unique=True)
     address = db.Column(db.String(200))
     password = db.Column(db.String(60), nullable=False)
     tokens = db.Column(db.Text)
@@ -54,6 +54,7 @@ class Request(db.Model):
 
 
 class Inventory(db.Model):
+    __tablename__ = 'inventory'
     id = db.Column(db.Integer, primary_key=True)
     productName = db.Column(db.String(100), nullable=False)
     productID = db.Column(db.Integer, primary_key=True)
@@ -102,8 +103,9 @@ class User(db.Model, UserMixin):
         role = dict((v, k) for k, v in ACCESS.items())[self.access].capitalize()
         return f"{role}('{self.username}', '{self.email}', '{self.password}')"
 
-class Inventory(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(120), unique = True, nullable = False)
-    description = db.Column(db.String(420), nullable = False)
-    quantity = db.Column(db.String(20), nullable = False)
+# class Inventory(db.Model):
+#     __tablename__ = 'inventory'
+#     id = db.Column(db.Integer, primary_key = True)
+#     name = db.Column(db.String(120), unique = True, nullable = False)
+#     description = db.Column(db.String(420), nullable = False)
+#     quantity = db.Column(db.String(20), nullable = False)

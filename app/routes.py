@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, session, abort
 from app import app, db, bcrypt, mail
-from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, inventoryForm
+from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, inventoryForm, CustomerRequestForm, NewInventoryItem
 from app.models import Customer, Inventory
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
@@ -211,8 +211,12 @@ def customerAccount():
         title='My Information', 
         navigation='Account',
         userData={
+            'picture' : current_user.picture,
             'username' : current_user.username,
-            'email' : current_user.email
+            'email' : current_user.email,
+            'contact_no' : current_user.contact_no,
+            'address' : current_user.address,
+            'creation_datetime' : current_user.creation_datetime.strftime(r'%Y-%m-%d %H:%M'),
         }
     )
 

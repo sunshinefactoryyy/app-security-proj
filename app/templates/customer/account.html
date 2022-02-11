@@ -18,13 +18,13 @@
             {% with label='Email', data=userData['email'] %}
                 {% include '/includes/accountDetailGridItem.html' %}
             {% endwith %}
-            {% with label='Contact number', data=userData['email'] %}
+            {% with label='Contact number', data=userData['contact_no'] %}
                 {% include '/includes/accountDetailGridItem.html' %}
             {% endwith %}
-            {% with label='Address', data=userData['email'] %}
+            {% with label='Address', data=userData['address'] %}
                 {% include '/includes/accountDetailGridItem.html' %}
             {% endwith %}
-            {% with label='Account creation date', data=userData['email'] %}
+            {% with label='Account creation date', data=userData['creation_datetime'] %}
                 {% include '/includes/accountDetailGridItem.html' %}
             {% endwith %}
         </div>
