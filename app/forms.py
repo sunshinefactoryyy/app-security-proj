@@ -32,12 +32,13 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("That email is taken. Please choose a different one.")
 
 class UpdateCustomerAccountForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField("Email Address", validators=[DataRequired(), Email(message='Invalid email')])
-    phone_no = StringField("Phone No.", validators=[DataRequired(), Length(min=8, max=20)])
-    address = StringField("Address", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    username = StringField("Username:", validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField("Email Address:", validators=[DataRequired(), Email(message='Invalid email')])
+    contact_no = StringField("Contact number:", validators=[DataRequired(), Length(min=8, max=20)])
+    address = StringField("Address:", validators=[DataRequired()])
+    password = PasswordField("Password:", validators=[DataRequired()])
+    confirm_password = PasswordField("Confirm Password:", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Update")
 
     def validate_username(self, username):

@@ -5,7 +5,7 @@ from app.models import Customer, Inventory
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
-from app.utils import get_google_auth, generate_password, download_picture
+from app.utils import get_google_auth, generate_password, download_picture, save_picture
 from app.config import Auth
 from flask_mail import Message
 import os
@@ -209,11 +209,7 @@ def logout():
 @app.route('/account')
 @login_required
 def customerAccount():
-    picture=current_user.picture if current_user.picture else url_for("static", filename="/src/profile_pics/default.png")
-    username=current_user.username if current_user.username else None
-    email=current_user.email if current_user.email else None
-    phone_no = current_user.phone_no if current_user.phone_no else "None"
-    address = current_user.address if current_user.address else "None"
+    form = UpdateCustomerAccountForm()
     return render_template(
         'customer/account.html', 
         title='My Information', 
@@ -234,9 +230,13 @@ def editCustomerAccount():
     form = UpdateCustomerAccountForm()
     user = current_user
     if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            os.remove(current_user.picture.replace('/static','app/static'))
+            current_user.picture = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
-        current_user.phone_no = form.phone_no.data
+        current_user.contact_no = form.contact_no.data
         current_user.address = form.address.data
         current_user.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         db.session.commit()
@@ -250,7 +250,16 @@ def editCustomerAccount():
         username=current_user.username, 
         email=current_user.email, 
         form=form, 
-        user=current_user
+        user=current_user,
+        userData={
+            'picture' : current_user.picture,
+            'username' : current_user.username,
+            'email' : current_user.email,
+            'contact_no' : current_user.contact_no,
+            'address' : current_user.address,
+            'creation_datetime' : current_user.creation_datetime.strftime(r'%Y-%m-%d %H:%M'),
+        }
+
     )
 
 @app.route('/account/deactivate', methods=["GET", "POST"])
