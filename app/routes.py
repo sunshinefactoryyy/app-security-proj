@@ -8,6 +8,7 @@ import json
 from app.utils import get_google_auth, generate_password, download_picture
 from app.config import Auth
 from flask_mail import Message
+import os
 
 
 
@@ -210,6 +211,7 @@ def editCustomerAccount():
 
 @app.route('/account/deactivate')
 def deactivateAccount():
+    os.remove(current_user.picture.replace('/static','app/static'))
     Customer.query.filter_by(id=current_user.id).delete()
     db.session.commit()
     logout_user()
