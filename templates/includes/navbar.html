@@ -1,0 +1,53 @@
+<div class="container">
+    <nav class="navbar navbar-expand-md navbar-light">
+        <a class="navbar-brand" href="{{url_for('home')}}">
+            Vision Core
+        </a>
+        <button 
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#offcanvasNavbar" 
+            aria-controls="offcanvasNavbar"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Vision Core</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-4">
+                    {% with link='home', label='Home' %}
+                        {% include '/includes/navbarNavigationItem.html' %}
+                    {% endwith %}
+                    {% with link='about', label='About Us' %}
+                        {% include '/includes/navbarNavigationItem.html' %}
+                    {% endwith %}
+                    {% with link='faq', label='FAQ' %}
+                        {% include '/includes/navbarNavigationItem.html' %}
+                    {% endwith %}
+                </ul>
+                <ul class="navbar-nav justify-content-end d-flex">
+                    {% if current_user.is_authenticated %}
+                        {% with link='customerRequest', nav=True, label='Account', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %}
+                        {% with link='logout', nav=True, label='Logout', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %}
+                    {% else %}
+                        {% with link='login', nav=True, label='Login', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %}
+                        {% with link='register', nav=True, label='Sign Up', color='primary' %}
+                            {% include '/includes/customButtonComponent.html' %}
+                        {% endwith %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

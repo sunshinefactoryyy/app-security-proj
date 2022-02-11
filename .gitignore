@@ -6,3 +6,5 @@ app/static/styles/Main.css
 app/site.db
 ssl.crt
 ssl.key
+.env
+.flaskenv

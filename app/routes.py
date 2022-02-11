@@ -5,10 +5,9 @@ from app.models import Customer
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
-from app.utils import get_google_auth, generate_password
+from app.utils import get_google_auth, generate_password, download_picture
 from app.config import Auth
 from flask_mail import Message
-
 
 
 
@@ -112,7 +111,7 @@ def callback():
                 user.email = email
             user.username = user_data['name']
             user.tokens = json.dumps(token)
-            user.picture = user_data['picture']
+            user.picture = download_picture(user_data['picture'])
             user.password = bcrypt.generate_password_hash(generate_password()).decode('utf-8')
             db.session.add(user)
             db.session.commit()
@@ -168,12 +167,20 @@ def logout():
 @app.route('/account')
 @login_required
 def customerAccount():
+    picture=current_user.picture if current_user.picture else url_for("static", filename="/src/profile_pics/default.png")
+    username=current_user.username if current_user.username else None
+    email=current_user.email if current_user.email else None
+    phone_no = current_user.phone_no if current_user.phone_no else "None"
+    address = current_user.address if current_user.address else "None"
     return render_template(
         'customer/account.html', 
         title='Customer Info', 
         navigation='Account',
-        username=current_user.username, 
-        email=current_user.email
+        picture=picture,
+        username=username, 
+        email=email,
+        phone_no=phone_no,
+        address=address
     )
 
 @app.route('/account/edit', methods=['GET', 'POST'])
@@ -184,6 +191,8 @@ def editCustomerAccount():
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.phone_no = form.phone_no.data
+        current_user.address = form.address.data
         current_user.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         db.session.commit()
         flash('Your account details have been updated!', 'success')

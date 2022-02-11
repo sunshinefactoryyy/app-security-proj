@@ -2,6 +2,10 @@ from requests_oauthlib import OAuth2Session
 from app.config import Auth
 import string
 import secrets
+import urllib.request
+import os
+from PIL import Image
+from flask import current_app, url_for
 
 def get_google_auth(state=None, token=None):
     if token:
@@ -26,3 +30,17 @@ def generate_password():
                 and sum(c.isdigit() for c in password) >= 3):
             break
     return password
+
+def download_picture(pic_url):
+    while True:
+        fn = secrets.token_hex(8)
+        fp = f'{current_app.root_path}/static/src/profile_pics/{fn}.jpeg'
+        if not os.path.exists(fp):
+            with open(fp, 'w'): pass
+            break
+    urllib.request.urlretrieve(pic_url, fp)
+    output_size = (250,250)
+    i = Image.open(fp)
+    i.thumbnail(output_size)
+    i.save(fp)
+    return url_for('static', filename=f'src/profile_pics/{fn}.jpeg')

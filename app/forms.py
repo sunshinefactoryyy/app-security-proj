@@ -4,6 +4,7 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, validators
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from app.models import Customer, Employee
+import phonenumbers
 
 class LoginForm(FlaskForm):
     email = StringField("Email Address", validators=[DataRequired(), Email()])
@@ -31,6 +32,8 @@ class RegistrationForm(FlaskForm):
 class UpdateCustomerAccountForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email Address", validators=[DataRequired(), Email(message='Invalid email')])
+    phone_no = StringField("Phone No.", validators=[DataRequired(), Length(min=8, max=20)])
+    address = StringField("Address", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Update")
@@ -46,7 +49,24 @@ class UpdateCustomerAccountForm(FlaskForm):
             user = Customer.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError("That email is taken. Please choose a different one.")
-
+        
+    def validate_phone_no(self, phone_no):
+        if phone_no.data != current_user.phone_no:
+            user = Customer.query.filter_by(phone_no=phone_no.data).first()
+            if user:
+                raise ValidationError("That phone number is taken. Please choose a different one.")
+            else:
+                try:
+                    input_number = phonenumbers.parse(phone_no.data)
+                    if not phonenumbers.is_valid_number(input_number):
+                        raise ValidationError("Invalid phone number.")
+                except:
+                    input_number = phonenumbers.parse(f"+65{phone_no.data}")
+                    if not (phonenumbers.is_valid_number(input_number)):
+                        raise ValidationError("Invalid phone number.")
+        
+    
+    
 class EmployeeCreationForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email Address", validators=[DataRequired(), Email(message='Invalid email')])

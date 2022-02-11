@@ -1,8 +1,5 @@
 from app import app
+from pathlib import Path
 
 if __name__ == '__main__':
-    # macOS/Linux
-    app.run(debug=True, ssl_context=('./ssl.crt', './ssl.key'))
-    
-    # Windows
-    # app.run(debug=True, ssl_context=('.\\ssl.crt', '.\\ssl.key'))
+    app.run(debug=True, ssl_context=(Path('./ssl.crt'), Path('./ssl.key')))

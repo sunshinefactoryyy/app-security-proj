@@ -12,15 +12,12 @@
     <div class="card-body">
         <div class="row">
             <div class="col-6 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                </svg>
-                <!-- <i class="bi bi-person-badge-fill center" style="font-size: 200px;"></i> -->
+                <img src="{{ picture }}" width="250" height="250" alt="profile picture">
             </div>
             <div class="col-6" id="p_info2">
                 <p><b>Email:</b> {{ email }}</p>
-                <p><b> Phone No. :</b> +65 9876 5432   <i class="bi bi-star-fill"></i></p>
-                <p><b>Address:</b> Ang Mo Kio Street 1, Blk 69, #04-20, 696969</p>
+                <p><b> Phone No. :</b> {{ phone_no }}   <i class="bi bi-star-fill"></i></p>
+                <p><b>Address:</b> {{ address }}</p>
             </div>
         </div>
         <div class="row">

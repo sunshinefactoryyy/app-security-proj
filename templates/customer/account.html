@@ -1,0 +1,30 @@
+{% extends "customer/base.html" %}
+{% block title %}Personal Information{% endblock %}
+
+{% block customerContent %}
+<div class="d-flex flex-row align-items-center justify-content-between mb-3">
+    <h1 class="display-6 d-inline-block align-middle" id="p_info_h1">Personal Information</h1>
+    {% with link='editCustomerAccount', label='Edit', color='primary' %}
+        {% include '/includes/customButtonComponent.html' %}
+    {% endwith %}
+</div>
+<div class="card" id="p_card1">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6 text-center">
+                <img src="{{ picture }}" width="250" height="250" alt="profile picture">
+            </div>
+            <div class="col-6" id="p_info2">
+                <p><b>Email:</b> {{ email }}</p>
+                <p><b> Phone No. :</b> {{ phone_no }}   <i class="bi bi-star-fill"></i></p>
+                <p><b>Address:</b> {{ address }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 text-center">
+                <p class="inline-block align-middle" id="cus_name">{{ username }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
