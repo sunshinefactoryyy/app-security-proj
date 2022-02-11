@@ -140,7 +140,7 @@ class CustomerRequestForm(FlaskForm):
 
     delivery = SelectField('Doorstep Delivery', [validators.DataRequired()], choices = [('1','10.00'),('0', 'No')], default='')
     submit = SubmitField('Confirm Order')
-    
+
 class RequestResetForm(FlaskForm):
     email = StringField("Email Address", validators=[DataRequired(), Email()])
     submit = SubmitField("Request Password Reset")
@@ -153,3 +153,9 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Reset Password")
+
+class NewInventoryItem(FlaskForm):
+    name = StringField("Part Name", validators=[DataRequired()])
+    description = TextAreaField("Part Description", validators=[DataRequired()])
+    quantity = StringField("Quantity", validators=[DataRequired()])
+    submit = SubmitField('Add Part')

@@ -12,13 +12,21 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/Main.css') }}"> <!-- import tailwindcss utilities -->
     <link rel= "stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- import bootstrap icons -->
 </head>
-<body>
+<body class="tw-bg-neutral-50">
     <div class="tw-h-screen tw-w-screen tw-flex tw-flex-row">
         {% include 'includes/employeeNavigation.html' %} 
 
-        {% block content %}
-        {% endblock %}
+        <div class="container">
+            <h1 class="fs-1 fw-normal ms-4 my-5">Vision Core</h1>
+            <div class="d-flex flex-column align-items-start justify-content-start mx-5">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
     </div>
+
+    {% block modalContent %}
+    {% endblock %}
 
     {% block scripts %}
     <!-- Popper 2.10.2, Bootstrap 5.1.2 JavaScript -->

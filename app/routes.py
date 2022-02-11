@@ -78,7 +78,7 @@ def faq():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('customerAccount'))
+        return redirect(url_for('customerRequest'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -87,7 +87,7 @@ def register():
         db.session.commit()
         login_user(user, remember=True)
         flash(f"Your account has been created! You are now logged in!", "success")
-        return redirect(url_for("customerAccount"))
+        return redirect(url_for("customerRequest"))
 
     return render_template(
         'authentication/register.html', 
@@ -208,10 +208,12 @@ def logout():
 def customerAccount():
     return render_template(
         'customer/account.html', 
-        title='Customer Info', 
+        title='My Information', 
         navigation='Account',
-        username=current_user.username, 
-        email=current_user.email
+        userData={
+            'username' : current_user.username,
+            'email' : current_user.email
+        }
     )
 
 @app.route('/account/edit', methods=['GET', 'POST'])
@@ -229,7 +231,7 @@ def editCustomerAccount():
 
     return render_template(
         'customer/editAccount.html', 
-        title='Customer Info', 
+        title='My Information', 
         navigation='Account',
         username=current_user.username, 
         email=current_user.email, 
@@ -246,8 +248,7 @@ def deactivateAccount():
     flash('Account has been successfully deleted!', 'success')
     return redirect(url_for('home'))
 
-
-@app.route('/cusReq')
+@app.route('/my-requests')
 @login_required
 def customerRequest():
     form = CustomerRequestForm()
@@ -258,16 +259,43 @@ def customerRequest():
         {'id': 3, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
         {'id': 4, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
     ]
-    return render_template('customer/request.html', title='Customer Request',navigation='Request', prodList = prodList, form=form)
-
+    return render_template(
+        'customer/request.html', 
+        title='Customer Request',
+        navigation='Request', 
+        prodList = prodList, 
+        form=form
+    )
 
 
 # Employee Routes
-@app.route('/employeeInfo')
-def employeeInfo():
+@app.route('/employee-information')
+def employeeInformation():
     return render_template(
         'employee/account.html', 
-        title='Employee Info'
+        title='Employee Account'
+    )
+
+@app.route('/request-management')
+def requestManagement():
+    return render_template(
+        'employee/request.html', 
+        title='Customer Requests'
+    )
+
+@app.route('/inventory')
+def inventoryManagement():
+    form = NewInventoryItem()
+    if form.validate_on_submit():
+        item = Inventory(name=form.name.data, descriprion=form.description.data, quantity=form.quantity.data)
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('inventoryManagement'))
+
+    return render_template(
+        'employee/inventory.html',
+        title='Inventory Management',
+        form=form
     )
 
 

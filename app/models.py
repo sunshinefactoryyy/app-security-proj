@@ -29,7 +29,7 @@ class AccountCredentials(db.Model, UserMixin):
 
 class Customer(AccountCredentials):
     id = db.Column(db.Integer, primary_key = True)
-    
+
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf8')
@@ -42,7 +42,6 @@ class Customer(AccountCredentials):
         except:
             return None
         return Customer.query.get(user_id)
-
 
 class Employee(AccountCredentials):
     id = db.Column(db.Integer, primary_key = True)
@@ -58,14 +57,19 @@ class Inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     productName = db.Column(db.String(100), nullable=False)
     productID = db.Column(db.Integer, primary_key=True)
+    customerID = db.Column(db.Integer, db.ForeignKey('customer.id'))
+    productName = db.Column(db.String(100), nullable=False)
+    # productID = db.Column(db.Integer)
+    # image = db.Column(db.)
     repairStatus = db.Column(db.String(20), nullable=False)
     repairCost = db.Column(db.Float, nullable=True)
-    issueDes = db.Column(db.String(300), nullable=False)
+    description = db.Column(db.String(300), nullable=False)
     warranty = db.Column(db.Boolean, nullable=False)
-    prodPrice = db.Column(db.Boolean, nullable=False)
+    delivery = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
         return f"Inventory('{self.part_name}', '{self.part_quantity}' '{self.part_cost}', '{self.date_posted}')"
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -97,3 +101,9 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         role = dict((v, k) for k, v in ACCESS.items())[self.access].capitalize()
         return f"{role}('{self.username}', '{self.email}', '{self.password}')"
+
+class Inventory(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(120), unique = True, nullable = False)
+    description = db.Column(db.String(420), nullable = False)
+    quantity = db.Column(db.String(20), nullable = False)
