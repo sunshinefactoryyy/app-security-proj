@@ -1,11 +1,11 @@
 <div class="tw-flex tw-flex-col tw-items-center tw-justify-between tw-h-screen tw-w-20 tw-bg-gray-900 tw-rounded-r-2xl">
     <div class="tw-flex tw-flex-col tw-items-center tw-justify-center tw-m-2">
-        <a class="tw-m-2" href="">
+        <a class="tw-m-2" href="{{url_for('requestManagement')}}">
             {% with iconType='', color='' %}
                 {% include '/includes/squareButtonComponent.html' %}
             {% endwith %}
         </a>
-        <a class="tw-m-2" href="">
+        <a class="tw-m-2" href="{{url_for('inventoryManagement')}}">
             {% with iconType='', color='' %}
                 {% include '/includes/squareButtonComponent.html' %}
             {% endwith %}
@@ -16,7 +16,7 @@
             {% endwith %}
         </a>
     </div>
-    <a class="tw-m-4" href="{{url_for('employeeInfo')}}">
+    <a class="tw-m-4" href="{{url_for('employeeInformation')}}">
         {% with iconType='', color='' %}
             {% include '/includes/squareButtonComponent.html' %}
         {% endwith %}

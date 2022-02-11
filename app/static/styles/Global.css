@@ -15,6 +15,20 @@ section {
 
 /*navbar.html*/
 /*Custom css for navbar*/
+.fixed-top {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.changeColor {
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-transition-timing-function: linear;
+          transition-timing-function: linear;
+  -webkit-transition: ease-in-out 0.25s;
+  transition: ease-in-out 0.25s;
+}
+
 .nav-item-container {
   height: 48px;
   padding: 0 8px;
@@ -77,6 +91,10 @@ section {
   background-color: #2565c7;
 }
 
+#main .services .service-content .service-container {
+  z-index: 1000;
+}
+
 #main .services .service-content > * {
   margin-top: 100px;
   padding: 1em;
@@ -137,27 +155,27 @@ section {
   padding: 1em;
 }
 
-#main .workflow .workflow-content {
+#main .workflow #card-section {
   margin-top: 20px;
   -webkit-column-gap: 4em;
           column-gap: 4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-#main .workflow .workflow-content .card > * {
+#main .workflow #card-section .card > * {
   margin: 20px auto 0 auto;
 }
 
-#main .workflow .workflow-content .card:hover {
+#main .workflow #card-section .card:hover {
   -webkit-transform: translate(0, -15px);
           transform: translate(0, -15px);
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-#main .workflow .workflow-content .card {
-  height: 500px;
-  width: 388px;
-  max-width: 30vw;
+#main .workflow #card-section .card {
   background-color: #e7e7e7;
   border-radius: 25px;
   -webkit-filter: drop-shadow(10px 5px 2px #444444);
@@ -166,9 +184,10 @@ section {
   transition: 0.2s;
 }
 
-#main .workflow .workflow-content .card .card-body #icon {
-  height: 150px;
-  width: 200px;
+#main .workflow .workflow-content > * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 10em;
+          flex: 1 1 10em;
 }
 
 #main .footer {
@@ -333,6 +352,12 @@ section {
 .form-container .login #title,
 .form-container .sign_up #title {
   margin-top: 20px;
+  overflow-x: none;
+}
+
+.form-container .login #login,
+.form-container .sign_up #login {
+  border-bottom: none;
 }
 
 .form-container .login form,
@@ -347,57 +372,12 @@ section {
 
 .form-container .login form .form-group,
 .form-container .sign_up form .form-group {
-  position: relative;
-  border-bottom: 2px solid #adadad;
   margin: 30px 0;
 }
 
 .form-container .login form .form-group label,
 .form-container .sign_up form .form-group label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   color: #adadad;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
-  pointer-events: none;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.form-container .login form .form-group input,
-.form-container .sign_up form .form-group input {
-  width: 100%;
-  padding: 0 5px;
-  height: 40px;
-  border: none;
-  outline: none;
-}
-
-.form-container .login form .form-group input:focus ~ label,
-.form-container .login form .form-group input:valid ~ label,
-.form-container .sign_up form .form-group input:focus ~ label,
-.form-container .sign_up form .form-group input:valid ~ label {
-  top: -5px;
-  color: #2691d9;
-}
-
-.form-container .login form .form-group input:focus ~ label::before,
-.form-container .login form .form-group input:valid ~ span::before,
-.form-container .sign_up form .form-group input:focus ~ label::before,
-.form-container .sign_up form .form-group input:valid ~ span::before {
-  width: 100%;
-}
-
-.form-container .login form .form-group span::before,
-.form-container .sign_up form .form-group span::before {
-  content: "";
-  position: absolute;
-  top: 40px;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: #2691d9;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -503,8 +483,12 @@ section {
   margin: auto;
 }
 
-#edit_btn, #reset_btn, #chat_btn, #next_btn, #upload_btn {
-  background-color: #2565C7;
+#edit_btn,
+#reset_btn,
+#chat_btn,
+#next_btn,
+#upload_btn {
+  background-color: #2565c7;
   color: #fff;
   border-radius: 10px;
 }
@@ -516,15 +500,19 @@ section {
   background-color: #888 !important;
 }
 
-#cart_btn, #moreOpt_btn {
-  background-color: #2565C7;
+#cart_btn,
+#moreOpt_btn {
+  background-color: #2565c7;
   color: #fff;
   border-radius: 10px;
   margin-left: 7px;
 }
 
-#back_btn, #checkO_btn, #confirm_btn, #back_btn2 {
-  background-color: #2565C7;
+#back_btn,
+#checkO_btn,
+#confirm_btn,
+#back_btn2 {
+  background-color: #2565c7;
   color: #fff;
   border-radius: 10px;
   vertical-align: middle;
@@ -554,7 +542,7 @@ section {
 }
 
 .bi-question-circle-fill {
-  color: #2565C7;
+  color: #2565c7;
 }
 
 #cus_name {
@@ -579,7 +567,7 @@ section {
   text-align: center;
   display: table-cell;
   vertical-align: middle;
-  background-color: #F0723C;
+  background-color: #f0723c;
   color: #fff;
 }
 
@@ -699,12 +687,14 @@ section {
   list-style-type: none;
 }
 
-#choose_product1, #choose_product2 {
+#choose_product1,
+#choose_product2 {
   height: 88px;
   width: auto;
 }
 
-#modal_content2, #modal_content3 {
+#modal_content2,
+#modal_content3 {
   padding: 60px;
 }
 
@@ -770,5 +760,89 @@ section {
   font-weight: 700;
   cursor: pointer;
   outline: none;
+}
+
+/* chatbot styles */
+#chat_heading {
+  display: inline-block;
+  font-size: 3em;
+  margin: 0;
+  padding: 14px;
+}
+#chatbox {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  margin-top: 60px;
+}
+#userInput {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  margin-top: 60px;
+}
+#textInput {
+  width: 90%;
+  border: none;
+  border-bottom: 3px solid black;
+  font-size: 17px;
+}
+.userText {
+  color: white;
+  font-size: 17px;
+  text-align: right;
+  line-height: 30px;
+}
+.userText span {
+  background-color: #808080;
+  padding: 10px;
+  border-radius: 10px;
+}
+.botText {
+  color: white;
+  font-size: 17px;
+  text-align: left;
+  line-height: 30px;
+}
+.botText span {
+  background-color: #2565C7;
+  padding: 10px;
+  border-radius: 10px;
+}
+#tidbit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+}
+.boxed {
+  margin-left: auto;
+  margin-right: auto;
+  width: 78%;
+  margin-top: 60px;
+  border: 0.5px solid #2565C7;
+  border-radius: 10px;
+}
+
+#sign_up_btn {
+  width: 100%;
+  height: 50px;
+  border: 1px solid;
+  background: #2565c7;
+  border-radius: 10px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+#sign_up_btn:hover {
+  border-color: #2565c7;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
+#sign_up_btn {
+  margin-bottom: 20px;
 }
 /*# sourceMappingURL=Global.css.map */
