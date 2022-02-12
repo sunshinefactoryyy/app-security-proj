@@ -102,8 +102,8 @@ class User(db.Model, UserMixin):
         role = dict((v, k) for k, v in ACCESS.items())[self.access].capitalize()
         return f"{role}('{self.username}', '{self.email}', '{self.password}')"
 
-class Inventory(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(120), unique = True, nullable = False)
-    description = db.Column(db.String(420), nullable = False)
-    quantity = db.Column(db.String(20), nullable = False)
+# class Inventory(db.Model):
+#     id = db.Column(db.Integer, primary_key = True)
+#     name = db.Column(db.String(120), unique = True, nullable = False)
+#     description = db.Column(db.String(420), nullable = False)
+#     quantity = db.Column(db.String(20), nullable = False)
