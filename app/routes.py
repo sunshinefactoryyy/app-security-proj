@@ -313,12 +313,20 @@ def stripe_webhook():
 @login_required
 def customerRequest():
     form = CustomerRequestForm()
+    # form = CustomerRequestForm()
+    img_path = '../static/public/'
+    prodList = [
+        {'id': 1, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'id': 2, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+        {'id': 3, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'id': 4, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+    ]
     return render_template(
         'customer/request.html', 
         title='Customer Request',
         navigation='Request', 
         prodList = prodList, 
-        form=form
+        # form=form
     )
 
 @app.route('/my-requests/cart')
