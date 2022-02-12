@@ -772,13 +772,14 @@ section {
 #chatbox {
   margin-left: auto;
   margin-right: auto;
-  width: 40%;
+  width: 60%;
   margin-top: 60px;
+  overflow: auto;
 }
 #userInput {
   margin-left: auto;
   margin-right: auto;
-  width: 40%;
+  width: 60%;
   margin-top: 60px;
 }
 #textInput {
@@ -792,6 +793,8 @@ section {
   font-size: 17px;
   text-align: right;
   line-height: 30px;
+  margin-bottom: 20px;
+  border-radius: 10px;
 }
 .userText span {
   background-color: #808080;
@@ -803,11 +806,14 @@ section {
   font-size: 17px;
   text-align: left;
   line-height: 30px;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #2565C7;
+  border-radius: 10px;
 }
 .botText span {
-  background-color: #2565C7;
   padding: 10px;
-  border-radius: 10px;
 }
 #tidbit {
   position: absolute;
@@ -822,7 +828,9 @@ section {
   margin-top: 60px;
   border: 0.5px solid #2565C7;
   border-radius: 10px;
+  overflow: auto;
 }
+/* end chatbot styles */
 
 #sign_up_btn {
   width: 100%;

@@ -1,6 +1,5 @@
 from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.trainers import ListTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 
 bot = ChatBot("Johnny", storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
@@ -14,4 +13,4 @@ trainer.train(['What to do when I cannot drop off the product myself?', 'No prob
 trainer.train(['Thank you', "You're welcome!"])
 trainer.train(['Thank you', 'I got you buddy!'])
 trainer = ChatterBotCorpusTrainer #allows the chat bot to be trained using data from the ChatterBot dialog corpus.
-trainer.train("chatterbot.corpus.english")# trainning based on  english greetings and conversations corpora
+trainer.train("chatterbot.corpus.english")
