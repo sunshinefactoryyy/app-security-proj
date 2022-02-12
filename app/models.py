@@ -12,11 +12,6 @@ ACCESS = {'customer': 1,
 
 class AccountCredentials(db.Model, UserMixin):
     __abstract__ = True
-    # username = db.Column(db.String(20), unique=True, nullable=False)
-    # email = db.Column(db.String(120), unique=True, nullable=False)
-    # password = db.Column(db.String(60), nullable=False)
-    
-    # id = db.Column(db.Integer, primary_key=True)
     creation_datetime = db.Column(db.DateTime, default=datetime.utcnow())
     username = db.Column(db.String(20), unique=True, nullable=False) # String should be cap 20
     picture = db.Column(db.String(200))
@@ -29,6 +24,7 @@ class AccountCredentials(db.Model, UserMixin):
 
 class Customer(AccountCredentials):
     id = db.Column(db.Integer, primary_key = True)
+    requests = db.relationship('Request', backref='owner', lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
@@ -45,19 +41,20 @@ class Customer(AccountCredentials):
 
 class Employee(AccountCredentials):
     id = db.Column(db.Integer, primary_key = True)
+    pass
 
 
 class Request(db.Model):
     __tablename__ = 'request'
     id = db.Column(db.Integer, primary_key=True)
+    creation_datetime = db.Column(db.DateTime, default=datetime.utcnow())
     productName = db.Column(db.String(100), nullable=False)
-    productID = db.Column(db.Integer, primary_key=True)
-    customerID = db.Column(db.Integer, db.ForeignKey('customer.id'))
-    repairStatus = db.Column(db.String(20), nullable=False)
+    images = db.Column(db.String(100), nullable=False)
+    customerID = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    repairStatus = db.Column(db.Integer, nullable=False, default=0)
     repairCost = db.Column(db.Float, nullable=True)
     description = db.Column(db.String(300), nullable=False)
-    warranty = db.Column(db.Boolean, nullable=False)
-    delivery = db.Column(db.Boolean, nullable=False)
+    warranty = db.Column(db.Integer, nullable=False)
 
     # productID = db.Column()
 

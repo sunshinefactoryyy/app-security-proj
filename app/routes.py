@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify
 from app import app, db, bcrypt, mail, stripe_keys
 from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, inventoryForm, CustomerRequestForm, NewInventoryItem
-from app.models import Customer, Inventory
+from app.models import Customer, Inventory, Request
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
@@ -10,6 +10,7 @@ from app.config import Auth
 from flask_mail import Message
 import os
 import stripe
+# from app.train import bot
 
 
 
@@ -210,13 +211,13 @@ def logout():
 @app.route('/account')
 @login_required
 def customerAccount():
-    form = UpdateCustomerAccountForm()
+    path = 'static/src/profile_pics/'
     return render_template(
         'customer/account.html', 
         title='My Information', 
         navigation='Account',
         userData={
-            'picture' : current_user.picture,
+            'picture' : path+current_user.picture,
             'username' : current_user.username,
             'email' : current_user.email,
             'contact_no' : current_user.contact_no,
@@ -265,7 +266,7 @@ def editCustomerAccount():
 
 @app.route('/account/deactivate', methods=["GET", "POST"])
 def deactivateAccount():
-    os.remove(current_user.picture.replace('/static','app/static'))
+    os.remove('app/static/src/profile_pics/'+current_user.picture)
     deleted_user_id=current_user.id
     logout_user()
     Customer.query.filter_by(id=deleted_user_id).delete()
@@ -277,8 +278,8 @@ img_path = '../static/public/'
 prodList = [
     {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
     {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    # {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    # {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
 ]
 
 @app.route('/config')
@@ -309,6 +310,7 @@ def stripe_webhook():
         redirect(url_for('home'))
 
     return "Success", 200
+
 @app.route('/my-requests')
 @login_required
 def customerRequest():
@@ -317,17 +319,26 @@ def customerRequest():
         'customer/request.html', 
         title='Customer Request',
         navigation='Request', 
-        prodList = prodList, 
+        prodList=prodList, 
         form=form
     )
 
-@app.route('/my-requests/cart')
+@app.route('/my-requests/cart', methods=['GET', 'POST'])
 @login_required
 def customerCart():
     form = CustomerRequestForm()
     if form.validate_on_submit():
-        save_picture(form.images.data, path='static/src/request-images')
-        return redirect(url_for('inventoryManagement'))
+        image_folder = save_picture(form.images.data, path='static/src/request_imgs', seperate=True)
+        new_request = Request(productName=form.productName.data,
+                       images=image_folder, 
+                       repairCost=300,
+                       description=form.issueDesc.data, 
+                       warranty=form.warranty.data,
+                       owner=current_user)
+        db.session.add(new_request)
+        db.session.commit()
+        flash(f"Your request has been created!", "success")
+        return redirect(url_for("customerRequest"))
 
     return render_template('customer/cart.html', prodList=prodList, form=form)
 

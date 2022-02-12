@@ -42,7 +42,7 @@ def download_picture(pic_url):
     urllib.request.urlretrieve(pic_url, fp)
     i = Image.open(fp)
     i.save(fp)
-    return url_for('static', filename=f'src/profile_pics/{fn}.jpeg')
+    return f'{fn}.jpeg'
 
 def save_picture(form_picture, path, seperate=False):
     if seperate:
@@ -59,7 +59,7 @@ def save_picture(form_picture, path, seperate=False):
             i = Image.open(form_picture)
             i.thumbnail(output_size)
             i.save(picture_path)
-        return url_for('static', filename=f'src/request-images/{folder_fn}')
+        return folder_fn
     else:
         random_hex = secrets.token_hex(8)
         _, f_ext = os.path.splitext(form_picture.filename)
@@ -70,4 +70,4 @@ def save_picture(form_picture, path, seperate=False):
         i.thumbnail(output_size)
         i.save(picture_path)
 
-    return url_for('static', filename=f'src/profile_pics/{picture_fn}')
+    return picture_fn
