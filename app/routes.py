@@ -272,17 +272,18 @@ def deactivateAccount():
     flash('Account has been successfully deleted!', 'success')
     return redirect(url_for('home'))
 
+img_path = '../static/public/'
+prodList = [
+    {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+]
+
 @app.route('/my-requests')
 @login_required
 def customerRequest():
     form = CustomerRequestForm()
-    img_path = '../static/public/'
-    prodList = [
-        {'id': 1, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
-        {'id': 2, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
-        {'id': 3, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
-        {'id': 4, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
-    ]
     return render_template(
         'customer/request.html', 
         title='Customer Request',
@@ -291,6 +292,11 @@ def customerRequest():
         form=form
     )
 
+@app.route('/my-requests/cart')
+@login_required
+def customerCart():
+    form = CustomerRequestForm()
+    return render_template('customer/cart.html', prodList=prodList, form=form)
 
 # Employee Routes
 @app.route('/employee-information')
@@ -334,20 +340,6 @@ def chatbot():
 #     return str(bot.get_response(userText))
 
 
-# Error Handling
-@app.errorhandler(404)
-def notFound():
-    return render_template(
-        '404.html', 
-        title='404 - Page not found'
-    )
-
-
-# Clear Cache
-@app.after_request
-def add_header(response):
-    response.headers['Cache-Control'] = 'no-store'
-    return response
 
 @app.route('/inventory')
 @login_required
@@ -424,6 +416,15 @@ def delete_part(part_id):
 def account():
     return render_template('account.html', title='Customer Info', username=current_user.username, email=current_user.email)
 
+
+# Error Handling
+@app.errorhandler(404)
+def notFound():
+    return render_template(
+        '404.html', 
+        title='404 - Page not found'
+    )
+
 @app.errorhandler(403)
 def error_403(e):
     return render_template('errors/403.html'), 403
@@ -432,6 +433,12 @@ def error_403(e):
 def error_500(e):
     return render_template('errors/500.html'), 500
 
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store'
+    return response
+
+# Clear Cache
 @app.after_request
 def add_header(response):
     response.headers['Cache-Control'] = 'no-store'

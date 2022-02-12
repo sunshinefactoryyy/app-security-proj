@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center mt-3 mb-5">
+    <div class="border border-5 border-secondary bg-white border-top-0 border-start-0 py-3 px-5">
+        <h1 class="display-6 fw-bold d-inline-block align-middle ms-4 my-3">Add to Cart</h1>
+        <div class="d-flex justify-content-center mb-3">
+            <input type="search" class="form-control" placeholder="Search..." aria-label="Search" style="width:50em;">
+            <i class="bi bi-search ms-2" style="font-size:1.5em;"></i>
+        </div>
+        <div class="prodList d-flex flex-wrap justify-content-around">
+            {% for prod in prodList %}
+                <div class="card col-5 my-3">
+                    <img src={{ prod['img'] }} class="card-img-top mt-2 ms-2" alt="..." style="height:10em;width:10em;">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ prod['name'] }}</h5>
+                    <p class="card-text">{{ prod['desc'] }}</p>
+                    <a class="btn btn-primary mt-3" data-toggle="modal" data-target="#prodModal{{prodList.index(prod)+1}}">
+                        Add to Cart
+                    </a>
+                    </div>
+                </div>
+                <div class="modal fade" id="prodModal{{prodList.index(prod)+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog d-flex justify-content-center align-items-center" role="document">
+                      <div class="modal-content" style="position:absolute;height:80vh;width:70vw;top:-4em">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel" style="margin-top:-1em;">{{ prod['name'] }}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}
+                                <div class="d-flex">
+                                    <div class="form-group">
+                                        {{ form.image.label() }}<br>
+                                        <i class="bi bi-images" style="font-size:5em;"></i><br>
+                                        {{ form.image(class="form-control-file") }}
+                                        {% if form.image.errors %}
+                                            {% for error in form.image.errors %}
+                                                <span class="text-danger">{{ error }}</span></br>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="right mt-4">
+                                        <div class="form-group">
+                                            {{ form.warranty.label() }}
+                                            {% if form.warranty.errors %}
+                                                {% for error in form.warranty.errors %}
+                                                    <span class="text-danger">{{ error }}</span></br>
+                                                {% endfor %}
+                                            {% endif %}
+                                            <br>
+                                            <div class="input-group-prepend d-flex">
+                                                {% for subfield in form.warranty %}
+                                                    <td>{{ subfield(style='display:none;') }}</td>
+                                                    <a class="btn {{'btn-outline-success' if subfield.label.text == 'Active' else 'btn-outline-danger'}} mx-1" id={{ subfield.label.text }} onclick="changeBtn(this.id)">{{ subfield.label }}</a>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            {{ form.price.label() }}
+                                            {% if form.price.errors %}
+                                                {% for error in form.price.errors %}
+                                                    <span class="text-danger">{{ error }}</span></br>
+                                                {% endfor %}
+                                            {% endif %}
+                                            <br>
+                                            <div class="input-group-prepend d-flex">
+                                                {% for subfield in form.price %}
+                                                    <td>{{ subfield(style='display:none;') }}</td>
+                                                    <a class="btn {{'btn-outline-secondary' if subfield.label.text == 'S$300' else 'btn-outline-info'}} mx-1" id={{ subfield.label.text }} onclick="changeBtn(this.id)">{{ subfield.label }}</a>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        function changeBtn(id) {
+                                            element = document.getElementById(id)
+                                            if (id == 'Active') {
+                                                if (element.classList.contains('btn-outline-success')) {
+                                                    element.classList.remove('btn-outline-success')
+                                                    element.classList.add('btn-success')
+                                                    if (document.getElementById('Expired').classList.contains('btn-danger')) {
+                                                        document.getElementById('Expired').classList.remove('btn-danger')
+                                                        document.getElementById('Expired').classList.add('btn-outline-danger')
+                                                    }    
+                                                } else {
+                                                    element.classList.remove('btn-success')
+                                                    element.classList.add('btn-outline-success')
+                                                }
+                                            }
+                                            else if (id == 'Expired') {
+                                                if (element.classList.contains('btn-outline-danger')) {
+                                                    element.classList.remove('btn-outline-danger')
+                                                    element.classList.add('btn-danger')
+                                                    if (document.getElementById('Active').classList.contains('btn-success')) {
+                                                        document.getElementById('Active').classList.remove('btn-success')
+                                                        document.getElementById('Active').classList.add('btn-outline-success')
+                                                    }    
+                                                } else {
+                                                    element.classList.remove('btn-danger')
+                                                    element.classList.add('btn-outline-danger')
+                                                }
+                                            }
+                                            else if (id == 'S$300') {
+                                                if (element.classList.contains('btn-outline-secondary')) {
+                                                    element.classList.remove('btn-outline-secondary')
+                                                    element.classList.add('btn-secondary')
+                                                    if (document.getElementById('Get').classList.contains('btn-info')) {
+                                                        document.getElementById('Get').classList.remove('btn-info')
+                                                        document.getElementById('Get').classList.add('btn-outline-info')
+                                                    }    
+                                                } else {
+                                                    element.classList.remove('btn-secondary')
+                                                    element.classList.add('btn-outline-secondary')
+                                                }
+                                            }
+                                            else {
+                                                if (element.classList.contains('btn-outline-info')) {
+                                                    element.classList.remove('btn-outline-info')
+                                                    element.classList.add('btn-info')
+                                                    if (document.getElementById('S$300').classList.contains('btn-secondary')) {
+                                                        document.getElementById('S$300').classList.remove('btn-secondary')
+                                                        document.getElementById('S$300').classList.add('btn-outline-secondary')
+                                                    }    
+                                                } else {
+                                                    element.classList.remove('btn-info')
+                                                    element.classList.add('btn-outline-info')
+                                                    
+                                                }
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                                <div class="form-group">
+                                    {{ form.issueDesc.label(class="form-control-label mt-2") }}
+                                    {% if form.issueDesc.errors %}
+                                        {{ form.issueDesc(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.issueDesc.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.issueDesc(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer" style="justify-content: space-between !important;">
+                            <div class="left">
+
+                            </div>
+                            <div class="right">
+                                <a class="btn btn-secondary" data-dismiss="modal">Close</a>
+                                <a class="btn btn-primary">To Checkout</a>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
+            {% endfor %}
+              
+{% endblock content %}
