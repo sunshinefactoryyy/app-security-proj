@@ -155,7 +155,7 @@ class UpdateEmployeeCreationForm(FlaskForm):
 
 class CustomerRequestForm(FlaskForm):
     productName = SelectField("Select Product", [validators.DataRequired()], choices = [('123','Gigabyte X570 | Aorus Pro Wifi'),('321', 'Gigabyte X570 | Aorus Pro Wifi')], default='')
-    image = MultipleFileField('Upload Images', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg','pdf'], 'Images only')])
+    images = MultipleFileField('Upload Images', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg','pdf'], 'Images only')])
     issueDesc = TextAreaField('Issue Description', [validators.length(max=200), validators.DataRequired()])
     warranty = RadioField('Warranty Status', [validators.DataRequired()], choices=[('1', 'Active'), ('0', 'Expired')], default='')
     price = RadioField('Price', [validators.DataRequired()], choices = [('1','S$300'),('0', 'Get A Quote')], default='')

@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="d-flex justify-content-center mt-3 mb-5">
-    <div class="border border-5 border-secondary bg-white border-top-0 border-start-0 py-3 px-5">
+    <div class="border border-5 border-secondary bg-white border-top-0 border-start-0 py-3 px-5" style="width:90vw;">
         <h1 class="display-6 fw-bold d-inline-block align-middle ms-4 my-3">Add to Cart</h1>
         <div class="d-flex justify-content-center mb-3">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search" style="width:50em;">
-            <i class="bi bi-search ms-2" style="font-size:1.5em;"></i>
+            <input type="text" class="form-control" placeholder="Search..." aria-label="Search" style="width:50em;" oninput="Search((this.value).toLowerCase())">
+            <i class="bi bi-search ms-2" style="font-size:1.5em;cursor:pointer;"></i>
+            <script>
+                function Search(item){
+                        var collection = document.getElementsByClassName("card");
+                        for (i = 0;i < collection.length; i++){
+                            if (((collection[i].textContent).toLowerCase()).indexOf(item) > -1) {
+                                collection[i].style.display = "block";
+                                } else {
+                                    collection[i].style.display = "none";
+                                    }
+                        }
+                }
+                </script>
+            
         </div>
         <div class="prodList d-flex flex-wrap justify-content-around">
             {% for prod in prodList %}
@@ -33,11 +46,11 @@
                                 {{ form.hidden_tag() }}
                                 <div class="d-flex">
                                     <div class="form-group">
-                                        {{ form.image.label() }}<br>
-                                        <i class="bi bi-images" style="font-size:5em;"></i><br>
-                                        {{ form.image(class="form-control-file") }}
-                                        {% if form.image.errors %}
-                                            {% for error in form.image.errors %}
+                                        {{ form.images.label() }}<br>
+                                        <i class="bi bi-imagess" style="font-size:5em;"></i><br>
+                                        {{ form.images(class="form-control-file") }}
+                                        {% if form.images.errors %}
+                                            {% for error in form.images.errors %}
                                                 <span class="text-danger">{{ error }}</span></br>
                                             {% endfor %}
                                         {% endif %}
@@ -154,7 +167,7 @@
                             </div>
                             <div class="right">
                                 <a class="btn btn-secondary" data-dismiss="modal">Close</a>
-                                <a class="btn btn-primary">To Checkout</a>
+                                <button class="btn btn-primary checkoutBtn">To Checkout</button>
                             </div>
                         </div>
                       </div>

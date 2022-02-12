@@ -1,5 +1,5 @@
-from flask import render_template, url_for, flash, redirect, request, session, abort
-from app import app, db, bcrypt, mail
+from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify
+from app import app, db, bcrypt, mail, stripe_keys
 from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, inventoryForm, CustomerRequestForm, NewInventoryItem
 from app.models import Customer, Inventory
 from flask_login import login_user, current_user, logout_user, login_required
@@ -9,6 +9,7 @@ from app.utils import get_google_auth, generate_password, download_picture, save
 from app.config import Auth
 from flask_mail import Message
 import os
+import stripe
 
 
 
@@ -231,7 +232,7 @@ def editCustomerAccount():
     user = current_user
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file = save_picture(form.picture.data)
+            picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
             os.remove(current_user.picture.replace('/static','app/static'))
             current_user.picture = picture_file
         current_user.username = form.username.data
@@ -280,6 +281,34 @@ prodList = [
     {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
 ]
 
+@app.route('/config')
+def get_publishable_key():
+    stripe_config = {'publicKey': stripe_keys['publishable_key']}
+    return jsonify(stripe_config)
+
+@app.route("/webhook", methods=["POST"])
+def stripe_webhook():
+    payload = request.get_data(as_text=True)
+    sig_header = request.headers.get("Stripe-Signature")
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, stripe_keys["endpoint_secret"]
+        )
+
+    except ValueError as e:
+        # Invalid payload
+        return "Invalid payload", 400
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return "Invalid signature", 400
+
+    # Handle the checkout.session.completed event
+    if event["type"] == "checkout.session.completed":
+        print("Payment was successful.")
+        redirect(url_for('home'))
+
+    return "Success", 200
 @app.route('/my-requests')
 @login_required
 def customerRequest():
@@ -296,7 +325,48 @@ def customerRequest():
 @login_required
 def customerCart():
     form = CustomerRequestForm()
+    if form.validate_on_submit():
+        save_picture(form.images.data, path='static/src/request-images')
+        return redirect(url_for('inventoryManagement'))
+
     return render_template('customer/cart.html', prodList=prodList, form=form)
+
+@app.route('/my-requests/cart/checkout')
+@login_required
+def create_checkout_session():
+    domain_url = "https://127.0.0.1:5000/my-requests/cart/checkout/"
+    stripe.api_key = stripe_keys["secret_key"]
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            success_url=domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=domain_url + "cancelled",
+            payment_method_types=["card"],
+            mode="payment",
+            line_items=[
+                {
+                    "name": "Flat Fee",
+                    "quantity": 1,
+                    "currency": "sgd",
+                    "amount": "30000",
+                }
+            ]
+        )
+        return jsonify({"sessionId": checkout_session["id"]})
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+@app.route('/my-requests/cart/checkout/success')
+@login_required
+def checkout_success():
+    flash(f"Your payment is successful!", "success")
+    return redirect(url_for('customerRequest'))
+
+
+@app.route('/my-requests/cart/checkout/cancelled')
+@login_required
+def checkout_cancelled():
+    flash(f"Your payment has been cancelled!", "danger")
+    return redirect(url_for('customerCart'))
 
 # Employee Routes
 @app.route('/employee-information')

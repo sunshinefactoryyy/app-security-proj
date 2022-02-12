@@ -48,8 +48,17 @@ class Employee(AccountCredentials):
 
 
 class Request(db.Model):
+    __tablename__ = 'request'
     id = db.Column(db.Integer, primary_key=True)
-    productName = db.Column(db.String(20), nullable=False)
+    productName = db.Column(db.String(100), nullable=False)
+    productID = db.Column(db.Integer, primary_key=True)
+    customerID = db.Column(db.Integer, db.ForeignKey('customer.id'))
+    repairStatus = db.Column(db.String(20), nullable=False)
+    repairCost = db.Column(db.Float, nullable=True)
+    description = db.Column(db.String(300), nullable=False)
+    warranty = db.Column(db.Boolean, nullable=False)
+    delivery = db.Column(db.Boolean, nullable=False)
+
     # productID = db.Column()
 
 

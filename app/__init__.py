@@ -5,6 +5,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 import os
 from dotenv import load_dotenv
+import stripe
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -25,5 +26,11 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+stripe_keys = {
+    'secret_key': os.environ['STRIPE_SECRET_KEY'],
+    'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY'],
+    'endpoint_secret': os.environ['STRIPE_ENDPOINT_SECRET']
+}
+stripe.api_key = stripe_keys['secret_key']
 mail = Mail(app)
 from app import routes
