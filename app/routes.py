@@ -314,13 +314,18 @@ def stripe_webhook():
 @app.route('/my-requests')
 @login_required
 def customerRequest():
-    form = CustomerRequestForm()
+    requests = Request.query.filter_by(owner=current_user)
+    images = []
+    for request in requests:
+        paths = os.listdir(f'app/static/src/request_imgs/{request.images}')
+        images.append(paths)
     return render_template(
         'customer/request.html', 
         title='Customer Request',
         navigation='Request', 
         prodList=prodList, 
-        form=form
+        requests=list(requests),
+        images=images
     )
 
 @app.route('/my-requests/cart', methods=['GET', 'POST'])
