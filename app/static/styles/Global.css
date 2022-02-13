@@ -91,6 +91,10 @@ section {
   background-color: #2565c7;
 }
 
+#main .services .service-title {
+  color: #fff;
+}
+
 #main .services .service-content .service-container {
   z-index: 1000;
 }
