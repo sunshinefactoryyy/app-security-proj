@@ -646,6 +646,7 @@ section {
   background-color: #808080;
   float: right;
   width: 70%;
+  margin-right: 1em;
 }
 .botText {
   color: white;
@@ -658,6 +659,7 @@ section {
   background-color: #2565C7;
   float: left;
   width: 70%;
+  margin-left: 1em;
 }
 #tidbit {
   position: absolute;
