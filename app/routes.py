@@ -314,10 +314,11 @@ def stripe_webhook():
 @app.route('/my-requests')
 @login_required
 def customerRequest():
-    requests = Request.query.filter_by(owner=current_user)
+    # page = request.args.get('page', 1, type=int)
+    requests = Request.query.filter_by(owner=current_user).order_by(Request.creation_datetime.desc())#.paginate(page=page, per_page=5)
     images = []
-    for request in requests:
-        paths = os.listdir(f'app/static/src/request_imgs/{request.images}')
+    for request_ in requests:
+        paths = os.listdir(f'app/static/src/request_imgs/{request_.images}')
         images.append(paths)
     return render_template(
         'customer/request.html', 
@@ -325,7 +326,7 @@ def customerRequest():
         navigation='Request', 
         prodList=prodList, 
         requests=list(requests),
-        images=images
+        images=images,
     )
 
 @app.route('/my-requests/cart', methods=['GET', 'POST'])
@@ -342,12 +343,17 @@ def customerCart():
                        owner=current_user)
         db.session.add(new_request)
         db.session.commit()
-        flash(f"Your request has been created!", "success")
-        return redirect(url_for("customerRequest"))
+        # flash(f"Your request has been created!", "success")
+        return redirect(url_for("redirect_to_checkout"))
 
     return render_template('customer/cart.html', prodList=prodList, form=form)
 
 @app.route('/my-requests/cart/checkout')
+@login_required
+def redirect_to_checkout():
+    return render_template('customer/checkout.html')
+
+@app.route('/my-requests/cart/checkout/new')
 @login_required
 def create_checkout_session():
     domain_url = "https://127.0.0.1:5000/my-requests/cart/checkout/"
@@ -381,6 +387,9 @@ def checkout_success():
 @app.route('/my-requests/cart/checkout/cancelled')
 @login_required
 def checkout_cancelled():
+    request = Request.query.filter_by(owner=current_user).order_by(Request.creation_datetime.desc()).first()
+    db.session.delete(request)
+    db.session.commit()
     flash(f"Your payment has been cancelled!", "danger")
     return redirect(url_for('customerCart'))
 
