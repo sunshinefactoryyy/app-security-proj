@@ -2,6 +2,8 @@ from flask import render_template, url_for, flash, redirect, request, session, a
 from app import app, db, bcrypt, mail, stripe_keys
 from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, inventoryForm, CustomerRequestForm, NewInventoryItem
 from app.models import Customer, Inventory, Request
+from turtle import title
+from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
@@ -10,7 +12,6 @@ from app.config import Auth
 from flask_mail import Message
 import os
 import stripe
-# from app.train import bot
 
 
 
@@ -426,15 +427,15 @@ def inventoryManagement():
 
 
 #Chatbot
-@app.route('/chat')
+@app.route('/chatbot', methods=['GET','POST'])
 def chatbot():
-    return render_template("chat.html")
+    return render_template('public/newChat.html', title='Chat Support')
 
-# @app.route("/get")
-# def get_chat_response():
-#     userText = request.args.get('msg')
-#     return str(bot.get_response(userText))
-
+@app.route("/get", methods=['GET','POST'])
+def get_bot_response():
+    userText = request.args.get('msg')
+    return str(bot.get_response(userText))
+#end Chatbot
 
 
 @app.route('/inventory')

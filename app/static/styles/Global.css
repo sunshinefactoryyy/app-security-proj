@@ -581,161 +581,8 @@ section {
   margin-right: 10px !important;
 }
 
-/* Design for cart popup */
-.modal {
-  display: none;
-  /* Hidden by default */
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  padding-top: 100px;
-  /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%;
-  /* Full width */
-  height: 100%;
-  /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
-  background-color: black;
-  /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  border-radius: 10px;
-  width: 80%;
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin-right: 15px;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* search bar */
-#searchInput {
-  background-image: url("/static/public/searchicon.png");
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: 40%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  margin-bottom: 12px;
-}
-
-#searchInput:focus {
-  outline: 3px solid #ddd;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: relative;
-  background-color: #f6f6f6;
-  width: 40%;
-  min-width: 230px;
-  overflow: auto;
-  border-radius: 20px;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown a:hover {
-  background-color: #ddd;
-}
-
-.show {
-  display: block;
-}
-
 #prodList {
   list-style-type: none;
-}
-
-#choose_product1,
-#choose_product2 {
-  height: 88px;
-  width: auto;
-}
-
-#modal_content2,
-#modal_content3 {
-  padding: 60px;
-}
-
-#p_card2 {
-  /* display: none; */
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 20px;
-  padding: 10px;
-}
-
-#image_upload {
-  border: 1px solid #888;
-  border-radius: 20px;
-  padding: 10px;
-  width: 250px;
-  margin-left: 10px;
-}
-
-#uploaded_p {
-  width: 55px;
-  height: 30px;
-}
-
-#upload_btn_col {
-  padding-left: 50px;
-}
-
-#pp_meth {
-  width: 100px;
-  height: 30px;
-}
-
-#mc_meth {
-  width: 70px;
-  height: 50px;
-}
-
-#amex_meth {
-  width: 60px;
-  height: 60px;
 }
 
 /* #btn_col {
@@ -772,13 +619,14 @@ section {
 #chatbox {
   margin-left: auto;
   margin-right: auto;
-  width: 40%;
+  width: 60%;
   margin-top: 60px;
+  overflow: auto;
 }
 #userInput {
   margin-left: auto;
   margin-right: auto;
-  width: 40%;
+  width: 60%;
   margin-top: 60px;
 }
 #textInput {
@@ -792,22 +640,24 @@ section {
   font-size: 17px;
   text-align: right;
   line-height: 30px;
-}
-.userText span {
-  background-color: #808080;
-  padding: 10px;
   border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #808080;
+  float: right;
+  width: 70%;
 }
 .botText {
   color: white;
   font-size: 17px;
   text-align: left;
   line-height: 30px;
-}
-.botText span {
-  background-color: #2565C7;
-  padding: 10px;
   border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #2565C7;
+  float: left;
+  width: 70%;
 }
 #tidbit {
   position: absolute;
@@ -822,7 +672,13 @@ section {
   margin-top: 60px;
   border: 0.5px solid #2565C7;
   border-radius: 10px;
+  overflow: auto;
 }
+.chat {
+  width: 100%;
+}
+
+/* end chatbot styles */
 
 #sign_up_btn {
   width: 100%;

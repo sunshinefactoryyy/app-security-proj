@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+
+{% block content %}
+<!-- <img /> -->
+<center>
+  <h1 id="chat_heading">
+    Chat Support
+  </h1>
+</center>
+<div class="box"></div>
+  <div class="boxed">
+    <div>
+      <div id="chatbox">
+        <div class="chat">
+          <p class="botText">
+            <span>Hi! I'm Cringelord, your guide to Vision Core and its services.</span>
+          </p>
+        </div>
+        <div class="chat">
+      </div>
+      </div>
+      <div id="userInput">
+        <input id="textInput" type="text" name="msg" placeholder="Type something..." />
+      </div>
+    </div>
+    <script>
+      function getBotResponse() {
+        var rawText = $("#textInput").val();
+        var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+        $("#textInput").val("");
+        $("#chatbox").append(userHtml);
+        document
+          .getElementById("userInput")
+          .scrollIntoView({ block: "start", behavior: "smooth" });
+        $.get("/get", { msg: rawText }).done(function(data) {
+          var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+          $("#chatbox").append(botHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+        });
+      }
+      $("#textInput").keypress(function(e) {
+        if (e.which == 13) {
+          getBotResponse();
+        }
+      });
+    </script>
+    <!-- <style>
+      .chat {
+        width: 100%;
+      }
+      .botText {
+        float: left;
+        width: 70%;
+      }
+      .userText {
+        background-color: #808080;
+        float: right;
+        width: 70%;
+      }
+      span {
+        background: transparent !important;
+      }
+    </style> -->
+</div>
+{% endblock %}
