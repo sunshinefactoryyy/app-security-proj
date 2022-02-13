@@ -76,7 +76,6 @@ section {
       }
 
       h4 {
-        margin-top: 20px;
         font-weight: lighter;
       }
     }
@@ -151,13 +150,10 @@ section {
 
     .workflow-title {
       color: #fff;
-      padding: 1em;
     }
 
     #card-section {
-      margin-top: 20px;
       column-gap: 4em;
-      display: flex;
 
       .card > * {
         margin: 20px auto 0 auto;
@@ -185,7 +181,6 @@ section {
   .footer {
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
-    padding: 1em;
 
     .company {
       font-size: 1.2em;
@@ -196,7 +191,6 @@ section {
         .bi {
           display: inline-block;
           font-size: 1.5em;
-          margin: 0.5em;
         }
 
         .bi-exclude {
@@ -224,7 +218,6 @@ section {
 
             .bi {
               color: #000;
-              text-align: center;
             }
           }
         }
@@ -275,14 +268,6 @@ section {
 
 /*About Us.html*/
 .about-content {
-  margin-bottom: 100px;
-
-  .about {
-    p {
-      margin-top: 20px;
-    }
-  }
-
   .bug {
     height: 523px;
     width: 680px;
@@ -379,7 +364,6 @@ section {
 
       #dark {
         border-bottom: none;
-        text-align: center;
 
         .btn-outline-dark {
           margin: 5px;
@@ -393,7 +377,6 @@ section {
       /*Design of the sign up link*/
       #not_member {
         margin: 30px 0;
-        text-align: center;
         font-size: 16px;
         color: #666666;
 
