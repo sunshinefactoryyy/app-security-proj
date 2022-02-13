@@ -215,6 +215,9 @@ def logout():
 @app.route('/account')
 @login_required
 def customerAccount():
+
+    # person = [{'icon': "bi bi-person-badge-fill"}]
+
     return render_template(
         'customer/account.html', 
         title='Customer Info', 

@@ -489,7 +489,6 @@ section {
 }
 
 #cus_name {
-  font-weight: bold;
   font-size: 24px;
 }
 
@@ -498,7 +497,6 @@ section {
   width: auto;
 }
 #prod1_name {
-  font-weight: bold;
   font-size: 24px;
 }
 
@@ -506,7 +504,6 @@ section {
   width: 170px;
   padding: 7px !important;
   border-radius: 10px;
-  text-align: center;
   display: table-cell;
   vertical-align: middle;
   background-color: #f0723c;
@@ -540,7 +537,6 @@ section {
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;
-  margin: auto;
   padding: 20px;
   border: 1px solid #888;
   border-radius: 10px;

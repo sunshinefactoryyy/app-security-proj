@@ -2,22 +2,29 @@
 {% block title %}My Requests{% endblock %}
 
 {% block customerContent %}
-<h1 class="display-6 d-inline-block align-middle" id="p_info_h1">My Requests</h1>
-<button type="button" class="btn float-end" id="cart_btn"><i class="bi bi-cart-plus-fill"></i></button>
-<button type="button" class="btn float-end" id="chat_btn"><i class="bi bi-chat-right-fill"></i></button>
-<div class="card" id="p_card1">
+<div class="d-flex flex-row justify-content-between align-items-center mb-3">
+    <h1 class="display-6 d-inline-block align-middle fw-bold" id="p_info_h1">My Requests</h1>
+    <div id="btn-container">
+        <button type="button" class="btn float-end" id="cart_btn"><i class="bi bi-cart-plus-fill"></i></button>
+        <button type="button" class="btn float-end" id="chat_btn"><i class="bi bi-chat-right-fill"></i></button>
+    </div>
+</div>
+
+<div class="card mx-auto" id="p_card1">
     <div class="card-body">
-        <div class="row">
-            <div class="col-5 text-center">
+        <div class="col-md-12 col-sm-10 d-flex flex-column flex-md-row justify-content-center align-items-center">
+            <div class="col-md-5 p-1">
                 <img src="../static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" id="cus_product1">
             </div>
-            <div class="col-7" id="p_info2">
-                <p id="prod1_name">Gigabyte X570 | Aorus Pro Wifi</p>
+            <div class="col-md-7 mx-auto" id="p_info2">
+                <p id="prod1_name" class="fw-bold">Gigabyte X570 | Aorus Pro Wifi</p>
                 <p><b> Date Requested: </b> 19 October 2021</p>
                 <p><b>Issue Description: </b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-                <button type="button" class="btn float-end" id="moreOpt_btn"><i class="bi bi-three-dots"></i></button>
-                <div class="alert alert-danger d-inline-block float-end" role="alert" id="status">Pending Quote</div>
+                <div id="below-issue" class="d-flex justify-content-end mt-sm-3">
+                    <button type="button" class="btn float-end" id="moreOpt_btn"><i class="bi bi-three-dots"></i></button>
+                    <div class="alert alert-danger d-inline-block float-end text-center" role="alert" id="status">Pending Quote</div>    
+                </div>
                 
             </div>
         </div>
@@ -27,7 +34,7 @@
 <div id="cart_popup" class="modal">
 
     <!-- Modal content -->
-    <div class="modal-content">
+    <div class="modal-content mx-auto">
         <span class="close">&times;</span>
         <!-- <p>Some text in the Modal..</p> -->
         <br>
@@ -83,7 +90,7 @@
 </div>
 
 <div class="modal" id="cart_popup2">
-    <div class="modal-content" id="modal_content2">
+    <div class="modal-content mx-auto" id="modal_content2">
         <div class="row">
             <div class="col">
                 <div class="card" id="p_card2">
@@ -93,7 +100,7 @@
                             <div class="col-5 text-center">
                                 <img src="../static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" id="cus_product1">
                             </div>
-                            <div class="col-7" id="p_info2">
+                            <div class="col-7" id="p_info">
                                 <p id="prod1_name">Gigabyte X570 | Aorus Pro Wifi</p>
                             </div>
                         </div>
@@ -165,8 +172,9 @@
         </div>
     </div>
 </div>
+
 <div class="modal" id="payment_popup">
-    <div class="modal-content" id="modal_content3">
+    <div class="modal-content mx-auto" id="modal_content3">
         <div class="row">
             <div class="col">
                 <div class="card" id="p_card2">
@@ -175,7 +183,7 @@
                             <div class="col-5 text-center">
                                 <img src="../static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" id="cus_product1">
                             </div>
-                            <div class="col-7" id="p_info2">
+                            <div class="col-7 mx-auto" id="p_info2">
                                 <p id="prod1_name">Gigabyte X570 | Aorus Pro Wifi</p>
                             </div>
                         </div>
