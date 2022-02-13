@@ -11,8 +11,12 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/CustomBootstrap.css') }}"> <!-- import bootstrap classes -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/Main.css') }}"> <!-- import tailwindcss utilities -->
     <link rel= "stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- import bootstrap icons -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="../static/navBarOnScroll.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 </head>
-<body>
+<body class="tw-bg-neutral-50">
     {% include 'includes/navbar.html' %} 
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -32,16 +36,14 @@
     <!-- Popper 2.10.2, Bootstrap 5.1.2 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
     <!--Bootstrap 4.6 J-Query-->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
-
-    <!--J-Query-->
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
-    <!--Custom Javascript-->
-    <script src="../static/navBarOnScroll.js"></script>
     {% endblock %}
 </body>
 </html>

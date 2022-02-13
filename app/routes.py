@@ -1,13 +1,18 @@
-from flask import render_template, url_for, flash, redirect, request, session, abort
-from app import app, db, bcrypt, mail
-from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, inventoryForm
+from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify
+from app import app, db, bcrypt, mail, stripe_keys
+from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, inventoryForm, CustomerRequestForm, NewInventoryItem
 from app.models import Customer, Inventory
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
-from app.utils import get_google_auth, generate_password
+from app.utils import get_google_auth, generate_password, download_picture, save_picture
 from app.config import Auth
 from flask_mail import Message
+import os
+import stripe
+
+
+
 # Public Routes
 @app.route('/')
 def home():
@@ -87,7 +92,7 @@ def faq():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('customerAccount'))
+        return redirect(url_for('customerRequest'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -96,7 +101,7 @@ def register():
         db.session.commit()
         login_user(user, remember=True)
         flash(f"Your account has been created! You are now logged in!", "success")
-        return redirect(url_for("customerAccount"))
+        return redirect(url_for("customerRequest"))
 
     return render_template(
         'authentication/register.html', 
@@ -159,7 +164,7 @@ def callback():
                 user.email = email
             user.username = user_data['name']
             user.tokens = json.dumps(token)
-            user.picture = user_data['picture']
+            user.picture = download_picture(user_data['picture'])
             user.password = bcrypt.generate_password_hash(generate_password()).decode('utf-8')
             db.session.add(user)
             db.session.commit()
@@ -215,12 +220,19 @@ def logout():
 @app.route('/account')
 @login_required
 def customerAccount():
+    form = UpdateCustomerAccountForm()
     return render_template(
         'customer/account.html', 
-        title='Customer Info', 
+        title='My Information', 
         navigation='Account',
-        username=current_user.username, 
-        email=current_user.email
+        userData={
+            'picture' : current_user.picture,
+            'username' : current_user.username,
+            'email' : current_user.email,
+            'contact_no' : current_user.contact_no,
+            'address' : current_user.address,
+            'creation_datetime' : current_user.creation_datetime.strftime(r'%Y-%m-%d %H:%M'),
+        }
     )
 
 @app.route('/account/edit', methods=['GET', 'POST'])
@@ -229,8 +241,14 @@ def editCustomerAccount():
     form = UpdateCustomerAccountForm()
     user = current_user
     if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
+            os.remove(current_user.picture.replace('/static','app/static'))
+            current_user.picture = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.contact_no = form.contact_no.data
+        current_user.address = form.address.data
         current_user.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         db.session.commit()
         flash('Your account details have been updated!', 'success')
@@ -238,16 +256,26 @@ def editCustomerAccount():
 
     return render_template(
         'customer/editAccount.html', 
-        title='Customer Info', 
+        title='My Information', 
         navigation='Account',
         username=current_user.username, 
         email=current_user.email, 
         form=form, 
-        user=current_user
+        user=current_user,
+        userData={
+            'picture' : current_user.picture,
+            'username' : current_user.username,
+            'email' : current_user.email,
+            'contact_no' : current_user.contact_no,
+            'address' : current_user.address,
+            'creation_datetime' : current_user.creation_datetime.strftime(r'%Y-%m-%d %H:%M'),
+        }
+
     )
 
 @app.route('/account/deactivate', methods=["GET", "POST"])
 def deactivateAccount():
+    os.remove(current_user.picture.replace('/static','app/static'))
     deleted_user_id=current_user.id
     logout_user()
     Customer.query.filter_by(id=deleted_user_id).delete()
@@ -255,42 +283,143 @@ def deactivateAccount():
     flash('Account has been successfully deleted!', 'success')
     return redirect(url_for('home'))
 
+img_path = '../static/public/'
+prodList = [
+    {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+]
 
-@app.route('/cusReq')
+@app.route('/config')
+def get_publishable_key():
+    stripe_config = {'publicKey': stripe_keys['publishable_key']}
+    return jsonify(stripe_config)
+
+@app.route("/webhook", methods=["POST"])
+def stripe_webhook():
+    payload = request.get_data(as_text=True)
+    sig_header = request.headers.get("Stripe-Signature")
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, stripe_keys["endpoint_secret"]
+        )
+
+    except ValueError as e:
+        # Invalid payload
+        return "Invalid payload", 400
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return "Invalid signature", 400
+
+    # Handle the checkout.session.completed event
+    if event["type"] == "checkout.session.completed":
+        print("Payment was successful.")
+        redirect(url_for('home'))
+
+    return "Success", 200
+@app.route('/my-requests')
 @login_required
 def customerRequest():
+    form = CustomerRequestForm()
     return render_template(
         'customer/request.html', 
         title='Customer Request',
-        navigation='Request'
+        navigation='Request', 
+        prodList = prodList, 
+        form=form
     )
 
+@app.route('/my-requests/cart')
+@login_required
+def customerCart():
+    form = CustomerRequestForm()
+    if form.validate_on_submit():
+        save_picture(form.images.data, path='static/src/request-images')
+        return redirect(url_for('inventoryManagement'))
 
+    return render_template('customer/cart.html', prodList=prodList, form=form)
+
+@app.route('/my-requests/cart/checkout')
+@login_required
+def create_checkout_session():
+    domain_url = "https://127.0.0.1:5000/my-requests/cart/checkout/"
+    stripe.api_key = stripe_keys["secret_key"]
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            success_url=domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=domain_url + "cancelled",
+            payment_method_types=["card"],
+            mode="payment",
+            line_items=[
+                {
+                    "name": "Flat Fee",
+                    "quantity": 1,
+                    "currency": "sgd",
+                    "amount": "30000",
+                }
+            ]
+        )
+        return jsonify({"sessionId": checkout_session["id"]})
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+@app.route('/my-requests/cart/checkout/success')
+@login_required
+def checkout_success():
+    flash(f"Your payment is successful!", "success")
+    return redirect(url_for('customerRequest'))
+
+
+@app.route('/my-requests/cart/checkout/cancelled')
+@login_required
+def checkout_cancelled():
+    flash(f"Your payment has been cancelled!", "danger")
+    return redirect(url_for('customerCart'))
 
 # Employee Routes
-@app.route('/employeeInfo')
-def employeeInfo():
+@app.route('/employee-information')
+def employeeInformation():
     return render_template(
         'employee/account.html', 
-        title='Employee Info'
+        title='Employee Account'
     )
 
-
-
-# Error Handling
-@app.errorhandler(404)
-def notFound():
+@app.route('/request-management')
+def requestManagement():
     return render_template(
-        '404.html', 
-        title='404 - Page not found'
+        'employee/request.html', 
+        title='Customer Requests'
+    )
+
+@app.route('/inventory')
+def inventoryManagement():
+    form = NewInventoryItem()
+    if form.validate_on_submit():
+        item = Inventory(name=form.name.data, descriprion=form.description.data, quantity=form.quantity.data)
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('inventoryManagement'))
+
+    return render_template(
+        'employee/inventory.html',
+        title='Inventory Management',
+        form=form
     )
 
 
-# Clear Cache
-@app.after_request
-def add_header(response):
-    response.headers['Cache-Control'] = 'no-store'
-    return response
+#Chatbot
+@app.route('/chat')
+def chatbot():
+    return render_template("chat.html")
+
+# @app.route("/get")
+# def get_chat_response():
+#     userText = request.args.get('msg')
+#     return str(bot.get_response(userText))
+
+
 
 @app.route('/inventory')
 @login_required
@@ -367,6 +496,15 @@ def delete_part(part_id):
 def account():
     return render_template('account.html', title='Customer Info', username=current_user.username, email=current_user.email)
 
+
+# Error Handling
+@app.errorhandler(404)
+def notFound():
+    return render_template(
+        '404.html', 
+        title='404 - Page not found'
+    )
+
 @app.errorhandler(403)
 def error_403(e):
     return render_template('errors/403.html'), 403
@@ -375,6 +513,12 @@ def error_403(e):
 def error_500(e):
     return render_template('errors/500.html'), 500
 
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store'
+    return response
+
+# Clear Cache
 @app.after_request
 def add_header(response):
     response.headers['Cache-Control'] = 'no-store'

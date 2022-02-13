@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="form-container d-flex justify-content-around align-items-center">
+    <img src="/static/public/Secure_login.svg">
+
+    <div class="login">
+        <h1 id="title" class="text-center font-weight-bold display-4">Login</h1>
+
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {{ form.password(class="form-control") }}
+            </div><!--form-group-->
+
+            <div class="forgot">
+                <a href="{{url_for('reset_reqeust')}}" class="forgot_link">Forgot Password?</a>
+            </div><!--forgot-->
+
+            <div class="form-group">
+                {{ form.submit(id="login_btn") }}
+            </div>
+
+
+            <div class="form-group" id="dark">
+                <a href="{{auth_url}}" class="btn btn-outline-dark">
+                    <i class="bi bi-google"></i>
+                    Login with Google
+                </a>
+
+                <!-- <button class="btn btn-outline-dark">
+                    <i class="bi bi-microsoft"></i>
+                    Login with Microsoft
+                </button> -->
+            </div><!--form-group-->
+
+            <div id="not_member">
+            Not a member?  
+            <a href="{{url_for('register')}}" id="sign_up_link">Sign Up</a>
+            </div><!--not_member-->
+
+        </form>
+    </div><!--login-->
+</section><!--form-container-->
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %} 
+
+{% block content %}
+<section class="form-container d-flex justify-content-around align-items-center">
+    <img src="/static/public/Secure_login.svg">
+
+    <div class="sign_up">
+        <h1 id="title" class="text-center font-weight-bold display-4">Sign Up</h1>
+
+        <form method="post" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label") }}
+                {% if form.username.errors %}
+                    {{ form.username(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.username(class="form-control form-control-lg") }}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {{ form.email(class="form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.password(class="form-control") }}
+            </div><!--form-group-->
+            
+            <div class="form-group">
+                {{ form.confirm_password.label(class="form-control-label") }}
+                {% if form.confirm_password.errors %}
+                    {{ form.confirm_password(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.confirm_password(class="form-control") }}
+            </div><!--form-group-->
+            
+            
+            <div class="form-check">
+                {{ form.terms_and_conditions(class="form-check-input") }}
+                {% if form.terms_and_conditions.errors %}
+                    {{ form.terms_and_conditions(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.terms_and_conditions.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.terms_and_conditions.label(class="form-check-label") }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.submit(id="sign_up_btn") }}
+            </div>
+        </form>
+    </div><!--login-->
+</section><!--form-container-->
+{% endblock %}

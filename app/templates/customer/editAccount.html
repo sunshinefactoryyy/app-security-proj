@@ -1,69 +1,156 @@
 {% extends "customer/base.html" %}
-{% block title %}Personal Information{% endblock %}
 
 {% block customerContent %}
-<div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-    <h1 class="col-sm-10 display-6 d-inline-block fw-bold" id="p_info_h1">Account Information</h1>
-    {% with link='deactivateAccount', label='Deactivate Account', color='danger' %}
+<div class="d-flex flex-row align-items-center justify-content-between mb-4">
+    <h1 class="display-6 fw-bold d-inline-block align-middle">Personal Information</h1>
+    {% with link='editCustomerAccount', label='Edit', color='primary' %}
         {% include '/includes/customButtonComponent.html' %}
     {% endwith %}
 </div>
-<form method="post" action="">
+<form class="d-flex flex-row align-items-start justify-content-start pt-2" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
-    <div class="form-group">
-        {{ form.username.label(class="form-control-label") }}
-        {% if form.username.errors %}
+    <div class="me-5">
+        {% if userData['picture'] %}
+            <div class="tw-h-64 tw-w-64 rounded-circle d-flex align-items-center justify-content-center">
+                <img src="{{ userData['picture'] }}" alt="Profile Picture" class="border rounded-circle" style="height:256px;width:256px;">
+            </div>
+        {% else %}
+            {% include '/includes/accountProfilePicture.html' %}
+            {% endif %}
+            <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl">
+                {{ form.picture(class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap", style='width:15em;') }}
+            </div>
+            {% if form.picture.errors %}
+            <div class="text-danger">
+                {% for error in form.picture.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {% endif %}
+
+    </div>
+    <div class="d-flex flex-grow-1 flex-column align-items-start justify-content-start mt-2">
+        <div class="form-group">
+            {{ form.username.label(class="form-control-label fs-4 fw-bold pb-1") }}
+            {% if form.username.errors %}
             {{ form.username(class="form-control is-invalid") }}
             <div class="invalid-feedback">
                 {% for error in form.username.errors %}
                     <span>{{ error }}</span>
                 {% endfor %}
             </div>
-        {% endif %}
-        {{ form.username(class="form-control", value=user.username) }}
-    </div><!--form-group-->
+            {% else %}
+            {{ form.username(class="form-control", value=user.username) }}
+            {% endif %}
 
-    <div class="form-group">
-        {{ form.email.label(class="form-control-label") }}
-        {% if form.email.errors %}
-        {{ form.email(class="form-control is-invalid") }}
-        <div class="invalid-feedback">
-            {% for error in form.email.errors %}
-                <span>{{ error }}</span>
-            {% endfor %}
+        </div><!--form-group-->
+
+        <h3 class="fs-4 fw-normal">Customer</h3>
+        <div class="row row-cols-2 w-100 mt-4">
+            <div class="form-group col pb-4">
+                {{ form.email.label(class="form-control-label fs-5 fw-bold") }}
+                {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.email(class="form-control fs-6 fw-normal", value=user.email) }}
+                {% endif %}
+    
+            </div><!--form-group-->
+    
+            <div class="form-group col pb-4">
+                {{ form.contact_no.label(class="form-control-label fs-5 fw-bold") }}
+                {% if form.contact_no.errors %}
+                {{ form.contact_no(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.contact_no.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.contact_no(class="form-control fs-6 fw-normal", value=user.contact_no) }}
+                {% endif %}
+    
+            </div><!--form-group-->
+
+            <div class="form-group col pb-4">
+                {{ form.address.label(class="form-control-label fs-5 fw-bold") }}
+                {% if form.address.errors %}
+                {{ form.address(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.address.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.address(class="form-control fs-6 fw-normal", value=user.address) }}
+                {% endif %}
+    
+            </div><!--form-group-->
+            {% with label='Account creation date', data=userData['creation_datetime'] %}
+                {% include '/includes/accountDetailGridItem.html' %}
+            {% endwith %}
         </div>
-        {% endif %}
-        {{ form.email(class="form-control", value=user.email) }}
-    </div><!--form-group-->
-
-    <div class="form-group">
-        {{ form.password.label(class="form-control-label") }}
-        {% if form.password.errors %}
-        {{ form.password(class="form-control is-invalid") }}
-        <div class="invalid-feedback">
-            {% for error in form.password.errors %}
-                <span>{{ error }}</span>
-            {% endfor %}
+        <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl">
+            <button type="button" class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap" data-toggle="modal" data-target="#updateModal">Update</button>
         </div>
-        {% endif %}
-        {{ form.password(class="form-control") }}
-    </div><!--form-group-->
-
-    <div class="form-group">
-        {{ form.confirm_password.label(class="form-control-label") }}
-        {% if form.confirm_password.errors %}
-        {{ form.confirm_password(class="form-control is-invalid") }}
-        <div class="invalid-feedback">
-            {% for error in form.confirm_password.errors %}
-                <span>{{ error }}</span>
-            {% endfor %}
-        </div>
-        {% endif %}
-        {{ form.confirm_password(class="form-control") }}
-    </div><!--form-group-->
-
-    <div class="form-group mt-3">
-        {{ form.submit(id="update_btn") }}
+          
+          <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title fs-4 fw-bold pb-1" id="exampleModalLabel">Verify it's you</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group col pb-4">
+                        {{ form.password.label(class="form-control-label fs-5 fw-bold") }}
+                        {% if form.password.errors %}
+                        {{ form.password(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.password(class="form-control fs-6 fw-normal") }}
+                        {% endif %}
+            
+                    </div><!--form-group-->
+        
+                    <div class="form-group col pb-4">
+                        {{ form.confirm_password.label(class="form-control-label fs-5 fw-bold") }}
+                        {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.confirm_password(class="form-control fs-6 fw-normal") }}
+                        {% endif %}
+            
+                    </div><!--form-group-->
+        
+                </div>
+                <div class="modal-footer">
+                    <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl">
+                        {{ form.submit(class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap") }}
+                    </div>            
+                </div>
+              </div>
+            </div>
+          </div>
+    
+    
     </div>
 </form>
 {%endblock%}

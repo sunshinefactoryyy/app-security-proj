@@ -1,0 +1,15 @@
+{% if link != null %}
+    {% if nav == True %}
+        <li class="nav-item">
+    {% endif %}
+            <a class="{{'nav-link' if nav == True}}" href="{{url_for(link)}}">
+{% endif %}
+                <div class="tw-flex tw-items-center tw-justify-center {{ 'bg-' + color }} tw-py-3.5 tw-px-5 tw-rounded-xl {{'hover:tw-shadow-lg tw-transition-shadow tw-duration-200' if link != null}}">
+                    <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">{{label}}</p>
+                </div>
+{% if link != null %}
+            </a>
+    {% if nav == True %}
+        </li>
+    {% endif %}
+{% endif %}

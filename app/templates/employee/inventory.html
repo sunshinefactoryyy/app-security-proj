@@ -1,0 +1,97 @@
+{% extends "employeeBase.html" %} 
+{% set addRequest = False %}
+
+{% block content %}
+<div class="d-flex flex-row align-items-start justify-content-between mt-2 w-100">
+    <h2 class="fs-1 fw-bold pb-1">Inventory</h2>
+    <div onclick="addItemForm()">
+        {% with iconSrc='../static/icons/plus.svg', color='primary' %}
+            {% include '/includes/squareButtonComponent.html' %}
+        {% endwith %}
+    </div>
+</div>
+<div class="d-flex flex-column align-items-start justify-content-start mt-4 w-100">
+    <table class="w-100 tw-bg-white tw-shadow-xl tw-rounded-xl">
+        <tr>
+            <th class="tw-w-36 tw-h-12 tw-text-center">ID</th>
+            <th class="tw-h-12 tw-text-center">Part Name</th>
+            <th class="tw-w-36 tw-h-12 tw-text-center">Quantity</th>
+            <th class="tw-w-12 tw-h-12"></th>
+        </tr>
+    </table>
+</div>
+
+<script>
+    // show add item form
+    const addItemForm = () => {
+        modal = document.getElementById('addItemForm');
+        modal.classList.remove('tw-hidden')
+        modal.classList.add('tw-flex')
+    }
+
+    // hide add item form
+    const closeAddItemForm = () => {
+        modal = document.getElementById('addItemForm');
+        modal.classList.remove('tw-flex')
+        modal.classList.add('tw-hidden')
+    }
+</script>
+{% endblock %}
+
+{% block modalContent %}
+<div class="tw-hidden tw-fixed tw-items-center tw-justify-center tw-inset-0 tw-h-screen tw-w-screen tw-bg-gray-700/20" id="addItemForm">
+    <div class="tw-relative tw-flex tw-flex-col tw-items-start tw-justify-start tw-w-[900px] tw-h-[700px] tw-bg-white tw-rounded-3xl tw-p-4">
+        <h1 class="fs-2 fw-bold pb-1 mt-2 ms-2">Add New Item</h1>
+        <form class="w-100" method="post" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group my-2">
+                {{ form.name.label(class="form-control-label") }}
+                {% if form.name.errors %}
+                    {{ form.name(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.name(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2">
+                {{ form.description.label(class="form-control-label") }}
+                {% if form.description.errors %}
+                    {{ form.description(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.description(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2">
+                {{ form.quantity.label(class="form-control-label") }}
+                {% if form.quantity.errors %}
+                    {{ form.quantity(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.quantity.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.quantity(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2">
+                {{ form.submit(id="sign_up_btn") }}
+            </div>
+        </form>
+        <div class="tw-absolute tw-top-4 tw-right-4" onclick="closeAddItemForm()">
+            {% with iconSrc='../static/icons/arrows-angle-contract.svg', color='primary' %}
+                {% include '/includes/squareButtonComponent.html' %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}
