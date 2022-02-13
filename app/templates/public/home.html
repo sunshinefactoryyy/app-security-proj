@@ -29,7 +29,7 @@
             <!--text-->
         
             <img
-                class="col-md-6 d-sm-none d-md-block"
+                class="col-md-6 d-none d-md-block"
                 src="/static/public/Gigabyte_X570_Aorus_Pro_Wifi.png"
             />
         </div>
@@ -37,7 +37,7 @@
     <!--hero-->
     
     <section class="services blue">
-        <h1 class="h1 service-title display-6 text-center font-weight-bold">Services We Provide</h1>
+        <h1 class="h1 service-title display-6 text-center font-weight-bold" style="color: white;">Services We Provide</h1>
         <div class="service-content d-flex flex-wrap" style="color:white;">
             {% for summary in service %}
                 <div class="service-container col-md-6 d-flex justify-content-around align-items-center">
@@ -80,7 +80,7 @@
         <!--#bottom-tilt-->
 
         <h1 class="h1 workflow-title font-weight-bold text-center display-6">How It Works</h1>
-        <div class="d-flex flex-column flex-md-row justify-content-around" id="card-section">
+        <div class="d-flex flex-column flex-md-row justify-content-around p-1" id="card-section">
         {% for work in procedure %}
             <div class="card col-sm-10 col-md-3 p-1 bg-light mt-1 mx-auto">
                 <div class="card-body">
