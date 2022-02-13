@@ -1,14 +1,15 @@
 {% extends "base.html" %} 
 
 {% block content %}
-<section class="form-container p-1 overflow-hidden d-flex justify-content-around align-items-center">
+<section class="form-container p-1 d-flex justify-content-around align-items-center">
     <img class="col-md-5 d-none d-md-none d-lg-block" src="/static/public/Secure_login.svg">
 
     <div class="sign_up col-md-7">
         <h1 id="title" class="text-center font-weight-bold display-4">Sign Up</h1>
 
-        <form method="post" action="">
+        <form method="post">
             {{ form.hidden_tag() }}
+
             <div class="form-group">
                 {{ form.username.label(class="form-control-label") }}
                 {% if form.username.errors %}
@@ -18,8 +19,9 @@
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
+                {% else %}
+                {{ form.username(class="form-control") }}
                 {% endif %}
-                {{ form.username(class="form-control form-control-lg") }}
             </div><!--form-group-->
 
             <div class="form-group">
