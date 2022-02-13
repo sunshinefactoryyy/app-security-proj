@@ -2,8 +2,8 @@
 {% block title %}Personal Information{% endblock %}
 
 {% block customerContent %}
-<div class="d-flex flex-row align-items-center justify-content-between mb-3">
-    <h1 class="display-6 d-inline-block align-middle fw-bold" id="p_info_h1">Account Information</h1>
+<div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+    <h1 class="col-sm-10 display-6 d-inline-block fw-bold" id="p_info_h1">Account Information</h1>
     {% with link='deactivateAccount', label='Deactivate Account', color='danger' %}
         {% include '/includes/customButtonComponent.html' %}
     {% endwith %}
