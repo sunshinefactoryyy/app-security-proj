@@ -304,8 +304,109 @@ section {
   margin-top: 20px;
 }
 
-.about-content .team p {
+.about-content .team .h4 {
   margin-top: 20px;
+}
+
+.about-content .team img {
+  border-radius: 50%;
+}
+
+.footer {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 1em;
+}
+
+.footer .company {
+  font-size: 1.2em;
+}
+
+.footer .links .col-left .bi {
+  display: inline-block;
+  font-size: 1.5em;
+  margin: 0.5em;
+}
+
+.footer .links .col-left .bi-exclude {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+}
+
+.footer .links .col-left .list-title {
+  font-size: 2em;
+}
+
+.footer .links .col-right {
+  -webkit-column-gap: 2em;
+          column-gap: 2em;
+}
+
+.footer .links .col-right .link {
+  height: 2.5em;
+  width: 2.5em;
+  border-radius: 50%;
+  background-color: #fff;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.footer .links .col-right .link a {
+  text-decoration: none;
+  font-size: 1.7em;
+}
+
+.footer .links .col-right .link a .bi {
+  color: #000;
+  text-align: center;
+}
+
+.footer .links .col-right .link:hover {
+  -webkit-transform: translate(0, -15px);
+          transform: translate(0, -15px);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.footer .links .col-right .link:hover .bi-linkedin:hover {
+  color: #05a;
+}
+
+.footer .links .col-right .link:nth-child(1):hover {
+  background-color: #3b5999;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.footer .links .col-right .link:nth-child(1):hover .bi-facebook {
+  color: #fff;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.footer .links .col-right .link:nth-child(2):hover {
+  background-color: #8f2ead;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.footer .links .col-right .link:nth-child(2):hover .bi-instagram {
+  color: #fff;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.footer .links .col-right .link:nth-child(3):hover {
+  background-color: #05a;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.footer .links .col-right .link:nth-child(3):hover .bi-linkedin {
+  color: #fff;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .form-container {

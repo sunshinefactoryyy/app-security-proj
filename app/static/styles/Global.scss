@@ -291,8 +291,101 @@ section {
     h1{
       margin-top: 20px;
     }
-    p {
+    .h4 {
       margin-top: 20px;
+    }
+    img {
+      border-radius: 50%;
+    }
+  }
+}
+
+.footer {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 1em;
+
+  .company {
+    font-size: 1.2em;
+  }
+
+  .links {
+    .col-left {
+      .bi {
+        display: inline-block;
+        font-size: 1.5em;
+        margin: 0.5em;
+      }
+
+      .bi-exclude {
+        transform: scaleX(-1);
+      }
+
+      .list-title {
+        font-size: 2em;
+      }
+    }
+
+    .col-right {
+      column-gap: 2em;
+
+      .link {
+        height: 2.5em;
+        width: 2.5em;
+        border-radius: 50%;
+        background-color: #fff;
+        transition: 0.4s;
+
+        a {
+          text-decoration: none;
+          font-size: 1.7em;
+
+          .bi {
+            color: #000;
+            text-align: center;
+          }
+        }
+      }
+
+      .link:hover {
+        transform: translate(0, -15px);
+        transition: 0.4s;
+        cursor: pointer;
+
+        .bi-linkedin:hover {
+          color: #05a;
+        }
+      }
+
+      .link:nth-child(1):hover {
+        background-color: #3b5999;
+        transition: 0.2s;
+
+        .bi-facebook {
+          color: #fff;
+          transition: 0.2s;
+        }
+      }
+
+      .link:nth-child(2):hover {
+        background-color: rgb(143, 46, 173);
+        transition: 0.2s;
+
+        .bi-instagram {
+          color: #fff;
+          transition: 0.2s;
+        }
+      }
+
+      .link:nth-child(3):hover {
+        background-color: #05a;
+        transition: 0.2s;
+
+        .bi-linkedin {
+          color: #fff;
+          transition: 0.2s;
+        }
+      }
     }
   }
 }
