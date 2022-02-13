@@ -1,14 +1,67 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="about-content p-1 overflow-hidden d-flex justify-content-center align-items-center flex-row">
-    <div class="about">
-        <h3 class="display-3 font-weight-bold">About Us</h3>
+<section class="about-content">
+    <div class="container d-flex justify-content-center align-items-center flex-md-row">
+        <div class="text col-md-6 d-flex flex-column">
+
+            <!-- <strong class="hero-text-4 font-weight-bold">About Us</strong> -->
+
+            <div class="about">
+                
+                <h1 class="display-5">Our Vision</h1>
+                <p class="lead">Founded in 2021 by our visionary Isaac Koh, Vision Core aims to bring customers the most seamless electronic repair experience, and, above all, remain a trusted business for years to come.</p>
+            </div><!--about-->
+        </div>
+
+        <img
+            class="col-md-6 d-sm-none d-md-block"
+            src="/static/public/Bug_fixing.svg"
+        />       
+    </div>
+
+    <div class="container d-flex justify-content-center align-items-center flex-md-row">
+        <div class="text col-md-6 d-flex flex-column">
+            
+            <div class="team">
+
+                <h1 class="display-5 text-center">Our Team</h1>
+                <div class="container d-flex justify-content-center align-items-center flex-md-row">
+                    
+                    <div class="text col-md-6 d-flex flex-column">
+                        <div class="d-flex justify-content-center align-items-center flex-md-row">
+                            <p class="h4 text-center">Isaac Koh</p>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center flex-md-row">
+                            <img src="/static/public/ik.png" class="img-circle">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <p class="lead">Founded in 2021 by our visionary Isaac Koh, Vision Core aims to bring customers the most seamless electronic repair experience, and, above all, remain a trusted business for years to come.</p> -->
+            </div><!-- team -->
+
+        </div>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- <div class="about">
+        <strong class="hero-text-4 font-weight-bold">About Us</strong>
         <h1 class="display-5">Our Vision</h1>
         <p class="display-6">Founded in 2013 by our visionary Isaac Koh, Vision Core aims to bring customers the most seamless electronic repair experience, and, above all, remain a trusted business for years to come.</p>
-    </div><!--about-->
+    </div>about -->
 
-    <img class="bug" src="/static/public/Bug_fixing.svg">
+    <!-- <img class="bug" src="/static/public/Bug_fixing.svg"> -->
 </section><!--about-content-->
 {% endblock %}
 
