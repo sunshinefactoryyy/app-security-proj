@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify
+from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app
 from app import app, db, bcrypt, mail, stripe_keys
 from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, inventoryForm, CustomerRequestForm, NewInventoryItem
 from app.models import Customer, Inventory, Request
@@ -230,11 +230,12 @@ def customerAccount():
 @login_required
 def editCustomerAccount():
     form = UpdateCustomerAccountForm()
-    user = current_user
+    path = '/static/src/profile_pics/'
+    
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
-            os.remove(current_user.picture.replace('/static','app/static'))
+            os.remove(os.path.join(current_app.root_path,'static/src/profile_pics',current_user.picture))
             current_user.picture = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -254,7 +255,7 @@ def editCustomerAccount():
         form=form, 
         user=current_user,
         userData={
-            'picture' : current_user.picture,
+            'picture' : path+current_user.picture,
             'username' : current_user.username,
             'email' : current_user.email,
             'contact_no' : current_user.contact_no,
