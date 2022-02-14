@@ -3,6 +3,8 @@ from flask import render_template, url_for, flash, redirect, request, session, a
 from app import app, db, bcrypt, mail, stripe_keys
 from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateInventoryItem
 from app.models import CatalogueProduct, Customer, Employee, Inventory, Request
+from turtle import title
+from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
@@ -11,7 +13,6 @@ from app.config import Auth
 from flask_mail import Message
 import os
 import stripe
-
 
 
 # Public Routes
@@ -333,12 +334,20 @@ def customerRequest():
     for product in products:
         prodList.append({'img': path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
     form = CustomerRequestForm()
+    # form = CustomerRequestForm()
+    img_path = '../static/public/'
+    prodList = [
+        {'id': 1, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'id': 2, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+        {'id': 3, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'id': 4, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+    ]
     return render_template(
         'customer/request.html', 
         title='Customer Request',
         navigation='Request', 
         prodList = prodList, 
-        form=form
+        # form=form
     )
 
 @app.route('/my-requests/cart')
@@ -604,16 +613,15 @@ def employeeManagementDetails(employeeID):
 
 
 #Chatbot
-@app.route('/chat')
+@app.route('/chatbot', methods=['GET','POST'])
 def chatbot():
-    return render_template("chat.html")
+    return render_template('public/newChat.html', title='Chat Support')
 
-# Test
-@app.route('/test')
-def test():
-    request = Request()
-    pass
-
+@app.route("/get", methods=['GET','POST'])
+def get_bot_response():
+    userText = request.args.get('msg')
+    return str(bot.get_response(userText))
+#end Chatbot
 
 
 # Error Handling
