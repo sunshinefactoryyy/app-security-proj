@@ -1,14 +1,15 @@
 {% extends "base.html" %} 
 
 {% block content %}
-<section class="form-container d-flex justify-content-around align-items-center">
-    <img src="/static/public/Secure_login.svg">
+<section class="form-container p-1 d-flex justify-content-around align-items-center">
+    <img class="col-md-5 d-none d-md-none d-lg-block" src="/static/public/Secure_login.svg">
 
-    <div class="sign_up">
+    <div class="sign_up col-md-7">
         <h1 id="title" class="text-center font-weight-bold display-4">Sign Up</h1>
 
-        <form method="post" action="">
+        <form method="post">
             {{ form.hidden_tag() }}
+
             <div class="form-group">
                 {{ form.username.label(class="form-control-label") }}
                 {% if form.username.errors %}
@@ -18,21 +19,23 @@
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
+                {% else %}
+                {{ form.username(class="form-control") }}
                 {% endif %}
-                {{ form.username(class="form-control form-control-lg") }}
             </div><!--form-group-->
 
             <div class="form-group">
                 {{ form.email.label(class="form-control-label") }}
                 {% if form.email.errors %}
-                {{ form.email(class="form-control is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.email.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% endif %}
+                    {{ form.email(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
                 {{ form.email(class="form-control") }}
+                {% endif %}
             </div><!--form-group-->
 
             <div class="form-group">
@@ -44,8 +47,9 @@
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
-                {% endif %}
+                {% else %}
                 {{ form.password(class="form-control") }}
+                {% endif %}
             </div><!--form-group-->
             
             <div class="form-group">
@@ -57,8 +61,9 @@
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
-                {% endif %}
+                {% else %}
                 {{ form.confirm_password(class="form-control") }}
+                {% endif %}
             </div><!--form-group-->
             
             
@@ -71,8 +76,9 @@
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
-                {% endif %}
+                {% else %}
                 {{ form.terms_and_conditions.label(class="form-check-label") }} <span style="color: red;">*</span>
+                {% endif %}
             </div>
             
             <div class="form-group">

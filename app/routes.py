@@ -34,7 +34,7 @@ def home():
     service = [{'service-title': 'Electronics Repairs',
                 'service-desc': 'We offer repair services for computers, mobile phones, and more. Our repair process is entirely online, and you will receive constant updates on the status of your product! Prices range from $50-$3000 depending on the issue and the product.'
                 },
-                {'service-title': '2-way Delivery Service',
+                {'service-title': 'Two-way Delivery Service',
                 'service-desc': 'No time to drop in personally with your computer? No problem! Just engage our two-way delivery service that will deliver to and from your doorstep at any time slot you choose.'
                 },
                 {'service-title': 'Computer Diagnostics',
@@ -61,16 +61,26 @@ def about():
 
 @app.route('/faq')
 def faq():
-    collapse = [{'question': 'Question 1',
-                'answer': 'Answer 1'
+    collapse = [{'question': 'What services do you provide?',
+                 'answer': 'We provide electronic repair services, two-way delivery services, computer diagnostics and many more! Head to our home page to find out.'
                 },
-                {'question': 'Question 2',
-                    'answer': 'Answer 2'
+                {'question': 'How do i contact Vision Core?',
+                 'answer' : 'Apart from our hotline that is open during office hours, our website offers a chatbot that allows you to either chat with a bot online or with one of our customer service staff!',
                 },
-                {'question': 'Question 3',
-                    'answer': 'Answer 3'
+                {'question': 'What are the steps involved when i decide to repair with Vision Core?',
+                 'answer': '1. Request for repair -> 2. Await for item status -> 3.Collect repair item.'
+                },
+                {'question': 'What are the payment methods accepted?',
+                 'answer': 'We accept Paypal, Mastercard or your preferred bank app.'
+                },
+                {'question': 'How much is the two-way delivery fee?',
+                 'answer': 'Two-way delivery fee has a $10 flat fee.'
+                },
+                {'question': 'What to do when i cannot drop off the product myself?',
+                 'answer': 'No problem! Just engage our two-way delivery service that will deliver to and from your doorstep at any time slot you choose.'
                 }
             ]
+
     return render_template(
         'public/faq.html', 
         title='FAQ',

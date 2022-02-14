@@ -1,26 +1,26 @@
 {% extends 'base.html' %} 
 {% block content %}
 <section class="container-fluid" id="faq-container">
-  <h1 class="fs-1 fw-bold mt-4 ms-4">FAQ</h1>
-  {% for faq in collapse %}
-    <div id="accordion">
+  <h1 class="fs-1 fw-bold mt-4 ms-4 mb-3">FAQ</h1>
+  <div class="accordion" id="accordionContainer">
+    {% for faq in collapse %}
       <div class="card">
-        <div class="card-header" id="card-header">
-          <h5 class="mb-0 fw-bold">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              {{collapse.index(question)+1}}. {{ faq['question'] }}
-            </button><!--btn-link-->
-          </h5><!--mb-0-->
+        <div class="card-header" id="faq-title">
+          <h2 class="mb-0">
+            <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#panel{{collapse.index(faq)}}" aria-expanded="true" aria-controls="panel{{collapse.index(faq)}}">
+              {{collapse.index(faq)+1}}. {{ faq['question'] }}
+            </button><!--btn-->
+          </h2><!--mb-0-->
         </div><!--card-header-->
-
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        
+        <div id="panel{{collapse.index(faq)}}" class="collapsing" aria-labelledby="faq-title" data-parent="#accordionContainer">
           <div class="card-body">
-            {{ faq['answer'] }}
+            {{ faq ['answer'] }}
           </div><!--card-body-->
-        </div><!--#collapseOne show-->
+        </div><!--collapse-->
       </div><!--card-->
-      {% endfor %}
-    </div><!--accordion-->
+    {% endfor %}
+  </div><!--accordion-->
 </section>
 
 {% endblock %}
