@@ -77,4 +77,4 @@ class CatalogueProduct(db.Model):
     productPicture = db.Column(db.String(200))
     productName = db.Column(db.String(200), nullable=False)
     productDescription = db.Column(db.String(1000), nullable=False)
-    # productCost = db.Column(db.Float, nullable=False)
+    productCost = db.Column(db.Float, nullable=False)

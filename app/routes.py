@@ -12,6 +12,7 @@ from app.config import Auth
 from flask_mail import Message
 import os
 import stripe
+from app.train import bot
 
 
 # Public Routes
@@ -298,7 +299,7 @@ def deactivateAccount():
     flash('Account has been successfully deleted!', 'success')
     return redirect(url_for('home'))
 
-path = '/static/src/product_pics/'
+img_path = '/static/src/product_pics/'
 # products = CatalogueProduct.query.all()
 prodList = [
     {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
@@ -597,7 +598,6 @@ def catalogueProductDelete(productID):
     return redirect(url_for('catalogue'))
 
 @app.route('/employee-management', methods=["GET", "POST"])
-@login_required
 def employeeManagement():
     employeeData = Employee.query.all()
     form = EmployeeCreationForm()
