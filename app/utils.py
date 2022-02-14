@@ -42,7 +42,7 @@ def download_picture(pic_url):
     urllib.request.urlretrieve(pic_url, fp)
     i = Image.open(fp)
     i.save(fp)
-    return url_for('static', filename=f'src/profile_pics/{fn}.jpeg')
+    return f'{fn}.jpeg'
 
 # def save_picture(form_picture, path, seperate=False):
 #     if seperate:

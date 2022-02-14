@@ -1,0 +1,352 @@
+{% extends "customer/base.html" %}
+{% block title %}My Requests{% endblock %}
+
+{% block customerContent %}
+<div class="d-flex flex-row align-items-center justify-content-between mb-4">
+    <h1 class="display-6 fw-bold d-inline-block align-middle">My Requests</h1>
+    <div class="d-flex flex-row align-items-center justify-content-center">
+        <div class="me-2" id="cart_btn">
+            <a href="{{ url_for('customerCart') }}">
+            <div class="tw-cursor-pointer tw-flex tw-items-center tw-justify-center bg-primary tw-h-12 tw-w-12 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
+                <i class="bi bi-cart-fill text-white" style="font-size:1.5em;"></i>                
+            </div>
+            </a>
+    </div>
+        <div class="ms-2">
+            <div class="tw-cursor-pointer tw-flex tw-items-center tw-justify-center bg-primary tw-h-12 tw-w-12 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
+                <i class="bi bi-chat-left-fill text-white" style="font-size:1.2em;"></i>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex felx-row align-items-start justify-content-start tw-bg-white tw-rounded-3xl tw-shadow-xl tw-p-5">
+    <img class="tw-h-64 tw-w-64" src="../static/public/Gigabyte_X570_Aorus_Pro_Wifi.png">
+    <div class="d-flex flex-grow-1 flex-column align-items-start justify-content-between tw-h-64 ms-4">
+        <div class="d-flex flex-column align-items-start justify-content-start w-100">
+            <p class="fs-3 fw-bold pb-1">Gigabyte X570 | Aorus Pro Wifi</p>
+            <p><b> Date Requested: </b> 19 October 2021</p>
+            <p><b>Issue Description: </b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div class="d-flex flex-row align-items-center justify-content-end w-100">
+            <div class="me-2">
+                {% with label='Pending Quote', color='warning' %}
+                    {% include '/includes/customButtonComponent.html' %}
+                {% endwith %}
+            </div>
+            <div class="ms-2">
+                <div class="tw-cursor-pointer tw-flex tw-items-center tw-justify-center bg-primary tw-h-12 tw-w-12 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
+                    <i class="bi bi-plus text-white" style="font-size:2em;"></i>                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="cart_popup" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <!-- <p>Some text in the Modal..</p> -->
+        <br>
+
+        <input type="text" placeholder="Search.." id="searchInput" onkeyup="filterFunction()" onclick="myFunction()">
+        <div id="dropdownOptions" class="dropdown-content">
+            <ul id="prodList">
+                {% for prod in prodList %}
+                <li>
+                    <a href="#">
+                        <img src={{ prod['img'] }} id="choose_product{{prodList.index(prod)}}" style="height:10em;width:10em;">
+                        {{ prod['desc'] }}
+                    </a>
+                </li>
+                {% endfor %}
+              </ul>
+        </div>
+        <button type="button" class="btn float-end" id="next_btn" onclick="getProduct()">Next</button>
+    </div>
+</div>
+
+<div class="modal" id="cart_popup2">
+    <div class="modal-content" id="modal_content2">
+        <div class="row">
+            <div class="col">
+                <div class="card" id="p_card2">
+                    <span class="close">&times;</span>
+                    <div class="card-body" id="selected_p">
+                        <div class="row">
+                            <div class="col-5 text-center">
+                                <img src="../static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" id="cus_product1">
+                            </div>
+                            <div class="col-7" id="p_info2">
+                                <p id="prod1_name">Gigabyte X570 | Aorus Pro Wifi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" id="upload_btn_col">
+                <form>
+                    <div class="form-group">
+                      <!-- <label for="exampleFormControlFile1">Example file input</label>
+                      <input type="file" class="form-control-file" id="exampleFormControlFile1" accept="image/gif, image/jpeg, image/png"> -->
+
+                      <button type="file" class="form-control-file" id="upload_btn" accept="image/gif, image/jpeg, image/png">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="135" height="135" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                        </svg>
+                        Upload Image
+                    </button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Issue Description: </label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Describe the issues faced."></textarea>
+                  </div>
+            </form>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <h4>Warranty Status</h4>
+                <div class="alert alert-success" role="alert" id="warranty">
+                    Active
+                </div>
+                <div class="alert alert-danger" role="alert" id="warranty">
+                    Expired
+                </div>
+            </div>
+            <div class="col">
+                <h4>Price</h4>
+                <div class="alert alert-success" role="alert" id="warranty">
+                    $300
+                </div>
+                <div class="alert alert-primary" role="alert" id="warranty">
+                    Get a Quote
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn float-start" id="back_btn">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+                <h6 class="d-inline-block align-middle" id="btn_text">Go Back</h6>
+            </div>
+            <div class="col">
+                <button type="button" class="btn float-end" id="checkO_btn">
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+                <h6 class="float-end d-inline-block align-middle" id="btn_text">To Checkout</h6>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="payment_popup">
+    <div class="modal-content" id="modal_content3">
+        <div class="row">
+            <div class="col">
+                <div class="card" id="p_card2">
+                    <div class="card-body" id="selected_p">
+                        <div class="row">
+                            <div class="col-5 text-center">
+                                <img src="../static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" id="cus_product1">
+                            </div>
+                            <div class="col-7" id="p_info2">
+                                <p id="prod1_name">Gigabyte X570 | Aorus Pro Wifi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <h4>Doorstep Delivery 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-circle-fill " viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+                        </svg>
+                    </h4>
+                    <div class="alert alert-success" role="alert" id="warranty">
+                        $10
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="warranty">
+                        No
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h6 style="color: #888;">Repair Price: </h6>
+                    </div>
+                    <div class="col">
+                        $300.00
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h6 style="color: #888;">Delivery Price: </h6>
+                    </div>
+                    <div class="col">
+                        $10.00
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h5>Total Price: </h5>
+                    </div>
+                    <div class="col">
+                        $310.00
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Issue Description: </label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Describe the issues faced."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <h4>Payment Option</h4>
+                </div>
+                <div class="row">
+                    <button type="button" class="btn" id="payment_btn">
+                        <img src="../static/public/paypal.png" id="pp_meth" alt="paypal_icon">
+                    </button>
+                    <button type="button" class="btn" id="payment_btn">
+                        <img src="../static/public/mastercard.png" id="mc_meth" alt="mastercard_icon">
+                    </button>
+                    <button type="button" class="btn" id="payment_btn">
+                        <img src="../static/public/amex.png" id="amex_meth" alt="amex_icon">
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <p id="image_upload">
+                <img src="../static/public/Gigabyte_X570_Aorus_Pro_Wifi.png" id="uploaded_p" alt="gigabyte x570 aorus pro wifi mobo">
+                file.png
+            </p>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn float-start" id="back_btn2">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+                <h6 class="d-inline-block align-middle" id="btn_text">Go Back</h6>
+            </div>
+            <div class="col">
+                <button type="button" class="btn float-end" id="confirm_btn">
+                    <i class="bi bi-check"></i>
+                </button>
+                <h6 class="float-end d-inline-block align-middle" id="btn_text">Confirm order</h6>
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+<script>
+    //cart and payment popup
+    var modal = document.getElementById("cart_popup");
+    var modal2 = document.getElementById("cart_popup2");
+    var pay = document.getElementById("payment_popup");
+    var btn = document.getElementById("cart_btn");
+    var btn2 = document.getElementById("next_btn");
+    var btn3 = document.getElementById("checkO_btn");
+    var btn4 = document.getElementById("back_btn");
+    var btn5 = document.getElementById("confirm_btn");
+    var btn6 = document.getElementById("back_btn2");
+    var spanclose = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    btn2.onclick = function() {
+        modal2.style.display = "block";
+        modal.style.display = "none";
+    }
+    btn3.onclick = function() {
+        pay.style.display = "block";
+        modal2.style.display = "none";
+    }
+    btn4.onclick = function() {
+        modal2.style.display = "none";
+        modal.style.display = "block";
+    }
+    btn5.onclick = function() {
+        pay.style.display = "none";
+    }
+    btn6.onclick = function() {
+        pay.style.display = "none";
+        modal2.style.display = "block";
+    }
+    spanclose.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // searchbar
+    function myFunction() {
+        document.getElementById("dropdownOptions").classList.toggle("show");
+    }
+
+    // function notFound() {
+    //   var notFound = document.getElementById("notFound");
+    //   notFound.innerHTML = "Product not found.";
+    // }
+
+    function filterFunction() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("prodList");
+        li = ul.getElementsByTagName('li');
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+            } else {
+            li[i].style.display = "none";
+            }
+        }
+    }
+
+    //display product selected
+    function getProduct() {
+        var x = document.getElementById("cart_popup");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+        var y = document.getElementById("cart_popup2");
+        if (y.style.display === "none") {
+            y.style.display = "block";
+        }
+    }
+</script>
+{%endblock%}

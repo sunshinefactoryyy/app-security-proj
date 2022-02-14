@@ -1,8 +1,7 @@
-from crypt import methods
-from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify
-from app import app, db, bcrypt, mail, stripe_keys
 from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateInventoryItem
 from app.models import CatalogueProduct, Customer, Employee, Inventory, Request
+from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app
+from app import app, db, bcrypt, mail, stripe_keys
 from turtle import title
 from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
@@ -225,13 +224,13 @@ def logout():
 @app.route('/account')
 @login_required
 def customerAccount():
-    form = UpdateCustomerAccountForm()
+    path = 'static/src/profile_pics/'
     return render_template(
         'customer/account.html', 
         title='My Information', 
         navigation='Account',
         userData={
-            'picture' : current_user.picture,
+            'picture' : path+current_user.picture,
             'username' : current_user.username,
             'email' : current_user.email,
             'contact_no' : current_user.contact_no,
@@ -244,11 +243,12 @@ def customerAccount():
 @login_required
 def editCustomerAccount():
     form = UpdateCustomerAccountForm()
-    user = current_user
+    path = '/static/src/profile_pics/'
+    
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
-            os.remove(current_user.picture.replace('/static','app/static'))
+            os.remove(os.path.join(current_app.root_path,'static/src/profile_pics',current_user.picture))
             current_user.picture = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -268,7 +268,7 @@ def editCustomerAccount():
         form=form, 
         user=current_user,
         userData={
-            'picture' : current_user.picture,
+            'picture' : path+current_user.picture,
             'username' : current_user.username,
             'email' : current_user.email,
             'contact_no' : current_user.contact_no,
@@ -280,7 +280,7 @@ def editCustomerAccount():
 
 @app.route('/account/deactivate', methods=["GET", "POST"])
 def deactivateAccount():
-    os.remove(current_user.picture.replace('/static','app/static'))
+    os.remove('app/static/src/profile_pics/'+current_user.picture)
     deleted_user_id=current_user.id
     logout_user()
     Customer.query.filter_by(id=deleted_user_id).delete()
@@ -291,10 +291,10 @@ def deactivateAccount():
 path = '/static/src/product_pics/'
 # products = CatalogueProduct.query.all()
 prodList = [
-    {'img': path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    {'img': path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    {'img': path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    {'img': path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    # {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    # {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
 ]
 # for product in products:
 #     prodList.append({'img': path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
@@ -327,6 +327,7 @@ def stripe_webhook():
         redirect(url_for('home'))
 
     return "Success", 200
+
 @app.route('/my-requests')
 @login_required
 def customerRequest():
@@ -342,15 +343,22 @@ def customerRequest():
         {'id': 3, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
         {'id': 4, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
     ]
+    # page = request.args.get('page', 1, type=int)
+    requests = Request.query.filter_by(owner=current_user).order_by(Request.creation_datetime.desc())#.paginate(page=page, per_page=5)
+    images = []
+    for request_ in requests:
+        paths = os.listdir(f'app/static/src/request_imgs/{request_.images}')
+        images.append(paths)
     return render_template(
         'customer/request.html', 
         title='Customer Request',
         navigation='Request', 
-        prodList = prodList, 
-        # form=form
+        prodList=prodList, 
+        requests=list(requests),
+        images=images,
     )
 
-@app.route('/my-requests/cart')
+@app.route('/my-requests/cart', methods=['GET', 'POST'])
 @login_required
 def customerCart():
     products = CatalogueProduct.query.all()
@@ -358,12 +366,26 @@ def customerCart():
         prodList.append({'img': path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
     form = CustomerRequestForm()
     if form.validate_on_submit():
-        save_picture(form.images.data, path='static/src/request-images')
-        return redirect(url_for('inventoryManagement'))
+        image_folder = save_picture(form.images.data, path='static/src/request_imgs', seperate=True)
+        new_request = Request(productName=form.productName.data,
+                       images=image_folder, 
+                       repairCost=300,
+                       description=form.issueDesc.data, 
+                       warranty=form.warranty.data,
+                       owner=current_user)
+        db.session.add(new_request)
+        db.session.commit()
+        # flash(f"Your request has been created!", "success")
+        return redirect(url_for("redirect_to_checkout"))
 
     return render_template('customer/cart.html', prodList=prodList, form=form)
 
 @app.route('/my-requests/cart/checkout')
+@login_required
+def redirect_to_checkout():
+    return render_template('customer/checkout.html')
+
+@app.route('/my-requests/cart/checkout/new')
 @login_required
 def create_checkout_session():
     domain_url = "https://127.0.0.1:5000/my-requests/cart/checkout/"
@@ -397,6 +419,9 @@ def checkout_success():
 @app.route('/my-requests/cart/checkout/cancelled')
 @login_required
 def checkout_cancelled():
+    request = Request.query.filter_by(owner=current_user).order_by(Request.creation_datetime.desc()).first()
+    db.session.delete(request)
+    db.session.commit()
     flash(f"Your payment has been cancelled!", "danger")
     return redirect(url_for('customerCart'))
 

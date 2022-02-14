@@ -108,13 +108,11 @@ class UpdateEmployeeCreationForm(FlaskForm):
                 raise ValidationError("That email is taken. Please choose a different one.")
 
 class CustomerRequestForm(FlaskForm):
-    productName = SelectField("Select Product", [validators.DataRequired()], choices = [('123','Gigabyte X570 | Aorus Pro Wifi'),('321', 'Gigabyte X570 | Aorus Pro Wifi')], default='')
-    images = MultipleFileField('Upload Images', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg','pdf'], 'Images only')])
-    issueDesc = TextAreaField('Issue Description', [validators.length(max=200), validators.DataRequired()])
-    warranty = RadioField('Warranty Status', [validators.DataRequired()], choices=[('1', 'Active'), ('0', 'Expired')], default='')
-    price = RadioField('Price', [validators.DataRequired()], choices = [('1','S$300'),('0', 'Get A Quote')], default='')
-
-    delivery = SelectField('Doorstep Delivery', [validators.DataRequired()], choices = [('1','10.00'),('2', 'No')], default='')
+    productName = StringField("Select Product", validators=[DataRequired()])
+    images = MultipleFileField('Upload Images', validators=[FileAllowed(['jpg', 'png', 'jpeg','pdf'])])
+    issueDesc = TextAreaField('Issue Description', validators=[Length(max=200), DataRequired()])
+    warranty = RadioField('Warranty Status', validators=[DataRequired()], choices=[(1, 'Active'), (0, 'Expired')], default='')
+    price = RadioField('Price', validators=[DataRequired()], choices = [(300,'S$300'), (0,'Get Quote')], default='')
     submit = SubmitField('Confirm Order')
 
 class RequestResetForm(FlaskForm):

@@ -1,7 +1,7 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 
-bot = ChatBot("Johnny", storage_adapter="chatterbot.storage.SQLStorageAdapter")
+bot = ChatBot("Johnny", read_only=True)
 
 trainer = ListTrainer(bot)
 trainer.train(['What services do you provide?', 'We provide electronic repairs, two-way delivery services, computer diagnostic and many more! Head to our home page to find out.'])
