@@ -1,0 +1,24 @@
+{% extends "employeeBase.html" %} 
+{% set addRequest = False %}
+
+{% block content %}
+<div class="d-flex flex-row align-items-start justify-content-between mt-2 w-100">
+    <h2 class="fs-1 fw-bold pb-1">Product</h2>
+    <div class="d-flex flex-row">
+        <a href="{{url_for('catalogueProductEdit', productID=product.id)}}">
+            <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
+                <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">Edit</p>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="d-flex flex-row align-items-start justify-content-start mt-4 w-100">
+    <img class="tw-h-96 tw-w-96" src="/static/src/product_pics/{{ product.productPicture }}" />
+    <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-start ms-4">
+        <p class="fs-2 fw-bold pb-2">{{ product.productName }}</p>
+        <p class="fs-6 pb-1"><span class="fw-bold">Product ID:</span> {{ product.id }}</p>
+        <p class="fs-6 pb-1"><span class="fw-bold">Product Cost:</span> ${{ product.productCost }}</p>
+        <p class="fs-6 pb-1"><span class="fw-bold">Description:</span> {{ product.productDescription }}</p>
+    </div>
+</div>
+{% endblock %}

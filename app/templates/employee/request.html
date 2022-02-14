@@ -1,21 +1,28 @@
 {% extends "employeeBase.html" %} 
 {% block content %}
-<div class="d-flex flex-row align-items-start justify-content-between mt-2 w-100">
+<div class="d-flex flex-row align-items-start justify-content-start mt-2 w-100">
     <h2 class="fs-1 fw-bold pb-1">Customer Request Management</h2>
-    {% with iconSrc='../static/icons/plus.svg', color='primary' %}
-        {% include '/includes/squareButtonComponent.html' %}
-    {% endwith %}
+    <a href="{{url_for('requestCreate')}}">
+    </a>
 </div>
 <div class="d-flex flex-column align-items-start justify-content-start mt-4 w-100">
     <table class="w-100 tw-bg-white tw-shadow-xl tw-rounded-xl">
         <tr>
             <th class="tw-w-52 tw-h-12 tw-text-center">Request Number</th>
-            <th class="tw-h-12 tw-text-center">Customer</th>
-            <th class="tw-w-52 tw-h-12 tw-text-center">Repair Status</th>
+            <th class="tw-w-56 tw-h-12 tw-text-center">Customer</th>
             <th class="tw-w-56 tw-h-12 tw-text-center">Assigned To</th>
             <th class="tw-w-52 tw-h-12 tw-text-center">Request Date</th>
-            <th class="tw-w-12 tw-h-12"></th>
+            <th class="tw-w-52 tw-h-12 tw-text-center">Repair Status</th>
         </tr>
+        {% for request in requests %}
+            <tr>
+                <td class="tw-w-52 tw-h-12 tw-text-center">{{ request.id }}</td>
+                <td class="tw-w-56 tw-h-12 tw-text-center">{{ request.customerID }}</td>
+                <td class="tw-w-56 tw-h-12 tw-text-center">{{ request.employeeID if request.employeeID else '-' }}</td>
+                <td class="tw-w-52 tw-h-12 tw-text-center">{{ request.creation_datetime }}</td>
+                <td class="tw-w-52 tw-h-12 tw-text-center">{{ request.repairStatus }}</td>    
+            </tr>
+        {% endfor %}
     </table>
 </div>
 {% endblock %}

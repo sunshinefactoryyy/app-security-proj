@@ -44,6 +44,34 @@ def download_picture(pic_url):
     i.save(fp)
     return url_for('static', filename=f'src/profile_pics/{fn}.jpeg')
 
+# def save_picture(form_picture, path, seperate=False):
+#     if seperate:
+#         form_pictures = form_picture
+#         folder_fn = secrets.token_hex(8)
+#         folder_path = os.path.join(current_app.root_path, Path(path), folder_fn)
+#         os.mkdir(folder_path)
+#         for form_picture in form_pictures:
+#             random_hex = secrets.token_hex(8)
+#             _, f_ext = os.path.splitext(form_picture.filename)
+#             picture_fn = random_hex + f_ext
+#             picture_path = os.path.join(folder_path, picture_fn)
+#             output_size = (256, 256)
+#             i = Image.open(form_picture)
+#             i.thumbnail(output_size)
+#             i.save(picture_path)
+#         return url_for('static', filename=f'src/request-images/{folder_fn}')
+#     else:
+#         random_hex = secrets.token_hex(8)
+#         _, f_ext = os.path.splitext(form_picture.filename)
+#         picture_fn = random_hex + f_ext
+#         picture_path = os.path.join(current_app.root_path, Path(path), picture_fn)
+#         output_size = (256, 256)
+#         i = Image.open(form_picture)
+#         i.thumbnail(output_size)
+#         i.save(picture_path)
+
+#     return url_for('static', filename=f'src/profile_pics/{picture_fn}')
+
 def save_picture(form_picture, path, seperate=False):
     if seperate:
         form_pictures = form_picture
@@ -59,7 +87,7 @@ def save_picture(form_picture, path, seperate=False):
             i = Image.open(form_picture)
             i.thumbnail(output_size)
             i.save(picture_path)
-        return url_for('static', filename=f'src/request-images/{folder_fn}')
+        return folder_fn
     else:
         random_hex = secrets.token_hex(8)
         _, f_ext = os.path.splitext(form_picture.filename)
@@ -70,4 +98,4 @@ def save_picture(form_picture, path, seperate=False):
         i.thumbnail(output_size)
         i.save(picture_path)
 
-    return url_for('static', filename=f'src/profile_pics/{picture_fn}')
+    return picture_fn

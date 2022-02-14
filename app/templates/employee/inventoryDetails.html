@@ -1,0 +1,30 @@
+{% extends "employeeBase.html" %} 
+{% set addRequest = False %}
+
+{% block content %}
+<div class="d-flex flex-row align-items-start justify-content-between mt-2 w-100">
+    <h2 class="fs-1 fw-bold pb-1">Inventory</h2>
+    <div class="d-flex flex-row">
+        <div class="me-3">
+            {% with link='inventoryManagement', label='Request more spares', color='primary' %}
+                {% include '/includes/customButtonComponent.html' %}
+            {% endwith %}
+        </div>
+        <a href="{{url_for('inventoryPartDetailsEdit', partID=part.id)}}">
+            <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
+                <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">Edit</p>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="d-flex flex-row align-items-start justify-content-start mt-4 w-100">
+    <img class="tw-h-96 tw-w-96" src="/static/src/part_pics/{{ part.partPicture }}"/>
+    <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-start ms-4">
+        <p class="fs-2 fw-bold pb-2">{{ part.partName }}</p>
+        <p class="fs-6 pb-1"><span class="fw-bold">Part ID:</span> {{ part.id }}</p>
+        <p class="fs-6 pb-1"><span class="fw-bold">Part Cost:</span> ${{ part.partCost }}</p>
+        <p class="fs-6 pb-1"><span class="fw-bold">Description:</span> {{ part.partDescription }}</p>
+        <p class="fs-6 pb-1"><span class="fw-bold">Quantity:</span> {{ part.partQuantity }}</p>
+    </div>
+</div>
+{% endblock %}

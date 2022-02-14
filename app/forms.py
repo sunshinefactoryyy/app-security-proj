@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, validators, MultipleFileField, RadioField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, validators, MultipleFileField, RadioField, FloatField
 from wtforms.fields.datetime import DateField
 from wtforms.fields.numeric import IntegerField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
-from app.models import Customer, Employee, User
+from app.models import Customer, Employee
 import phonenumbers
 
 class LoginForm(FlaskForm):
@@ -67,63 +67,17 @@ class UpdateCustomerAccountForm(FlaskForm):
                     input_number = phonenumbers.parse(f"+65{phone_no.data}")
                     if not (phonenumbers.is_valid_number(input_number)):
                         raise ValidationError("Invalid phone number.")
-        
-    
-    
-
-class inventoryForm(FlaskForm):
-    username = StringField("User", validators=[DataRequired(), Length(min=2, max=20)])
-    password = PasswordField("Password", validators=[DataRequired(), Length(min=2, max=20)])
-    part_name = StringField("Part Name", validators=[DataRequired()])
-    part_quantity = IntegerField("Part Quantity", validators=[DataRequired()])
-    part_cost = IntegerField("Part Cost", validators=[DataRequired()])
-    date_posted = DateField("Date Posted", validators=[DataRequired()])
-    add = SubmitField("Add Part")
-
-    def validate_part_quantity(self, part_quantity):
-        try:
-            type(part_quantity)
-
-            if part_quantity <= 0:
-                raise ValidationError("Part quantity cannot be 0. Please try again.")
-            
-        except ValueError:
-            raise ValidationError("Please enter a number.")
-
-    def validate_part_cost(self, part_cost):
-        try:
-            type(part_cost)
-            if part_cost <= 0:
-                raise ValidationError("Please enter a valid cost")
-
-        except ValueError:
-            raise ValidationError("Please enter a number.")
-    
-class updateInventoryForm(FlaskForm):
-    part_name = StringField("Part Name", validators=[DataRequired()])
-    part_quantity = IntegerField("Part Quantity", validators=[DataRequired()])
-    part_cost = IntegerField("Part Cost", validators=[DataRequired()])
-    date_posted = DateField("Date Posted", validators=[DataRequired()])
-    update = SubmitField("Update")
-    
-    def validate_part_quantity(self, part_quantity):
-        if (part_quantity.data < 50) or part_quantity.data == 0:
-            try:
-                type(part_quantity)
-                if part_quantity <= 0:
-                    raise ValidationError("Please enter a valid cost")
-
-            except ValueError:
-                raise ValidationError("Please enter a number.")
-            
-        else:
-            raise Exception("This part is still in stock. No need to restock.")
 
 class EmployeeCreationForm(FlaskForm):
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email Address", validators=[DataRequired(), Email(message='Invalid email')])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
+    permissions = RadioField("Employee Permission", choices=[(1, "Super Administrator"), (2, 'Employee')], validators=[DataRequired()])
+    address = StringField("Residential Address", validators=[DataRequired()])
+    contact = IntegerField("Contact Number", validators=[DataRequired()])
+    submit = SubmitField("Create")
 
     def validate_username(self, username):
         user = Employee.query.filter_by(username=username.data).first()
@@ -177,7 +131,30 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField("Reset Password")
 
 class NewInventoryItem(FlaskForm):
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
     name = StringField("Part Name", validators=[DataRequired()])
     description = TextAreaField("Part Description", validators=[DataRequired()])
-    quantity = StringField("Quantity", validators=[DataRequired()])
-    submit = SubmitField('Add Part')
+    cost = FloatField("Part Cost", validators=[DataRequired()])
+    quantity = IntegerField("Part Quantity", validators=[DataRequired()])
+    submit = SubmitField("Add Part")
+
+class UpdateInventoryItem(FlaskForm):
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    name = StringField("Part Name", validators=[DataRequired()])
+    cost = FloatField("Part Cost", validators=[DataRequired()])
+    description = TextAreaField("Part Description")
+    submit = SubmitField("Update")
+
+class NewCatalogueItem(FlaskForm):
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    name = StringField("Product Name", validators=[DataRequired()])
+    cost = FloatField("Product Cost", validators=[DataRequired()])
+    description = TextAreaField("Product Description", validators=[DataRequired()])
+    submit = SubmitField("Add Product")
+
+class UpdateCatalogueItem(FlaskForm):
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    name = StringField("Product Name", validators=[DataRequired()])
+    cost = FloatField("Product Cost", validators=[DataRequired()])
+    description = TextAreaField("Product Description")
+    submit = SubmitField("Update")

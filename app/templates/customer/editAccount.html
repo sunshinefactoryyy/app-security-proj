@@ -15,19 +15,19 @@
                 <img src="{{ userData['picture'] }}" alt="Profile Picture" class="border rounded-circle" style="height:256px;width:256px;">
             </div>
         {% else %}
-            {% include '/includes/accountProfilePicture.html' %}
-            {% endif %}
-            <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl">
-                {{ form.picture(class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap", style='width:15em;') }}
-            </div>
-            {% if form.picture.errors %}
-            <div class="text-danger">
-                {% for error in form.picture.errors %}
-                    <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-            {% else %}
-            {% endif %}
+        {% include '/includes/accountProfilePicture.html' %}
+        {% endif %}
+        <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl">
+            {{ form.picture(class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap", style='width:15em;') }}
+        </div>
+        {% if form.picture.errors %}
+        <div class="text-danger">
+            {% for error in form.picture.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {% endif %}
 
     </div>
     <div class="d-flex flex-grow-1 flex-column align-items-start justify-content-start mt-2">
