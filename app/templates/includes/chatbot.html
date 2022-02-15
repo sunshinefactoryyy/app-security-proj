@@ -17,30 +17,31 @@
     <div id="userInput" class="mt-2">
         <input id="textInput" type="text" name="msg" placeholder="Type something..." />
     </div>
-    <script>
-        function getBotResponse() {
-          var rawText = $("#textInput").val();
-          var userHtml = '<div class="chat"><p class="userText"><span>' + rawText + "</span></p></div>";
-          $("#textInput").val("");
-          $(".chatbox").append(userHtml);
-          document
-            .querySelector(".chatbox").lastChild
-            .scrollIntoView({ block: "end", behavior: "smooth" });
-          $.get("/get", { msg: rawText }).done(function(data) {
-            var botHtml = '<p class="botText"><span>' + data + "</span></p>";
-            $(".chatbox").append(botHtml);
-            document
-              .querySelector(".chatbox").lastChild
-              .scrollIntoView({ block: "end", behavior: "smooth" });
-          });
-        }
-        $("#textInput").keypress(function(e) {
-          if (e.which == 13) {
-            getBotResponse();
-          }
-        });
-    </script>
-    </div>
+</div>
+<script>
+    function getBotResponse() {
+      var rawText = $("#textInput").val();
+      var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+      $("#textInput").val("");
+      $(".chatbox").append(userHtml);
+      document
+        .querySelector(".chatbox").lastChild
+        .scrollIntoView({ block: "end", behavior: "smooth" });
+      $.get("/get", { msg: rawText }).done(function(data) {
+        var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+        $(".chatbox").append(botHtml);
+        document
+          .querySelector(".chatbox").lastChild
+          .scrollIntoView({ block: "end", behavior: "smooth" });
+      });
+    }
+    $("#textInput").keypress(function(e) {
+      if (e.which == 13) {
+        getBotResponse();
+      }
+    });
+</script>
+    
 <style>
     .chat-btn {
         position: fixed;
