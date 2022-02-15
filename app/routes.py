@@ -2,12 +2,11 @@ from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, Registr
 from app.models import CatalogueProduct, Customer, Employee, Inventory, Request
 from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app
 from app import app, db, bcrypt, mail, stripe_keys
-from turtle import title
 from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
-from app.utils import get_google_auth, generate_password, download_picture, save_picture
+from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email
 from app.config import Auth
 from flask_mail import Message
 import os
@@ -98,7 +97,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = Customer(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = Customer(username=form.username.data, email=form.email.data, password=hashed_password, picture='default.png')
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)
@@ -148,7 +147,6 @@ def login():
         auth_url=auth_url
     )
 
-
 @app.route('/login/callback')
 def callback():
     if current_user is not None and current_user.is_authenticated:
@@ -187,12 +185,6 @@ def callback():
             return redirect(url_for('home'))
         return 'Could not fetch your information.'
 
-def send_reset_email(user):
-    token = user.get_reset_token()
-    msg = Message('Password Reset Request', sender='213587x@gmail.com', recipients=[user.email])
-    msg.body = f"To reset your password, visit the following link:\n{url_for('reset_token', token=token, _external=True)}\nIf you did not make this request then simply ignore this email and no changes will be made."
-    mail.send(msg)
-
 @app.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
@@ -223,13 +215,10 @@ def reset_token(token):
 
     return render_template('authentication/reset_token.html', title='Reset Password', form=form)
 
-
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('home'))
-
-
 
 # Customer Routes
 @app.route('/account')
@@ -257,18 +246,23 @@ def editCustomerAccount():
     path = '/static/src/profile_pics/'
     
     if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
-            os.remove(os.path.join(current_app.root_path,'static/src/profile_pics',current_user.picture))
-            current_user.picture = picture_file
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        current_user.contact_no = form.contact_no.data
-        current_user.address = form.address.data
-        current_user.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        db.session.commit()
-        flash('Your account details have been updated!', 'success')
-        redirect(url_for('customerAccount'))
+        Customer.query.filter_by(email=form.email.data).first()
+        user = Customer.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            if form.picture.data:
+                picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
+                os.remove(os.path.join(current_app.root_path,'static/src/profile_pics',current_user.picture))
+                current_user.picture = picture_file
+            current_user.username = form.username.data
+            current_user.email = form.email.data
+            current_user.contact_no = form.contact_no.data
+            current_user.address = form.address.data
+            current_user.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            db.session.commit()
+            flash('Your account details have been updated!', 'success')
+            redirect(url_for('customerAccount'))
+        else:
+            flash('Incorrect password.', 'danger')
 
     return render_template(
         'customer/editAccount.html', 
@@ -291,24 +285,17 @@ def editCustomerAccount():
 
 @app.route('/account/deactivate', methods=["GET", "POST"])
 def deactivateAccount():
-    os.remove('app/static/src/profile_pics/'+current_user.picture)
-    deleted_user_id=current_user.id
-    logout_user()
-    Customer.query.filter_by(id=deleted_user_id).delete()
-    db.session.commit()
-    flash('Account has been successfully deleted!', 'success')
-    return redirect(url_for('home'))
-
-img_path = '/static/src/product_pics/'
-# products = CatalogueProduct.query.all()
-prodList = [
-    {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    # {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'name': 'Gigabyte X570 | Aorus Pro Wifi', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    # {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'name': 'EVGA GeForce RTX | 3080 Ti', 'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-]
-# for product in products:
-#     prodList.append({'img': path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
+    if current_user.is_authenticated:
+        os.remove(os.path.join('app/static/src/profile_pics/'+current_user.picture))
+        deleted_user_id=current_user.id
+        logout_user()
+        Customer.query.filter_by(id=deleted_user_id).delete()
+        db.session.commit()
+        flash('Account has been successfully deleted!', 'success')
+        return redirect(url_for('home'))
+    else:
+        flash('You are not logged in.', 'danger')
+        return redirect(url_for('home'))
 
 @app.route('/config')
 def get_publishable_key():
@@ -343,18 +330,7 @@ def stripe_webhook():
 @login_required
 def customerRequest():
     products = CatalogueProduct.query.all()
-    for product in products:
-        prodList.append({'img': path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
     form = CustomerRequestForm()
-    # form = CustomerRequestForm()
-    img_path = '../static/public/'
-    prodList = [
-        {'id': 1, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
-        {'id': 2, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
-        {'id': 3, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
-        {'id': 4, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
-    ]
-    # page = request.args.get('page', 1, type=int)
     requests = Request.query.filter_by(owner=current_user).order_by(Request.creation_datetime.desc())#.paginate(page=page, per_page=5)
     images = []
     for request_ in requests:
@@ -364,7 +340,7 @@ def customerRequest():
         'customer/request.html', 
         title='Customer Request',
         navigation='Request', 
-        prodList=prodList, 
+        # prodList=prodList, 
         requests=list(requests),
         images=images,
     )
@@ -373,22 +349,28 @@ def customerRequest():
 @login_required
 def customerCart():
     products = CatalogueProduct.query.all()
+    img_path = '/static/src/product_pics/'
+    prodList = [
+        {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+        {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+    ]
     for product in products:
-        prodList.append({'img': path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
+        prodList.append({'img': img_path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
     form = CustomerRequestForm()
     if form.validate_on_submit():
         image_folder = save_picture(form.images.data, path='static/src/request_imgs', seperate=True)
         new_request = Request(productName=form.productName.data,
-                       images=image_folder, 
-                       repairCost=300,
-                       description=form.issueDesc.data, 
-                       warranty=form.warranty.data,
-                       owner=current_user)
+                            images=image_folder, 
+                            repairCost=300,
+                            description=form.issueDesc.data, 
+                            warranty=form.warranty.data,
+                            owner=current_user)
         db.session.add(new_request)
         db.session.commit()
-        # flash(f"Your request has been created!", "success")
+        flash(f"Your request has been created!", "success")
         return redirect(url_for("redirect_to_checkout"))
-
     return render_template('customer/cart.html', prodList=prodList, form=form)
 
 @app.route('/my-requests/cart/checkout')
