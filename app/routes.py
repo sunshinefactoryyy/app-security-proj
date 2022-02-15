@@ -353,8 +353,6 @@ def customerCart():
     prodList = [
         {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
         {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
-        # {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
-        # {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
     ]
     for product in products:
         prodList.append({'img': img_path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
@@ -369,7 +367,6 @@ def customerCart():
                             owner=current_user)
         db.session.add(new_request)
         db.session.commit()
-        flash(f"Your request has been created!", "success")
         return redirect(url_for("redirect_to_checkout"))
     return render_template('customer/cart.html', prodList=prodList, form=form)
 
@@ -408,7 +405,6 @@ def checkout_success():
     flash(f"Your payment is successful!", "success")
     return redirect(url_for('customerRequest'))
 
-
 @app.route('/my-requests/cart/checkout/cancelled')
 @login_required
 def checkout_cancelled():
@@ -417,8 +413,6 @@ def checkout_cancelled():
     db.session.commit()
     flash(f"Your payment has been cancelled!", "danger")
     return redirect(url_for('customerCart'))
-
-
 
 # Employee Routes
 @app.route('/employee-information')
@@ -450,69 +444,6 @@ def requestCreate():
         title='Create Request'
     )
 
-@app.route('/inventory', methods=["GET", "POST"])
-def inventoryManagement():
-    form = NewInventoryItem()
-    inventoryData = Inventory.query.all()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data, 'static/src/parts_pics')
-            item = Inventory(partPicture=picture_file, partName=form.name.data, partDescription=form.description.data, partCost=form.cost.data, partQuantity=form.quantity.data)
-        else:
-            item = Inventory(partName=form.name.data, partDescription=form.description.data, partCost=form.cost.data, partQuantity=form.quantity.data)
-        db.session.add(item)
-        db.session.commit()
-        return redirect(url_for('inventoryManagement'))
-
-    return render_template(
-        'employee/inventory.html',
-        title='Inventory Management',
-        inventoryData=inventoryData,
-        form=form
-    )
-
-@app.route('/inventory/<int:partID>')
-@login_required
-def inventoryPartDetails(partID):
-    part = Inventory.query.get_or_404(partID)
-
-    return render_template(
-        'employee/inventoryDetails.html',
-        title="Inventory - " + part.partName,
-        part=part
-    )
-
-@app.route('/inventory/<int:partID>/edit', methods=["GET", "POST"])
-@login_required
-def inventoryPartDetailsEdit(partID):
-    form = UpdateInventoryItem()
-    part = Inventory.query.get_or_404(partID)
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data, 'static/src/part_pics')
-            # os.remove(part.picture.replace('static','app/static'))
-            part.partPicture = picture_file
-        part.partName = form.name.data
-        part.partCost = form.cost.data
-        if form.description.data:
-            part.partDescription = form.description.data
-        db.session.commit()
-        return redirect(url_for('inventoryPartDetails', partID=partID))
-
-    return render_template(
-        'employee/inventoryDetailsEdit.html',
-        title="Edit Inventory - " + part.partName,
-        part=part,
-        form=form
-    )
-
-@app.route('/inventory/<int:partID>/delete')
-@login_required
-def inventoryPartDetailsDelete(partID):
-    Inventory.query.filter_by(id=partID).delete()
-    db.session.commit()
-
-    return redirect(url_for('inventoryManagement'))
 
 @app.route('/catalogue', methods=["GET", "POST"])
 @login_required
@@ -576,8 +507,71 @@ def catalogueProductEdit(productID):
 def catalogueProductDelete(productID):
     CatalogueProduct.query.filter_by(id=productID).delete()
     db.session.commit()
-
     return redirect(url_for('catalogue'))
+
+@app.route('/inventory', methods=["GET", "POST"])
+def inventoryManagement():
+    form = NewInventoryItem()
+    inventoryData = Inventory.query.all()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data, 'static/src/part_pics')
+            item = Inventory(partPicture=picture_file, partName=form.name.data, partDescription=form.description.data, partCost=form.cost.data, partQuantity=form.quantity.data)
+        else:
+            item = Inventory(partName=form.name.data, partDescription=form.description.data, partCost=form.cost.data, partQuantity=form.quantity.data)
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('inventoryManagement'))
+
+    return render_template(
+        'employee/inventory.html',
+        title='Inventory Management',
+        inventoryData=inventoryData,
+        form=form
+    )
+
+@app.route('/inventory/<int:partID>')
+@login_required
+def inventoryPartDetails(partID):
+    part = Inventory.query.get_or_404(partID)
+
+    return render_template(
+        'employee/inventoryDetails.html',
+        title="Inventory - " + part.partName,
+        part=part
+    )
+
+@app.route('/inventory/<int:partID>/edit', methods=["GET", "POST"])
+@login_required
+def inventoryPartDetailsEdit(partID):
+    form = UpdateInventoryItem()
+    part = Inventory.query.get_or_404(partID)
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data, 'static/src/part_pics')
+            # os.remove(part.picture.replace('static','app/static'))
+            part.partPicture = picture_file
+        part.partName = form.name.data
+        part.partCost = form.cost.data
+        if form.description.data:
+            part.partDescription = form.description.data
+        db.session.commit()
+        return redirect(url_for('inventoryPartDetails', partID=partID))
+
+    return render_template(
+        'employee/inventoryDetailsEdit.html',
+        title="Edit Inventory - " + part.partName,
+        part=part,
+        form=form
+    )
+
+@app.route('/inventory/<int:partID>/delete')
+@login_required
+def inventoryPartDetailsDelete(partID):
+    Inventory.query.filter_by(id=partID).delete()
+    db.session.commit()
+
+    return redirect(url_for('inventoryManagement'))
 
 @app.route('/employee-management', methods=["GET", "POST"])
 def employeeManagement():
@@ -614,6 +608,8 @@ def employeeManagement():
         employeeData=employeeData,
         form=form
     )
+
+
 
 @app.route('/employee-management/<int:employeeID>', methods=["GET", "POST"])
 @login_required
