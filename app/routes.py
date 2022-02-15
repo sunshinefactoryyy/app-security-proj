@@ -286,7 +286,7 @@ def editCustomerAccount():
 @app.route('/account/deactivate', methods=["GET", "POST"])
 def deactivateAccount():
     if current_user.is_authenticated:
-        os.remove(os.path.join('app/static/src/profile_pics/'+current_user.picture))
+        os.remove(os.path.join('app/static/src/profile_pics/'+current_user.picture)) #deletes default.png
         deleted_user_id=current_user.id
         logout_user()
         Customer.query.filter_by(id=deleted_user_id).delete()
