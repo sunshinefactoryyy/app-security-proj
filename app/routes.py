@@ -334,7 +334,7 @@ def customerRequest():
     requests = Request.query.filter_by(owner=current_user).order_by(Request.creation_datetime.desc())#.paginate(page=page, per_page=5)
     images = []
     for request_ in requests:
-        paths = os.listdir(f'app/static/src/request_imgs/{request_.images}')
+        paths = os.listdir(f'app/static/src/request_pics/{request_.images}')
         images.append(paths)
     return render_template(
         'customer/request.html', 
@@ -353,14 +353,14 @@ def customerCart():
     prodList = [
         {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
         {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
-        {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
-        {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+        # {'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        # {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
     ]
     for product in products:
         prodList.append({'img': img_path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
     form = CustomerRequestForm()
     if form.validate_on_submit():
-        image_folder = save_picture(form.images.data, path='static/src/request_imgs', seperate=True)
+        image_folder = save_picture(form.images.data, path='static/src/request_pics', seperate=True)
         new_request = Request(productName=form.productName.data,
                             images=image_folder, 
                             repairCost=300,

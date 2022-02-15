@@ -39,9 +39,7 @@
                     <div class="modal-dialog d-flex justify-content-center align-items-center" role="document">
                       <div class="modal-content" style="position:absolute;height:80vh;width:70vw;top:-4em">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel" style="margin-top:-1em;">
-                            {{ form.productName(class='') }}
-                          </h5>
+                          <h5 class="modal-title" id="exampleModalLabel" style="margin-top:-1em;">HELLO</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -49,7 +47,7 @@
                         <div class="modal-body">
                             <form method="POST" action="" enctype="multipart/form-data">
                                 {{ form.hidden_tag() }}
-                                
+                                {{ form.productName(class='d-none') }}
                                 <div class="d-flex">
                                     <div class="form-group">
                                         {{ form.images.label() }}<br>
@@ -135,7 +133,7 @@
                   </div>
         <script>
             function getProd(id) {
-                product = document.getElementById(id).parentNode.querySelector('.card-title').textContent
+                product = document.getElementById(id).parentNode.querySelector('.card-text').textContent
                 document.getElementById('exampleModalLabel').textContent = product;
                 document.getElementById('productName').value = product;
             }
