@@ -131,13 +131,6 @@ def login():
             if user and bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user, remember=True)
                 return redirect(url_for('employeeInformation'))
-
-            # user = Employee.query.filter_by(email=form.email.data).first()
-            # if user and bcrypt.check_password_hash(user.password, form.password.data):
-            #     login_user(user, remember=True)
-            #     return redirect(url_for('employeeInformation'))
-            # else:
-            #     flash("Login unsuccessful. Pls check email and password")
         else:
             flash("Login unsuccessful. Pls check email and password LMAO")
 
@@ -252,7 +245,7 @@ def editCustomerAccount():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             if form.picture.data:
                 picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
-                os.remove(os.path.join(current_app.root_path,'static/src/profile_pics',current_user.picture))
+                # os.remove(os.path.join(current_app.root_path,'static/src/profile_pics',current_user.picture))
                 current_user.picture = picture_file
             current_user.username = form.username.data
             current_user.email = form.email.data
@@ -287,7 +280,7 @@ def editCustomerAccount():
 @app.route('/account/deactivate', methods=["GET", "POST"])
 def deactivateAccount():
     if current_user.is_authenticated:
-        os.remove(os.path.join('app/static/src/profile_pics/'+current_user.picture)) #deletes default.png
+        # os.remove(os.path.join('app/static/src/profile_pics/'+current_user.picture)) #deletes default.png
         deleted_user_id=current_user.id
         logout_user()
         Customer.query.filter_by(id=deleted_user_id).delete()
