@@ -7,9 +7,9 @@
 5. Lee Guan Feng
 
 ## Requirements
-1. Git
-2. Npm
-3. Python (Win) / Python3 (Linux)
+1. [Git](https://git-scm.com/)
+2. [Npm](https://www.npmjs.com/)
+3. [Python (Win) / Python3 (Linux)](https://www.python.org/)
 4. Pip (Win) / Pip3 (Linux)
 ## Installation
 1. Clone this repository
