@@ -127,14 +127,14 @@ def login():
                 next_page = request.args.get("next")
                 return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
             else:
-                flash("Login unsuccessful. Pls check email and password.", 'danger')
+                flash("Login unsuccessful. Please check email and password.", 'danger')
         elif Employee.query.filter_by(email=form.email.data).first():
             user = Employee.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user, remember=True)
                 return redirect(url_for('employeeInformation'))
             else:
-                flash("Login unsuccessful. Pls check email and password.", 'danger')
+                flash("Login unsuccessful. Please check email and password.", 'danger')
 
     return render_template(
         'authentication/login.html', 
@@ -282,10 +282,15 @@ def editCustomerAccount():
 @app.route('/account/deactivate', methods=["GET", "POST"])
 def deactivateAccount():
     if current_user.is_authenticated:
-        # os.remove(os.path.join('app/static/src/profile_pics/'+current_user.picture)) #deletes default.png
+        if current_user.picture == 'default.png':
+            pass
+        else:
+            os.remove(os.path.join('app/static/src/profile_pics/'+current_user.picture)) #deletes default.png
         deleted_user_id=current_user.id
+        deleted_req = Request.query.filter_by(owner=current_user).order_by(Request.creation_datetime.desc()).first()
         logout_user()
         Customer.query.filter_by(id=deleted_user_id).delete()
+        db.session.delete(deleted_req)
         db.session.commit()
         flash('Account has been successfully deleted!', 'success')
         return redirect(url_for('home'))
