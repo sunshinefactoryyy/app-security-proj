@@ -126,13 +126,15 @@ def login():
                 login_user(user, remember=True)
                 next_page = request.args.get("next")
                 return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
+            else:
+                flash("Login unsuccessful. Pls check email and password.", 'danger')
         elif Employee.query.filter_by(email=form.email.data).first():
             user = Employee.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user, remember=True)
                 return redirect(url_for('employeeInformation'))
-        else:
-            flash("Login unsuccessful. Pls check email and password LMAO")
+            else:
+                flash("Login unsuccessful. Pls check email and password.", 'danger')
 
     return render_template(
         'authentication/login.html', 
@@ -349,7 +351,7 @@ def customerCart():
         {'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
     ]
     for product in products:
-        prodList.append({'img': img_path + product.productPicture, 'name': product.productName, 'desc': product.productDescription})
+        prodList.append({'img': img_path + product.productPicture, 'desc': product.productDescription})
     form = CustomerRequestForm()
     if form.validate_on_submit():
         image_folder = save_picture(form.images.data, path='static/src/request_pics', seperate=True)
