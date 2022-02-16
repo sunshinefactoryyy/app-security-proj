@@ -11,6 +11,7 @@ section {
   width: 100vw;
   position: relative;
   padding: 50px 0;
+  overflow: auto hidden;
 }
 
 /*navbar.html*/
@@ -79,6 +80,7 @@ section {
       }
 
       h4 {
+        margin-top: 20px;
         font-weight: lighter;
       }
     }
@@ -153,10 +155,13 @@ section {
 
     .workflow-title {
       color: #fff;
+      padding: 1em;
     }
 
     #card-section {
+      margin-top: 20px;
       column-gap: 4em;
+      display: flex;
 
       .card > * {
         margin: 20px auto 0 auto;
@@ -184,6 +189,7 @@ section {
   .footer {
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
+    padding: 1em;
 
     .company {
       font-size: 1.2em;
@@ -221,6 +227,7 @@ section {
 
             .bi {
               color: #000;
+              text-align: center;
             }
           }
         }
@@ -387,6 +394,7 @@ section {
     width: 680px;
     grid-area: bug;
   }
+}
 }
 
 .form-container {
@@ -797,4 +805,3 @@ section {
 #sign_up_btn {
   margin-bottom: 20px;
 } 
-}
