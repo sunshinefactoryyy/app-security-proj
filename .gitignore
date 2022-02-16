@@ -16,3 +16,7 @@ package.json
 postcss.config.js
 requirements.py
 tailwind.config.js
+app/.DS_Store
+app/__init__.pyc
+app/static/.DS_Store
+app/static/src/.DS_Store
