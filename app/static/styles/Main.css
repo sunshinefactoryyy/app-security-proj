@@ -445,6 +445,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-m-4 {
   margin: 1rem;
 }
+.tw-block {
+  display: block;
+}
 .tw-flex {
   display: flex;
 }
@@ -460,8 +463,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-h-12 {
   height: 3rem;
 }
-.tw-h-\[700px\] {
-  height: 700px;
+.tw-h-96 {
+  height: 24rem;
 }
 .tw-h-5 {
   height: 1.25rem;
@@ -480,6 +483,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .tw-w-\[900px\] {
   width: 900px;
+}
+.tw-w-96 {
+  width: 24rem;
+}
+.tw-w-72 {
+  width: 18rem;
+}
+.tw-w-40 {
+  width: 10rem;
 }
 .tw-w-52 {
   width: 13rem;
@@ -573,6 +585,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-font-medium {
   font-weight: 500;
 }
+.tw-font-bold {
+  font-weight: 700;
+}
 .tw-tracking-wide {
   letter-spacing: 0.025em;
 }
@@ -590,8 +605,19 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.tw-transition-colors {
+  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .tw-duration-200 {
   transition-duration: 200ms;
+}
+.hover\:tw-bg-neutral-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 245 / var(--tw-bg-opacity));
 }
 .hover\:tw-shadow-lg:hover {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);

@@ -1,3 +1,4 @@
+node_modules
 __pycache__
 app/__pycache__
 app/.DS_Store

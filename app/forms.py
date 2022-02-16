@@ -32,7 +32,7 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("That email is taken. Please choose a different one.")
 
 class UpdateCustomerAccountForm(FlaskForm):
-    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     username = StringField("Username:", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email Address:", validators=[DataRequired(), Email(message='Invalid email')])
     contact_no = StringField("Contact number:", validators=[DataRequired(), Length(min=8, max=20)])
@@ -69,7 +69,7 @@ class UpdateCustomerAccountForm(FlaskForm):
                         raise ValidationError("Invalid phone number.")
 
 class EmployeeCreationForm(FlaskForm):
-    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email Address", validators=[DataRequired(), Email(message='Invalid email')])
     password = PasswordField("Password", validators=[DataRequired()])
@@ -89,11 +89,14 @@ class EmployeeCreationForm(FlaskForm):
         if user:
             raise ValidationError("That email is taken. Please choose a different one.")
 
-class UpdateEmployeeCreationForm(FlaskForm):
+class UpdateEmployeeForm(FlaskForm):
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email Address", validators=[DataRequired(), Email(message='Invalid email')])
-    password = PasswordField("Password", validators=[DataRequired()])
-    confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
+    permissions = RadioField("Employee Permissions", choices=[(1, "Super Administrator"), (2, 'Employee')])
+    address = StringField("Residential Address", validators=[DataRequired()])
+    contact = IntegerField("Contact Number", validators=[DataRequired()])
+    submit = SubmitField("Update")
 
     def validate_username(self, username):
         if username.data != current_user.username:
@@ -129,7 +132,7 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField("Reset Password")
 
 class NewInventoryItem(FlaskForm):
-    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     name = StringField("Part Name", validators=[DataRequired()])
     description = TextAreaField("Part Description", validators=[DataRequired()])
     cost = FloatField("Part Cost", validators=[DataRequired()])
@@ -137,21 +140,21 @@ class NewInventoryItem(FlaskForm):
     submit = SubmitField("Add Part")
 
 class UpdateInventoryItem(FlaskForm):
-    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     name = StringField("Part Name", validators=[DataRequired()])
     cost = FloatField("Part Cost", validators=[DataRequired()])
     description = TextAreaField("Part Description")
     submit = SubmitField("Update")
 
 class NewCatalogueItem(FlaskForm):
-    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     name = StringField("Product Name", validators=[DataRequired()])
     cost = FloatField("Product Cost", validators=[DataRequired()])
     description = TextAreaField("Product Description", validators=[DataRequired()])
     submit = SubmitField("Add Product")
 
 class UpdateCatalogueItem(FlaskForm):
-    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField("Upload Image", validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     name = StringField("Product Name", validators=[DataRequired()])
     cost = FloatField("Product Cost", validators=[DataRequired()])
     description = TextAreaField("Product Description")

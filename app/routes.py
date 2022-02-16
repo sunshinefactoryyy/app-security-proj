@@ -1,4 +1,4 @@
-from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateInventoryItem
+from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeForm, UpdateInventoryItem
 from app.models import CatalogueProduct, Customer, Employee, Inventory, Request
 from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app
 from app import app, db, bcrypt, mail, stripe_keys
@@ -414,7 +414,7 @@ def checkout_cancelled():
 def authorised_only(f):
     @wraps(f)
     def decortated_function(*args, **kwargs):
-        if isinstance(current_user, Employee) == False:
+        if Employee.query.filter_by(id=current_user.id).first() is None:
             return abort(403)
         return f(*args, **kwargs)
     return decortated_function
@@ -435,11 +435,23 @@ def employeeInformation():
 @login_required
 @authorised_only
 def requestManagement():
-    requests = Request.query.all()
+    requestData = Request.query.all()
     return render_template(
-        'employee/request.html', 
+        'employee/request/requestList.html', 
         title='Customer Requests',
-        requests=requests
+        requestData=requestData
+    )
+
+@app.route('/request-management/<int:requestID>')
+@login_required
+@authorised_only
+def requestManagementDetails(requestID):
+    request = Request.query.get_or_404(requestID)
+
+    return render_template(
+        'employee/request/requestDetails.html', 
+        title='Customer Requests',
+        request=request
     )
 
 @app.route('/catalogue', methods=["GET", "POST"])
@@ -459,7 +471,7 @@ def catalogue():
         return redirect(url_for('catalogue'))
 
     return render_template(
-        'employee/catalogue.html',
+        'employee/catalogue/catalogueList.html',
         title="Product Catalogue",
         catalogueData=catalogueData,
         form=form
@@ -472,7 +484,7 @@ def catalogueProduct(productID):
     product = CatalogueProduct.query.get_or_404(productID)
 
     return render_template(
-        'employee/catalogueProduct.html',
+        'employee/catalogue/catalogueProduct.html',
         title="Product Catalogue - " + product.productName,
         product=product,
     )
@@ -496,7 +508,7 @@ def catalogueProductEdit(productID):
         return redirect(url_for('catalogueProduct', productID=productID))
 
     return render_template(
-        'employee/catalogueProductEdit.html',
+        'employee/catalogue/catalogueProductEdit.html',
         title="Edit Product - " + product.productName,
         product=product,
         form=form
@@ -527,7 +539,7 @@ def inventoryManagement():
         return redirect(url_for('inventoryManagement'))
 
     return render_template(
-        'employee/inventory.html',
+        'employee/inventory/inventoryList.html',
         title='Inventory Management',
         inventoryData=inventoryData,
         form=form
@@ -540,7 +552,7 @@ def inventoryPartDetails(partID):
     part = Inventory.query.get_or_404(partID)
 
     return render_template(
-        'employee/inventoryDetails.html',
+        'employee/inventory/inventoryDetails.html',
         title="Inventory - " + part.partName,
         part=part
     )
@@ -564,7 +576,7 @@ def inventoryPartDetailsEdit(partID):
         return redirect(url_for('inventoryPartDetails', partID=partID))
 
     return render_template(
-        'employee/inventoryDetailsEdit.html',
+        'employee/inventory/inventoryDetailsEdit.html',
         title="Edit Inventory - " + part.partName,
         part=part,
         form=form
@@ -612,24 +624,49 @@ def employeeManagement():
         redirect(url_for('employee-management'))
 
     return render_template(
-        'employee/employeeManagement.html',
+        'employee/employeeManagement/employeeList.html',
         title="Employee Management",
         employeeData=employeeData,
         form=form
     )
 
-
-
-@app.route('/employee-management/<int:employeeID>', methods=["GET", "POST"])
+@app.route('/employee-management/<int:employeeID>')
 @login_required
 @authorised_only
 def employeeManagementDetails(employeeID):
     employee = Employee.query.get_or_404(employeeID)
 
     return render_template(
-        'employee/employeeManagementData.html',
+        'employee/employeeManagement/employeeData.html',
         title="Employee Management - " + employee.username,
         employee=employee,
+    )
+
+@app.route('/employee-management/<int:employeeID>/edit', methods=["GET", "POST"])
+@login_required
+@authorised_only
+def employeeManagementDetailsEdit(employeeID):
+    employee = Employee.query.get_or_404(employeeID)
+    form = UpdateEmployeeForm()
+
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data, 'static/src/part_pics')
+            # os.remove(part.picture.replace('static','app/static'))
+            employee.picture = picture_file
+        employee.username = form.name.data
+        if form.permissions.data:
+            employee.permissions = form.permissions.data
+        employee.email = form.email.data
+        employee.contact_no = form.contact.data
+        employee.address = form.address.data
+        db.session.commit()
+
+    return render_template(
+        'employee/employeeManagement/employeeDataEdit.html',
+        title="Edit Employee Data - " + employee.username,
+        employee=employee,
+        form=form
     )
 
 

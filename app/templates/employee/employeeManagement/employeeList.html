@@ -1,0 +1,169 @@
+{% extends "employeeBase.html" %} 
+{% set permissions = {1:"Super Administrator", 2:"Employee"} %}
+
+{% block content %}
+<div class="d-flex flex-row align-items-start justify-content-between mt-2 w-100">
+    <h2 class="fs-1 fw-bold pb-1">Employee Management</h2>
+    <div onclick="addEmployeeForm()">
+        {% with iconSrc='/static/public/icons/plus.svg', color='primary' %}
+            {% include '/includes/squareButtonComponent.html' %}
+        {% endwith %}
+    </div>
+</div>
+<div class="d-flex flex-column align-items-start justify-content-start mt-4 w-100">
+    <table class="w-100 tw-bg-white tw-shadow-xl tw-rounded-xl overflow-hidden">
+        <tr>
+            <th class="tw-w-36 tw-h-12 tw-text-center">ID</th>
+            <th class="tw-h-12 tw-text-center">Employee Name</th>
+            <th class="tw-w-72 tw-h-12 tw-text-center">Employee Role</th>
+        </tr>
+        <tbody>
+            {% for row in employeeData %}
+            <tr class="tw-bg-white hover:tw-bg-neutral-100 tw-transition-colors tw-duration-200 tw-cursor-pointer" onclick="window.location.href='{{url_for('employeeManagementDetails', employeeID=row.id)}}';">
+                <td class="tw-w-36 tw-h-12 tw-text-center">{{ row.id }}</td>
+                <td class="tw-h-12 tw-text-center">{{ row.username }}</td>
+                <td class="tw-w-40 tw-h-12 tw-text-center">{{ permissions[row.permissions] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // show add item form
+    const addEmployeeForm = () => {
+        modal = document.getElementById('addItemForm');
+        modal.classList.remove('tw-hidden')
+        modal.classList.add('tw-flex')
+    }
+
+    // hide add item form
+    const closeAddEmployeeForm = () => {
+        modal = document.getElementById('addItemForm');
+        modal.classList.remove('tw-flex')
+        modal.classList.add('tw-hidden')
+    }
+</script>
+{% endblock %}
+
+{% block modalContent %}
+<div class="tw-hidden tw-fixed tw-items-center tw-justify-center tw-inset-0 tw-h-screen tw-w-screen tw-bg-gray-700/20" id="addItemForm">
+    <div class="tw-relative tw-flex tw-flex-col tw-items-start tw-justify-start tw-w-[900px] tw-bg-white tw-rounded-3xl tw-p-4">
+        <h1 class="fs-2 fw-bold pb-1 mt-2 ms-2">Add New Item</h1>
+        <form class="w-100" method="post" action="">
+            {{ form.hidden_tag() }}
+            <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl mt-3">
+                {{ form.picture.label(class="form-control-label tw-text-sm tw-font-bold tw-text-white me-2") }}
+                {{ form.picture(class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap", style='width:15em;') }}
+            </div>
+            {% if form.picture.errors %}
+            <div class="text-danger">
+                {% for error in form.picture.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {% endif %}
+            <div class="form-group my-2">
+                {{ form.username.label(class="form-control-label") }}
+                {% if form.username.errors %}
+                    {{ form.username(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.username(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.email(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2">
+                {{ form.password.label(class="form-control-label") }}
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.password(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2">
+                {{ form.confirm_password.label(class="form-control-label") }}
+                {% if form.confirm_password.errors %}
+                    {{ form.confirm_password(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.confirm_password(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2">
+                {{ form.permissions.label(class="form-control-label") }}
+                {% if form.permissions.errors %}
+                    {{ form.permissions(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.permissions.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.permissions(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2">
+                {{ form.address.label(class="form-control-label") }}
+                {% if form.address.errors %}
+                    {{ form.address(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.address.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.address(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2">
+                {{ form.contact.label(class="form-control-label") }}
+                {% if form.contact.errors %}
+                    {{ form.contact(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.contact.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.contact(class="form-control form-control") }}
+            </div><!--form-group-->
+
+            <div class="form-group my-2 mt-3">
+                {{ form.submit(id="sign_up_btn") }}
+            </div>
+        </form>
+        <div class="tw-absolute tw-top-4 tw-right-4" onclick="closeAddEmployeeForm()">
+            {% with iconSrc='../static/icons/arrows-angle-contract.svg', color='primary' %}
+                {% include '/includes/squareButtonComponent.html' %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}
