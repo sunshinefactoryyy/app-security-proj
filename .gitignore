@@ -8,3 +8,11 @@ ssl.crt
 ssl.key
 .env
 .flaskenv
+db.sqlite3
+new_db.py
+new_ssl.py
+package-lock.json
+package.json
+postcss.config.js
+requirements.py
+tailwind.config.js
