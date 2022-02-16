@@ -8,13 +8,11 @@
         <h6>Chat Support</h6>
     </div>
     <div class="chatbox" style="overflow-y:scroll;height:12em;">
-        <div class="chat">
-            <p class="botText">
-                <span>Hi! I'm Candice, your guide to Vision Core and its services.</span>
-            </p>
-        </div>
+        <p class="botText">
+            <span>Hi! I'm Candice, your guide to Vision Core and its services.</span>
+        </p>
     </div>
-    <div id="userInput" class="mt-2">
+    <div id="userInput">
         <input id="textInput" type="text" name="msg" placeholder="Type something..." />
     </div>
 </div>
@@ -105,30 +103,58 @@
         padding: 13px;
         background-color: blue;
         border-radius: 5px 5px 0px 0px;
-        margin-bottom: 10px;
-        color: #fff
+        color: #fff;
     }
-    
-    .chat-form {
-        padding: 15px
-    }
-    
-    .chat-form input,
-    textarea,
-    button {
-        margin-bottom: 10px
-    }
-    
-    .chat-form textarea {
-        resize: none
-    }
-    
-    .form-control:focus,
-    .btn:focus {
-        box-shadow: none
-    }
-    
+        
     #check {
         display: none !important
     }
+
+    .chatbox {
+        padding-top: 10px;
+    }
+
+    .botText {
+        width: 75%;
+        background: aqua;
+        border-radius: 1em;
+        padding: 1em 1em;
+        float: left;
+        margin-left: 0.5em;
+    }
+
+    .userText {
+        width: 75%;
+        background: lightblue;
+        border-radius: 1em;
+        padding: 1em 1em;
+        margin: 0.5em 0;
+        float: right;
+        margin-right: 0.5em;
+    }
+
+    #textInput {
+        width: 100%;
+        border: 1px solid black;
+    }
+
+    /* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 </style>    
