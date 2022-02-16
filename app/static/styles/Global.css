@@ -10,6 +10,7 @@ section {
   width: 100vw;
   position: relative;
   padding: 50px 0;
+  overflow: auto hidden;
 }
 
 /*navbar.html*/
@@ -81,6 +82,7 @@ section {
 }
 
 #main .hero .text h4 {
+  margin-top: 20px;
   font-weight: lighter;
 }
 
@@ -154,11 +156,16 @@ section {
 
 #main .workflow .workflow-title {
   color: #fff;
+  padding: 1em;
 }
 
 #main .workflow #card-section {
+  margin-top: 20px;
   -webkit-column-gap: 4em;
           column-gap: 4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 #main .workflow #card-section .card > * {
@@ -190,6 +197,7 @@ section {
 #main .footer {
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
+  padding: 1em;
 }
 
 #main .footer .company {
@@ -231,6 +239,7 @@ section {
 
 #main .footer .links .col-right .link a .bi {
   color: #000;
+  text-align: center;
 }
 
 #main .footer .links .col-right .link:hover {
@@ -310,13 +319,6 @@ section {
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 1em;
-  /* Design for cart popup */
-  /* Modal Content */
-  /* The Close Button */
-  /* search bar */
-  /* #btn_col {
-  vertical-align: middle;
-} */
 }
 
 .footer .company {
@@ -416,7 +418,7 @@ section {
   grid-area: bug;
 }
 
-.footer .form-container {
+.form-container {
   -webkit-animation: transitionIn 0.75s ease-in;
           animation: transitionIn 0.75s ease-in;
 }
@@ -447,35 +449,35 @@ section {
   }
 }
 
-.footer .form-container img {
+.form-container img {
   height: 406px;
   width: 538px;
 }
 
-.footer .form-container .login {
+.form-container .login {
   margin-bottom: 30px;
 }
 
-.footer .form-container .login,
-.footer .form-container .sign_up {
+.form-container .login,
+.form-container .sign_up {
   width: 400px;
   background: white;
   /*Design of the form*/
 }
 
-.footer .form-container .login #title,
-.footer .form-container .sign_up #title {
+.form-container .login #title,
+.form-container .sign_up #title {
   margin-top: 20px;
   overflow-x: none;
 }
 
-.footer .form-container .login #login,
-.footer .form-container .sign_up #login {
+.form-container .login #login,
+.form-container .sign_up #login {
   border-bottom: none;
 }
 
-.footer .form-container .login form,
-.footer .form-container .sign_up form {
+.form-container .login form,
+.form-container .sign_up form {
   padding: 0 40px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -484,39 +486,39 @@ section {
   /*Design of the sign up link*/
 }
 
-.footer .form-container .login form .form-group,
-.footer .form-container .sign_up form .form-group {
+.form-container .login form .form-group,
+.form-container .sign_up form .form-group {
   margin: 30px 0;
 }
 
-.footer .form-container .login form .form-group label,
-.footer .form-container .sign_up form .form-group label {
+.form-container .login form .form-group label,
+.form-container .sign_up form .form-group label {
   color: #adadad;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
-.footer .form-container .login form .forgot,
-.footer .form-container .sign_up form .forgot {
+.form-container .login form .forgot,
+.form-container .sign_up form .forgot {
   margin: -5px 0 20px 5px;
 }
 
-.footer .form-container .login form .forgot .forgot_link,
-.footer .form-container .sign_up form .forgot .forgot_link {
+.form-container .login form .forgot .forgot_link,
+.form-container .sign_up form .forgot .forgot_link {
   color: #a6a6a6;
   cursor: pointer;
   text-decoration: none;
 }
 
-.footer .form-container .login form .forgot:hover,
-.footer .form-container .sign_up form .forgot:hover {
+.form-container .login form .forgot:hover,
+.form-container .sign_up form .forgot:hover {
   text-decoration: underline;
 }
 
-.footer .form-container .login form #login_btn,
-.footer .form-container .login form #sign_up_btn,
-.footer .form-container .sign_up form #login_btn,
-.footer .form-container .sign_up form #sign_up_btn {
+.form-container .login form #login_btn,
+.form-container .login form #sign_up_btn,
+.form-container .sign_up form #login_btn,
+.form-container .sign_up form #sign_up_btn {
   width: 100%;
   height: 50px;
   border: 1px solid;
@@ -528,109 +530,109 @@ section {
   outline: none;
 }
 
-.footer .form-container .login form #login:hover,
-.footer .form-container .login form #sign_up_btn:hover,
-.footer .form-container .sign_up form #login:hover,
-.footer .form-container .sign_up form #sign_up_btn:hover {
+.form-container .login form #login:hover,
+.form-container .login form #sign_up_btn:hover,
+.form-container .sign_up form #login:hover,
+.form-container .sign_up form #sign_up_btn:hover {
   border-color: #2565c7;
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
 }
 
-.footer .form-container .login form #dark,
-.footer .form-container .sign_up form #dark {
+.form-container .login form #dark,
+.form-container .sign_up form #dark {
   border-bottom: none;
 }
 
-.footer .form-container .login form #dark .btn-outline-dark,
-.footer .form-container .sign_up form #dark .btn-outline-dark {
+.form-container .login form #dark .btn-outline-dark,
+.form-container .sign_up form #dark .btn-outline-dark {
   margin: 5px;
 }
 
-.footer .form-container .login form #terms,
-.footer .form-container .sign_up form #terms {
+.form-container .login form #terms,
+.form-container .sign_up form #terms {
   margin-bottom: 20px;
 }
 
-.footer .form-container .login form #not_member,
-.footer .form-container .sign_up form #not_member {
+.form-container .login form #not_member,
+.form-container .sign_up form #not_member {
   margin: 30px 0;
   font-size: 16px;
   color: #666666;
 }
 
-.footer .form-container .login form #not_member #sign_up_link,
-.footer .form-container .sign_up form #not_member #sign_up_link {
+.form-container .login form #not_member #sign_up_link,
+.form-container .sign_up form #not_member #sign_up_link {
   color: #2691d9;
   text-decoration: none;
 }
 
-.footer .form-container .login form #not_member #sign_up_link:hover,
-.footer .form-container .sign_up form #not_member #sign_up_link:hover {
+.form-container .login form #not_member #sign_up_link:hover,
+.form-container .sign_up form #not_member #sign_up_link:hover {
   text-decoration: underline;
 }
 
-.footer .form-container .login #sign_up_btn,
-.footer .form-container .sign_up #sign_up_btn {
+.form-container .login #sign_up_btn,
+.form-container .sign_up #sign_up_btn {
   margin-bottom: 20px;
 }
 
-.footer #cus_d {
+#cus_d {
   padding-top: 100px;
 }
 
-.footer #cus_nav {
+#cus_nav {
   padding-left: 10em;
 }
 
-.footer #p_info1 {
+#p_info1 {
   border-left: 2px solid #000;
 }
 
-.footer #p_info_h1 {
+#p_info_h1 {
   font-weight: bold;
 }
 
-.footer #p_info2 {
+#p_info2 {
   margin: auto;
 }
 
-.footer #edit_btn,
-.footer #reset_btn,
-.footer #chat_btn,
-.footer #next_btn,
-.footer #upload_btn {
+#edit_btn,
+#reset_btn,
+#chat_btn,
+#next_btn,
+#upload_btn {
   background-color: #2565c7;
   color: #fff;
   border-radius: 10px;
 }
 
-.footer #upload_btn {
+#upload_btn {
   width: 168.22px;
   height: 168.22px;
   border-radius: 20px !important;
   background-color: #888 !important;
 }
 
-.footer #cart_btn,
-.footer #moreOpt_btn {
+#cart_btn,
+#moreOpt_btn {
   background-color: #2565c7;
   color: #fff;
   border-radius: 10px;
   margin-left: 7px;
 }
 
-.footer #back_btn,
-.footer #checkO_btn,
-.footer #confirm_btn,
-.footer #back_btn2 {
+#back_btn,
+#checkO_btn,
+#confirm_btn,
+#back_btn2 {
   background-color: #2565c7;
   color: #fff;
   border-radius: 10px;
   vertical-align: middle;
 }
 
-.footer #payment_btn {
+#payment_btn {
   border-radius: 10px;
   width: 140px;
   height: 70px;
@@ -639,38 +641,38 @@ section {
   margin-left: 10px;
 }
 
-.footer .bi-star-fill {
+.bi-star-fill {
   color: #fccf03;
 }
 
-.footer #p_card1 {
+#p_card1 {
   -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 20px;
 }
 
-.footer .bi-person-fill {
+.bi-person-fill {
   margin: auto !important;
 }
 
-.footer .bi-question-circle-fill {
+.bi-question-circle-fill {
   color: #2565c7;
 }
 
-.footer #cus_name {
+#cus_name {
   font-size: 24px;
 }
 
-.footer #cus_product1 {
+#cus_product1 {
   height: 200px;
   width: auto;
 }
 
-.footer #prod1_name {
+#prod1_name {
   font-size: 24px;
 }
 
-.footer #status {
+#status {
   width: 170px;
   padding: 7px !important;
   border-radius: 10px;
@@ -680,7 +682,7 @@ section {
   color: #fff;
 }
 
-.footer #warranty {
+#warranty {
   width: 170px;
   padding: 7px !important;
   border-radius: 10px;
@@ -690,7 +692,8 @@ section {
   margin-right: 10px !important;
 }
 
-.footer .modal {
+/* Design for cart popup */
+.modal {
   display: none;
   /* Hidden by default */
   position: fixed;
@@ -713,7 +716,8 @@ section {
   /* Black w/ opacity */
 }
 
-.footer .modal-content {
+/* Modal Content */
+.modal-content {
   background-color: #fefefe;
   padding: 20px;
   border: 1px solid #888;
@@ -721,7 +725,8 @@ section {
   width: 80%;
 }
 
-.footer .close {
+/* The Close Button */
+.close {
   color: #aaaaaa;
   position: absolute;
   right: 0;
@@ -731,14 +736,15 @@ section {
   font-weight: bold;
 }
 
-.footer .close:hover,
-.footer .close:focus {
+.close:hover,
+.close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
 }
 
-.footer #searchInput {
+/* search bar */
+#searchInput {
   background-image: url("/static/public/searchicon.png");
   background-position: 10px 12px;
   background-repeat: no-repeat;
@@ -750,16 +756,16 @@ section {
   margin-bottom: 12px;
 }
 
-.footer #searchInput:focus {
+#searchInput:focus {
   outline: 3px solid #ddd;
 }
 
-.footer .dropdown {
+.dropdown {
   position: relative;
   display: inline-block;
 }
 
-.footer .dropdown-content {
+.dropdown-content {
   display: none;
   position: relative;
   background-color: #f6f6f6;
@@ -772,37 +778,37 @@ section {
   z-index: 1;
 }
 
-.footer .dropdown-content a {
+.dropdown-content a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.footer .dropdown a:hover {
+.dropdown a:hover {
   background-color: #ddd;
 }
 
-.footer .show {
+.show {
   display: block;
 }
 
-.footer #prodList {
+#prodList {
   list-style-type: none;
 }
 
-.footer #choose_product1,
-.footer #choose_product2 {
+#choose_product1,
+#choose_product2 {
   height: 88px;
   width: auto;
 }
 
-.footer #modal_content2,
-.footer #modal_content3 {
+#modal_content2,
+#modal_content3 {
   padding: 60px;
 }
 
-.footer #p_card2 {
+#p_card2 {
   /* display: none; */
   -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -810,7 +816,7 @@ section {
   padding: 10px;
 }
 
-.footer #image_upload {
+#image_upload {
   border: 1px solid #888;
   border-radius: 20px;
   padding: 10px;
@@ -818,31 +824,34 @@ section {
   margin-left: 10px;
 }
 
-.footer #uploaded_p {
+#uploaded_p {
   width: 55px;
   height: 30px;
 }
 
-.footer #upload_btn_col {
+#upload_btn_col {
   padding-left: 50px;
 }
 
-.footer #pp_meth {
+#pp_meth {
   width: 100px;
   height: 30px;
 }
 
-.footer #mc_meth {
+#mc_meth {
   width: 70px;
   height: 50px;
 }
 
-.footer #amex_meth {
+#amex_meth {
   width: 60px;
   height: 60px;
 }
 
-.footer #btn_text {
+/* #btn_col {
+  vertical-align: middle;
+} */
+#btn_text {
   display: block;
   position: relative;
   /* vertical-align: middle; */
@@ -851,7 +860,7 @@ section {
   padding-top: 10px;
 }
 
-.footer #update_btn {
+#update_btn {
   width: 100%;
   height: 50px;
   border: 1px solid;
@@ -863,7 +872,7 @@ section {
   outline: none;
 }
 
-.footer #sign_up_btn {
+#sign_up_btn {
   width: 100%;
   height: 50px;
   border: 1px solid;
@@ -875,13 +884,13 @@ section {
   outline: none;
 }
 
-.footer #sign_up_btn:hover {
+#sign_up_btn:hover {
   border-color: #2565c7;
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
 }
 
-.footer #sign_up_btn {
+#sign_up_btn {
   margin-bottom: 20px;
 }
 /*# sourceMappingURL=Global.css.map */

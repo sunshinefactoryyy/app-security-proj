@@ -12,6 +12,7 @@ from flask_mail import Message
 import os
 import stripe
 from app.train import bot
+from functools import wraps
 
 
 # Public Routes
@@ -415,8 +416,17 @@ def checkout_cancelled():
     return redirect(url_for('customerCart'))
 
 # Employee Routes
+def authorised_only(f):
+    @wraps(f)
+    def decortated_function(*args, **kwargs):
+        if isinstance(current_user, Employee) == False:
+            return abort(403)
+        return f(*args, **kwargs)
+    return decortated_function
+
 @app.route('/employee-information')
 @login_required
+@authorised_only
 def employeeInformation():
     user = current_user
 
@@ -428,6 +438,7 @@ def employeeInformation():
 
 @app.route('/request-management')
 @login_required
+@authorised_only
 def requestManagement():
     requests = Request.query.all()
     return render_template(
@@ -436,17 +447,9 @@ def requestManagement():
         requests=requests
     )
 
-@app.route('/request-management/create')
-@login_required
-def requestCreate():
-    return render_template(
-        'employee/requestCreate.html',
-        title='Create Request'
-    )
-
-
 @app.route('/catalogue', methods=["GET", "POST"])
 @login_required
+@authorised_only
 def catalogue():
     form = NewCatalogueItem()
     catalogueData = CatalogueProduct.query.all()
@@ -469,6 +472,7 @@ def catalogue():
 
 @app.route('/catalogue/<int:productID>')
 @login_required
+@authorised_only
 def catalogueProduct(productID):
     product = CatalogueProduct.query.get_or_404(productID)
 
@@ -480,6 +484,7 @@ def catalogueProduct(productID):
 
 @app.route('/catalogue/<int:productID>/edit', methods=["GET", "POST"])
 @login_required
+@authorised_only
 def catalogueProductEdit(productID):
     form = UpdateCatalogueItem()
     product = CatalogueProduct.query.get_or_404(productID)
@@ -504,12 +509,15 @@ def catalogueProductEdit(productID):
 
 @app.route('/catalogue/<int:productID>/delete')
 @login_required
+@authorised_only
 def catalogueProductDelete(productID):
     CatalogueProduct.query.filter_by(id=productID).delete()
     db.session.commit()
     return redirect(url_for('catalogue'))
 
 @app.route('/inventory', methods=["GET", "POST"])
+@login_required
+@authorised_only
 def inventoryManagement():
     form = NewInventoryItem()
     inventoryData = Inventory.query.all()
@@ -532,6 +540,7 @@ def inventoryManagement():
 
 @app.route('/inventory/<int:partID>')
 @login_required
+@authorised_only
 def inventoryPartDetails(partID):
     part = Inventory.query.get_or_404(partID)
 
@@ -543,6 +552,7 @@ def inventoryPartDetails(partID):
 
 @app.route('/inventory/<int:partID>/edit', methods=["GET", "POST"])
 @login_required
+@authorised_only
 def inventoryPartDetailsEdit(partID):
     form = UpdateInventoryItem()
     part = Inventory.query.get_or_404(partID)
@@ -567,6 +577,7 @@ def inventoryPartDetailsEdit(partID):
 
 @app.route('/inventory/<int:partID>/delete')
 @login_required
+@authorised_only
 def inventoryPartDetailsDelete(partID):
     Inventory.query.filter_by(id=partID).delete()
     db.session.commit()
@@ -574,6 +585,8 @@ def inventoryPartDetailsDelete(partID):
     return redirect(url_for('inventoryManagement'))
 
 @app.route('/employee-management', methods=["GET", "POST"])
+@login_required
+@authorised_only
 def employeeManagement():
     employeeData = Employee.query.all()
     form = EmployeeCreationForm()
@@ -601,6 +614,7 @@ def employeeManagement():
             )
         db.session.add(employee)
         db.session.commit()
+        redirect(url_for('employee-management'))
 
     return render_template(
         'employee/employeeManagement.html',
@@ -613,6 +627,7 @@ def employeeManagement():
 
 @app.route('/employee-management/<int:employeeID>', methods=["GET", "POST"])
 @login_required
+@authorised_only
 def employeeManagementDetails(employeeID):
     employee = Employee.query.get_or_404(employeeID)
 
@@ -621,7 +636,6 @@ def employeeManagementDetails(employeeID):
         title="Employee Management - " + employee.username,
         employee=employee,
     )
-
 
 
 
