@@ -1,4 +1,6 @@
 {% extends "employeeBase.html" %} 
+{% set statusMap = {0:"Request Pending", 1:"Under Repair", 2:"Repair Completed"} %}
+
 {% block content %}
 <div class="d-flex flex-row align-items-start justify-content-start mt-2 w-100">
     <h2 class="fs-1 fw-bold pb-1">Customer Request Management</h2>
@@ -9,8 +11,8 @@
     <table class="w-100 tw-bg-white tw-shadow-xl tw-rounded-xl overflow-hidden">
         <tr>
             <th class="tw-w-52 tw-h-12 tw-text-center">Request Number</th>
-            <th class="tw-w-56 tw-h-12 tw-text-center">Customer</th>
-            <th class="tw-w-56 tw-h-12 tw-text-center">Assigned To</th>
+            <th class="tw-w-56 tw-h-12 tw-text-center">Customer ID</th>
+            <th class="tw-w-56 tw-h-12 tw-text-center">Assigned Employee ID</th>
             <th class="tw-w-52 tw-h-12 tw-text-center">Request Date</th>
             <th class="tw-w-52 tw-h-12 tw-text-center">Repair Status</th>
         </tr>
@@ -20,7 +22,7 @@
                 <td class="tw-w-56 tw-h-12 tw-text-center">{{ row.customerID }}</td>
                 <td class="tw-w-56 tw-h-12 tw-text-center">{{ row.employeeID if request.employeeID else '-' }}</td>
                 <td class="tw-w-52 tw-h-12 tw-text-center">{{ row.creation_datetime }}</td>
-                <td class="tw-w-52 tw-h-12 tw-text-center">{{ row.repairStatus }}</td>    
+                <td class="tw-w-52 tw-h-12 tw-text-center">{{ statusMap[row.repairStatus] }}</td>    
             </tr>
         {% endfor %}
     </table>

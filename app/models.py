@@ -15,7 +15,7 @@ ACCESS = {'customer': 1,
 
 class AccountCredentials(db.Model, UserMixin):
     __abstract__ = True
-    creation_datetime = db.Column(db.DateTime, default=datetime.utcnow())
+    creation_datetime = db.Column(db.String(20), nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False) # String should be cap 20
     picture = db.Column(db.String(200))
     email = db.Column(db.String(100), unique=True, nullable=False)
@@ -49,7 +49,7 @@ class Employee(AccountCredentials):
 class Request(db.Model):
     __tablename__ = 'request'
     id = db.Column(db.Integer, primary_key=True)
-    creation_datetime = db.Column(db.DateTime, default=datetime.utcnow())
+    creation_datetime = db.Column(db.String(20), nullable=False)
     productName = db.Column(db.String(100), nullable=False)
     images = db.Column(db.String(100), nullable=False)
     customerID = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)

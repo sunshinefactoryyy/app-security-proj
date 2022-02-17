@@ -9,6 +9,7 @@ import json
 from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email
 from app.config import Auth
 from flask_mail import Message
+from datetime import datetime
 import os
 import stripe
 from app.train import bot
@@ -98,7 +99,8 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = Customer(username=form.username.data, email=form.email.data, password=hashed_password, picture='default.png')
+        creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
+        user = Customer(username=form.username.data, email=form.email.data, password=hashed_password, picture='default.png', creation_datetime=creation_time)
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)
@@ -231,7 +233,7 @@ def customerAccount():
             'email' : current_user.email,
             'contact_no' : current_user.contact_no,
             'address' : current_user.address,
-            'creation_datetime' : current_user.creation_datetime.strftime(r'%Y-%m-%d %H:%M'),
+            'creation_datetime' : current_user.creation_datetime,
         }
     )
 
@@ -274,7 +276,7 @@ def editCustomerAccount():
             'email' : current_user.email,
             'contact_no' : current_user.contact_no,
             'address' : current_user.address,
-            'creation_datetime' : current_user.creation_datetime.strftime(r'%Y-%m-%d %H:%M'),
+            'creation_datetime' : current_user.creation_datetime,
         }
 
     )
@@ -287,10 +289,9 @@ def deactivateAccount():
         else:
             os.remove(os.path.join('app/static/src/profile_pics/'+current_user.picture)) #deletes default.png
         deleted_user_id=current_user.id
-        deleted_req = Request.query.filter_by(owner=current_user).order_by(Request.creation_datetime.desc()).first()
         logout_user()
         Customer.query.filter_by(id=deleted_user_id).delete()
-        db.session.delete(deleted_req)
+        Request.query.filter_by(customerID=deleted_user_id).all().delete()
         db.session.commit()
         flash('Account has been successfully deleted!', 'success')
         return redirect(url_for('home'))
@@ -360,12 +361,14 @@ def customerCart():
     form = CustomerRequestForm()
     if form.validate_on_submit():
         image_folder = save_picture(form.images.data, path='static/src/request_pics', seperate=True)
+        creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
         new_request = Request(productName=form.productName.data,
                             images=image_folder, 
                             repairCost=300,
                             description=form.issueDesc.data, 
                             warranty=form.warranty.data,
-                            owner=current_user)
+                            owner=current_user,
+                            creation_datetime=creation_time)
         db.session.add(new_request)
         db.session.commit()
         return redirect(url_for("redirect_to_checkout"))
@@ -468,7 +471,7 @@ def requestManagement():
     return render_template(
         'employee/request/requestList.html', 
         title='Customer Requests',
-        requestData=requestData
+        requestData=requestData,
     )
 
 @app.route('/request-management/<int:requestID>')
@@ -476,11 +479,15 @@ def requestManagement():
 @authorised_only
 def requestManagementDetails(requestID):
     request = Request.query.get_or_404(requestID)
+    customer = Customer.query.filter_by(id=request.customerID).first()
+    employee = Employee.query.filter_by(id=request.employeeID).first()
 
     return render_template(
         'employee/request/requestDetails.html', 
         title='Customer Requests',
-        request=request
+        request=request,
+        customer=customer,
+        employee=employee
     )
 
 @app.route('/catalogue', methods=["GET", "POST"])
@@ -626,6 +633,7 @@ def inventoryPartDetailsDelete(partID):
 def employeeManagement():
     employeeData = Employee.query.all()
     form = EmployeeCreationForm()
+    creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         if form.picture.data:
@@ -638,6 +646,7 @@ def employeeManagement():
                 permissions=form.permissions.data,
                 address=form.address.data,
                 contact_no=form.contact.data,
+                creation_datetime=creation_time
             )
         else:
             employee = Employee(
@@ -646,11 +655,12 @@ def employeeManagement():
                 password=hashed_password, 
                 permissions=form.permissions.data,
                 address=form.address.data,
-                contact_no=form.contact.data
+                contact_no=form.contact.data,
+                creation_datetime=creation_time
             )
         db.session.add(employee)
         db.session.commit()
-        redirect(url_for('employee-management'))
+        return redirect(url_for('employeeManagement'))
 
     return render_template(
         'employee/employeeManagement/employeeList.html',

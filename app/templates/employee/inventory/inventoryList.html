@@ -5,7 +5,7 @@
 <div class="d-flex flex-row align-items-start justify-content-between mt-2 w-100">
     <h2 class="fs-1 fw-bold pb-1">Inventory</h2>
     <div onclick="addItemForm()">
-        {% with iconSrc='/static/public/icons/plus.svg', color='primary' %}
+        {% with iconSrc='/static/public/icons/whiteAdd.png', color='primary' %}
             {% include '/includes/squareButtonComponent.html' %}
         {% endwith %}
     </div>
@@ -23,7 +23,7 @@
             <tr class="tw-bg-white hover:tw-bg-neutral-100 tw-transition-colors tw-duration-200 tw-cursor-pointer" onclick="window.location.href='{{url_for('inventoryPartDetails', partID=row.id)}}';">
                 <td class="tw-w-36 tw-h-12 tw-text-center">{{ row.id }}</td>
                 <td class="tw-h-12 tw-text-center">{{ row.partName }}</td>
-                <td class="tw-w-36 tw-h-12 tw-text-center">${{ row.partCost }}</td>
+                <td class="tw-w-36 tw-h-12 tw-text-center">${{ "%.2f" % row.partCost }}</td>
                 <td class="tw-w-36 tw-h-12 tw-text-center">{{ row.partQuantity }}</td>
             </tr>
             {% endfor %}
@@ -123,7 +123,7 @@
             </div>
         </form>
         <div class="tw-absolute tw-top-4 tw-right-4" onclick="closeAddItemForm()">
-            {% with iconSrc='../static/icons/arrows-angle-contract.svg', color='primary' %}
+            {% with iconSrc='/static/public/icons/whiteClose.png', color='primary' %}
                 {% include '/includes/squareButtonComponent.html' %}
             {% endwith %}
         </div>

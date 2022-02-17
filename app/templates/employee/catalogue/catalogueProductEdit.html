@@ -12,7 +12,7 @@
         </a>
         <a href="{{url_for('catalogueProductDelete', productID=product.id)}}">
             <div class="tw-flex tw-items-center tw-justify-center bg-danger tw-py-3.5 tw-px-5 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
-                <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">Delete part</p>
+                <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">Delete product</p>
             </div>
         </a>
     </div>
@@ -58,7 +58,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-                {{ form.cost(class="form-control form-control", value=product.productCost) }}
+                {{ form.cost(class="form-control form-control", value="%.2f"%product.productCost) }}
             </div><!--form-group-->
 
             <div class="form-group my-2 w-100">

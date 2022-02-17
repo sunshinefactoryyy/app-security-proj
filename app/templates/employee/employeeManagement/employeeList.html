@@ -5,7 +5,7 @@
 <div class="d-flex flex-row align-items-start justify-content-between mt-2 w-100">
     <h2 class="fs-1 fw-bold pb-1">Employee Management</h2>
     <div onclick="addEmployeeForm()">
-        {% with iconSrc='/static/public/icons/plus.svg', color='primary' %}
+        {% with iconSrc='/static/public/icons/whiteAdd.png', color='primary' %}
             {% include '/includes/squareButtonComponent.html' %}
         {% endwith %}
     </div>
@@ -160,7 +160,7 @@
             </div>
         </form>
         <div class="tw-absolute tw-top-4 tw-right-4" onclick="closeAddEmployeeForm()">
-            {% with iconSrc='../static/icons/arrows-angle-contract.svg', color='primary' %}
+            {% with iconSrc='/static/public/icons/whiteClose.png', color='primary' %}
                 {% include '/includes/squareButtonComponent.html' %}
             {% endwith %}
         </div>

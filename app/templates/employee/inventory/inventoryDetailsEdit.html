@@ -58,7 +58,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-                {{ form.cost(class="form-control form-control", value=part.partCost) }}
+                {{ form.cost(class="form-control form-control", value="%.2f"%part.partCost) }}
             </div><!--form-group-->
 
             <div class="form-group my-2 w-100">

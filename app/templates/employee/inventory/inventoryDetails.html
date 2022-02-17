@@ -22,7 +22,7 @@
     <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-start ms-4">
         <p class="fs-2 fw-bold pb-2">{{ part.partName }}</p>
         <p class="fs-6 pb-1"><span class="fw-bold">Part ID:</span> {{ part.id }}</p>
-        <p class="fs-6 pb-1"><span class="fw-bold">Part Cost:</span> ${{ part.partCost }}</p>
+        <p class="fs-6 pb-1"><span class="fw-bold">Part Cost:</span> ${{ "%.2f" % part.partCost }}</p>
         <p class="fs-6 pb-1"><span class="fw-bold">Description:</span> {{ part.partDescription }}</p>
         <p class="fs-6 pb-1"><span class="fw-bold">Quantity:</span> {{ part.partQuantity }}</p>
     </div>

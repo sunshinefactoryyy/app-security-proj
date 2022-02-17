@@ -17,7 +17,7 @@
     <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-start ms-4">
         <p class="fs-2 fw-bold pb-2">{{ product.productName }}</p>
         <p class="fs-6 pb-1"><span class="fw-bold">Product ID:</span> {{ product.id }}</p>
-        <p class="fs-6 pb-1"><span class="fw-bold">Product Cost:</span> ${{ product.productCost }}</p>
+        <p class="fs-6 pb-1"><span class="fw-bold">Product Cost:</span> ${{ "%.2f" % product.productCost }}</p>
         <p class="fs-6 pb-1"><span class="fw-bold">Description:</span> {{ product.productDescription }}</p>
     </div>
 </div>
