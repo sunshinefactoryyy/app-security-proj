@@ -10,7 +10,7 @@
                 </div>
             </a>
             {% if employee.id != user.id %}
-                <a class="ms-3" href="{{url_for('employeeManagementDetailsEdit', employeeID=employee.id)}}">
+                <a class="ms-3" href="{{url_for('employeeManagementDetailsDelete', employeeID=employee.id)}}">
                     <div class="tw-flex tw-items-center tw-justify-center bg-danger tw-py-3.5 tw-px-5 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
                         <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">Delete Employee</p>
                     </div>

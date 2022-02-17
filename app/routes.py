@@ -638,26 +638,9 @@ def employeeManagement():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         if form.picture.data:
             picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
-            employee = Employee(
-                picture=picture_file, 
-                username=form.username.data, 
-                email=form.email.data, 
-                password=hashed_password, 
-                permissions=form.permissions.data,
-                address=form.address.data,
-                contact_no=form.contact.data,
-                creation_datetime=creation_time
-            )
+            employee = Employee(picture=picture_file, username=form.username.data, email=form.email.data, password=hashed_password, permissions=form.permissions.data,address=form.address.data,contact_no=form.contact.data,creation_datetime=creation_time)
         else:
-            employee = Employee(
-                username=form.username.data, 
-                email=form.email.data, 
-                password=hashed_password, 
-                permissions=form.permissions.data,
-                address=form.address.data,
-                contact_no=form.contact.data,
-                creation_datetime=creation_time
-            )
+            employee = Employee(username=form.username.data, email=form.email.data, password=hashed_password, permissions=form.permissions.data,address=form.address.data,contact_no=form.contact.data,creation_datetime=creation_time)
         db.session.add(employee)
         db.session.commit()
         return redirect(url_for('employeeManagement'))
@@ -710,6 +693,15 @@ def employeeManagementDetailsEdit(employeeID):
         form=form
     )
 
+
+@app.route('/employee-management/<int:employeeID>/delete')
+@login_required
+@authorised_only
+def employeeManagementDetailsDelete(employeeID):
+    Employee.query.filter_by(id=employeeID).delete()
+    db.session.commit()
+
+    return redirect(url_for('employeeManagement'))
 
 
 #Chatbot

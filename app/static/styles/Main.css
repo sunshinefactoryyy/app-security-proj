@@ -439,6 +439,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-right-4 {
   right: 1rem;
 }
+.tw-z-0 {
+  z-index: 0;
+}
+.tw-z-10 {
+  z-index: 10;
+}
 .tw-m-2 {
   margin: 0.5rem;
 }
