@@ -1,0 +1,47 @@
+{% extends "employeeBase.html" %} 
+{% set permissionsMap = {1:"Super Administrator", 2:"Employee"} %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-start justify-content-start mt-2 w-100">
+    <div class="d-flex flex-row align-items-start justify-content-between w-100">
+        <h2 class="fs-1 fw-bold pb-1">Employee Information</h2>
+        <div class="d-flex flex-row">
+            <div class="me-3">
+                {% with link='employeeInformationEdit', label='Edit', color='primary' %}
+                    {% include '/includes/customButtonComponent.html' %}
+                {% endwith %}
+            </div>
+            {% with link='logout', label='Logout', color='primary' %}
+                {% include '/includes/customButtonComponent.html' %}
+            {% endwith %}
+        </div>
+    </div>
+    <div class="d-flex flex-row align-items-start justify-content-start w-100 mt-4">
+        {% with image=user.picture %}
+            {% include '/includes/accountProfilePicture.html' %}
+        {% endwith %}
+        <div class="d-flex flex-grow-1 flex-column align-items-start justify-content-start ms-5 mt-2">
+            <div class="d-flex flex-column align-items-start justify-content-start w-100">
+                <h2 class="fs-1 fw-bold pb-1">{{ user.username }}</h2>
+                <h3 class="fs-3 fw-normal">{{ permissionsMap[user.permissions] }}</h3>
+            </div>
+            <div class="w-100">
+                <div class="row row-cols-2 w-100 mt-4 mx-0">
+                    {% with label='Email', data=user.email %}
+                        {% include '/includes/accountDetailGridItem.html' %}
+                    {% endwith %}
+                    {% with label='Contact number', data=user.contact_no %}
+                        {% include '/includes/accountDetailGridItem.html' %}
+                    {% endwith %}
+                    {% with label='Address', data=user.address %}
+                        {% include '/includes/accountDetailGridItem.html' %}
+                    {% endwith %}
+                    {% with label='Account creation date', data=user.creation_datetime %}
+                        {% include '/includes/accountDetailGridItem.html' %}
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

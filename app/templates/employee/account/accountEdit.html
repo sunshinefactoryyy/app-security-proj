@@ -1,27 +1,20 @@
 {% extends "employeeBase.html" %} 
+{% set permissionsMap = {1:"Super Administrator", 2:"Employee"} %}
+
 {% block content %}
 <div class="d-flex flex-column align-items-start justify-content-start mt-2 w-100">
     <div class="d-flex flex-row align-items-start justify-content-between w-100">
-        <h2 class="fs-1 fw-bold pb-1">Employee Management</h2>
-        <div class="d-flex flex-row">
-            <a class="" href="{{url_for('employeeManagementDetails', employeeID=employee.id)}}">
-                <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
-                    <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">Cancel</p>
-                </div>
-            </a>
-            {% if employee.id != user.id %}
-                <a class="ms-3" href="{{url_for('employeeManagementDetailsEdit', employeeID=employee.id)}}">
-                    <div class="tw-flex tw-items-center tw-justify-center bg-danger tw-py-3.5 tw-px-5 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
-                        <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">Delete Employee</p>
-                    </div>
-                </a>
-            {% endif %}
-        </div>
+        <h2 class="fs-1 fw-bold pb-1">Employee Information</h2>
+        <a class="" href="{{url_for('employeeInformation')}}">
+            <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
+                <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">Cancel</p>
+            </div>
+        </a>
     </div>
     <form class="d-flex flex-row align-items-start justify-content-start w-100 mt-4" method="post" action="" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div class="d-flex flex-column align-items-center justify-content-start">
-            {% with image=employee.picture %}
+            {% with image=user.picture %}
                 {% include '/includes/accountProfilePicture.html' %}
             {% endwith %}
             <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl mt-3">
@@ -36,35 +29,11 @@
             {% else %}
             {% endif %}
         </div>
-        <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-start ms-5">
-            <div class="form-group my-2 w-100">
-                {{ form.username.label(class="form-control-label") }}
-                {% if form.username.errors %}
-                    {{ form.username(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.username.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.username(class="form-control form-control", value=employee.username) }}
-                {% endif %}
-            </div><!--form-group-->
-
-            <div class="form-group my-2">
-                {{ form.permissions.label(class="form-control-label") }}
-                {% if form.permissions.errors %}
-                    {{ form.permissions(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.permissions.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.permissions(class="form-control form-control") }}
-                {% endif %}
-            </div><!--form-group-->
-
+        <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-start ms-5 mt-2">
+            <div class="d-flex flex-column align-items-start justify-content-start w-100 mb-2">
+                <h2 class="fs-1 fw-bold pb-1">{{ user.username }}</h2>
+                <h3 class="fs-3 fw-normal">{{ permissionsMap[user.permissions] }}</h3>
+            </div>
             <div class="row row-cols-2 w-100 mx-0">
                 <div class="col px-0 form-group my-2 pe-2">
                     {{ form.email.label(class="form-control-label") }}
@@ -76,7 +45,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.email(class="form-control form-control", value=employee.email) }}
+                        {{ form.email(class="form-control form-control", value=user.email) }}
                     {% endif %}
                 </div><!--form-group-->
 
@@ -90,7 +59,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.contact(class="form-control form-control", value=employee.contact_no) }}
+                        {{ form.contact(class="form-control form-control", value=user.contact_no) }}
                     {% endif %}
                 </div><!--form-group-->
             </div>
@@ -105,7 +74,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.address(class="form-control form-control", value=employee.address) }}
+                    {{ form.address(class="form-control form-control", value=user.address) }}
                 {% endif %}
             </div><!--form-group-->
 

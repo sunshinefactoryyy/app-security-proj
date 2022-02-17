@@ -1,14 +1,14 @@
 from app import db, login_manager, app
-from flask_login import UserMixin
+from app.customMixin import UserMixin
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 @login_manager.user_loader
 def load_user(user_id):
-    if Customer.query.get(int(user_id)):
-        return Customer.query.get(int(user_id))
-    elif Employee.query.get(int(user_id)):
-        return Employee.query.get(int(user_id))
+    if Customer.query.filter_by(username=user_id).first():
+        return Customer.query.filter_by(username=user_id).first()
+    elif Employee.query.filter_by(username=user_id).first():
+        return Employee.query.filter_by(username=user_id).first()
 
 ACCESS = {'customer': 1,
           'admin': 2}

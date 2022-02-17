@@ -1,4 +1,4 @@
-from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeForm, UpdateInventoryItem
+from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem
 from app.models import CatalogueProduct, Customer, Employee, Inventory, Request
 from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app
 from app import app, db, bcrypt, mail, stripe_keys
@@ -431,9 +431,33 @@ def employeeInformation():
     user = current_user
 
     return render_template(
-        'employee/account.html', 
+        'employee/account/account.html', 
         title='Employee Account',
         user=user
+    )
+
+@app.route('/employee-information/edit', methods=["GET", "POST"])
+@login_required
+@authorised_only
+def employeeInformationEdit():
+    user = current_user
+    form = UpdateEmployeeAccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
+            # os.remove(part.picture.replace('static','app/static'))
+            user.picture = picture_file
+        user.email = form.email.data
+        user.contact_no = form.contact.data
+        user.address = form.address.data
+        db.session.commit()
+        return redirect(url_for('employeeInformation'))
+
+    return render_template(
+        'employee/account/accountEdit.html', 
+        title='Edit Employee Account',
+        user=user,
+        form=form
     )
 
 @app.route('/request-management')
@@ -652,25 +676,27 @@ def employeeManagementDetails(employeeID):
 @authorised_only
 def employeeManagementDetailsEdit(employeeID):
     employee = Employee.query.get_or_404(employeeID)
-    form = UpdateEmployeeForm()
+    form = UpdateEmployeeManagementForm()
 
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file = save_picture(form.picture.data, 'static/src/part_pics')
+            picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
             # os.remove(part.picture.replace('static','app/static'))
             employee.picture = picture_file
-        employee.username = form.name.data
+        employee.username = form.username.data
         if form.permissions.data:
             employee.permissions = form.permissions.data
         employee.email = form.email.data
         employee.contact_no = form.contact.data
         employee.address = form.address.data
         db.session.commit()
+        return redirect(url_for('employeeManagementDetails', employeeID=employeeID))
 
     return render_template(
         'employee/employeeManagement/employeeDataEdit.html',
         title="Edit Employee Data - " + employee.username,
         employee=employee,
+        user=current_user,
         form=form
     )
 
