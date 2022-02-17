@@ -6,9 +6,11 @@
     <h2 class="fs-1 fw-bold pb-1">Inventory</h2>
     <div class="d-flex flex-row">
         <div class="me-3">
-            {% with link='inventoryManagement', label='Request more spares', color='primary' %}
-                {% include '/includes/customButtonComponent.html' %}
-            {% endwith %}
+            <a href="{{url_for('inventoryPartDetailsReplenish', partID=part.id)}}">
+                <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">
+                    <p class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap">Replenish Inventory</p>
+                </div>
+            </a>
         </div>
         <a href="{{url_for('inventoryPartDetailsEdit', partID=part.id)}}">
             <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl hover:tw-shadow-lg tw-transition-shadow tw-duration-200">

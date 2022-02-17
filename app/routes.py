@@ -627,6 +627,15 @@ def inventoryPartDetailsDelete(partID):
 
     return redirect(url_for('inventoryManagement'))
 
+@app.route('/inventory/<int:partID>/replenish')
+@login_required
+@authorised_only
+def inventoryPartDetailsReplenish(partID):
+    Inventory.query.filter_by(id=partID).first().partQuantity += 10
+    db.session.commit()
+
+    return redirect(url_for('inventoryPartDetails', partID=partID))
+
 @app.route('/employee-management', methods=["GET", "POST"])
 @login_required
 @authorised_only
