@@ -1,10 +1,9 @@
 # AY1-APP-DEV-PROJ
 ## Members
-1. Isaac Koh
+1. Aloysius Koh
 2. Wu Yuewei
-3. Chin Shuan
-4. Jon Loh
-5. Lee Guan Feng
+3. Joshua Loh
+4. Kieran Lee
 
 ## Requirements
 1. [Git](https://git-scm.com/)
