@@ -1,4 +1,4 @@
-# AY1-APP-DEV-PROJ
+# AY2-APP-SEC-PROJ
 ## Members
 1. Aloysius Koh
 2. Wu Yuewei
