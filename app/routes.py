@@ -98,9 +98,9 @@ def register():
         return redirect(url_for('customerRequest'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        # hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
-        user = Customer(username=form.username.data, email=form.email.data, password=hashed_password, picture='default.png', creation_datetime=creation_time)
+        user = Customer(username=form.username.data, email=form.email.data, password=form.password.data, picture='default.png', creation_datetime=creation_time)
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)
@@ -124,7 +124,8 @@ def login():
     if form.validate_on_submit():
         if Customer.query.filter_by(email=form.email.data).first():
             user = Customer.query.filter_by(email=form.email.data).first()
-            if user and bcrypt.check_password_hash(user.password, form.password.data):
+            pw = Customer.query.filter_by(password=form.password.data).first()
+            if user and pw:
                 login_user(user, remember=True)
                 next_page = request.args.get("next")
                 return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
@@ -132,7 +133,8 @@ def login():
                 flash("Login unsuccessful. Please check email and password.", 'danger')
         elif Employee.query.filter_by(email=form.email.data).first():
             user = Employee.query.filter_by(email=form.email.data).first()
-            if user and bcrypt.check_password_hash(user.password, form.password.data):
+            pw = Employee.query.filter_by(password=form.password.data).first()
+            if user and pw:
                 login_user(user, remember=True)
                 return redirect(url_for('employeeInformation'))
             else:
