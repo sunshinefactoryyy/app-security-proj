@@ -122,23 +122,24 @@ def login():
     session['oauth_state'] = state
     form = LoginForm()
     if form.validate_on_submit():
-        if Customer.query.filter_by(email=form.email.data).first():
-            user = Customer.query.filter_by(email=form.email.data).first()
-            pw = Customer.query.filter_by(password=form.password.data).first()
-            if user and pw:
-                login_user(user, remember=True)
-                next_page = request.args.get("next")
-                return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
-            else:
-                flash("Login unsuccessful. Please check email and password.", 'danger')
-        elif Employee.query.filter_by(email=form.email.data).first():
-            user = Employee.query.filter_by(email=form.email.data).first()
-            pw = Employee.query.filter_by(password=form.password.data).first()
-            if user and pw:
-                login_user(user, remember=True)
-                return redirect(url_for('employeeInformation'))
-            else:
-                flash("Login unsuccessful. Please check email and password.", 'danger')
+        
+        # if Customer.query.filter_by(email=form.email.data).first():
+        #     user = Customer.query.filter_by(email=form.email.data).first()
+        #     pw = Customer.query.filter_by(password=form.password.data).first()
+        #     if user and pw:
+        #         login_user(user, remember=True)
+        #         next_page = request.args.get("next")
+        #         return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
+        #     else:
+        #         flash("Login unsuccessful. Please check email and password.", 'danger')
+        # elif Employee.query.filter_by(email=form.email.data).first():
+        #     user = Employee.query.filter_by(email=form.email.data).first()
+        #     pw = Employee.query.filter_by(password=form.password.data).first()
+        #     if user and pw:
+        #         login_user(user, remember=True)
+        #         return redirect(url_for('employeeInformation'))
+        #     else:
+        #         flash("Login unsuccessful. Please check email and password.", 'danger')
 
     return render_template(
         'authentication/login.html', 
@@ -293,7 +294,6 @@ def deactivateAccount():
         deleted_user_id=current_user.id
         logout_user()
         Customer.query.filter_by(id=deleted_user_id).delete()
-        Request.query.filter_by(customerID=deleted_user_id).all().delete()
         db.session.commit()
         flash('Account has been successfully deleted!', 'success')
         return redirect(url_for('home'))
