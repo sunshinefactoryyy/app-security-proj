@@ -166,3 +166,7 @@ class UpdateCatalogueItem(FlaskForm):
     cost = FloatField("Product Cost", validators=[DataRequired()])
     description = TextAreaField("Product Description")
     submit = SubmitField("Update")
+
+class uploadfiles(FlaskForm):
+    file = FileField("Choose File")
+    submit = SubmitField("Upload File")

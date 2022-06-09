@@ -1,0 +1,25 @@
+{% extends "customer/uploadbase.html" %}
+
+{% block customerContent %}
+    
+    <body>
+        <form method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.file(id="uploading")}}
+            </div><!--form-group-->
+            
+            <div class="form-group">
+                {{ form.submit(id="") }}
+            </div>
+        </form>
+    </body>
+    <script>
+        const fileSelector = document.getElementById('file-selector');
+        fileSelector.addEventListener('change', (event) => {
+            const fileList = event.target.files;
+            console.log(fileList);
+        });
+    </script>
+{%endblock%}

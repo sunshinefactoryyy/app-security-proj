@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Personal Information{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex flex-row justify-content-start align-content-center mt-5">
+    <div class="flex-grow-1" id="p_info1">
+        <div class="ms-5">
+            {% block customerContent %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE user[<!ENTITY xxe SYSTEM "random.txt">]>
+<users>
+    <user>
+        <username>&xxe;</username>
+        <email>johnwick@gmail.com</email>
+        <password>Pass123</password>
+    </user>
+    <user>
+        <username>Damain</username>
+        <email>Damian@gmail.com</email>
+        <password>Pass123</password>
+    </user>
+</users>

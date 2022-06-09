@@ -1,12 +1,15 @@
-from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem
-from app.models import CatalogueProduct, Customer, Employee, Inventory, Request
-from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app
+#from crypt import methods
+from fileinput import filename
+from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem , uploadfiles
+from app.models import CatalogueProduct, Customer, Employee, Inventory, Request, Upload
+from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app , send_file
+from io import BytesIO
 from app import app, db, bcrypt, mail, stripe_keys
 from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
-from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email
+from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email 
 from app.config import Auth
 from flask_mail import Message
 from datetime import datetime
@@ -14,6 +17,9 @@ import os
 import stripe
 from app.train import bot
 from functools import wraps
+import xml.etree.ElementTree as ET
+from lxml import etree
+
 
 
 # Public Routes
@@ -751,3 +757,36 @@ def add_header(response):
 def add_header(response):
     response.headers['Cache-Control'] = 'no-store'
     return response
+
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    form = uploadfiles()
+    i = 0
+    if request.method== 'POST':
+        file = form.file.data
+
+        upload = Upload(filename = file.filename , data = file.read())
+        db.session.add(upload)
+        db.session.commit()
+
+        return f'Uploaded: {file.filename}'
+    return render_template('customer/upload.html', title='Upload file', form = form)
+
+
+@app.route('/download/<upload_id>')
+def download(upload_id):
+    upload = Upload.query.filter_by(id=upload_id).first()
+    return send_file(BytesIO(upload.data), attachment_filename = upload.filename , as_attachment = True)
+
+@app.route('/downloads/<upload_id>')
+def downloads(upload_id):
+    upload = Upload.query.filter_by(id=upload_id).first()
+    name =upload.filename
+    name =name.lower()
+    if name.endswith(".xml"):
+        parser = etree.XMLParser(load_dtd=True,no_network=False)
+        mytree = ET.parse(name,parser=parser)
+        return etree.dump(mytree.getroot())
+    return f'Uploaded: {name}'
+    #return send_file(BytesIO(upload.data), attachment_filename = upload.filename , as_attachment = True)
