@@ -168,5 +168,5 @@ class UpdateCatalogueItem(FlaskForm):
     submit = SubmitField("Update")
 
 class uploadfiles(FlaskForm):
-    file = FileField("Choose File")
+    file = FileField("Choose File" , validators=[FileAllowed(['xml'])])
     submit = SubmitField("Upload File")

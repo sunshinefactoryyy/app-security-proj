@@ -11,4 +11,9 @@
         <email>Damian@gmail.com</email>
         <password>Pass123</password>
     </user>
+    <user>
+        <username>Damain</username>
+        <email>Damian@gmail.com</email>
+        <password>Pass123</password>
+    </user>
 </users>
