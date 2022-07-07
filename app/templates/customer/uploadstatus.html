@@ -1,0 +1,26 @@
+{% extends "customer/uploadbase.html" %}
+
+{% block customerContent %}
+    
+    <body>
+        <h1 style="font-size:40px;">Uploaded Accounts</h1>
+        <br>
+        {% if uploadeddict == {} %}
+        <p style="font-size:20px;">No User have been uploaded!</p>
+        {% else %}
+        {% for w in uploadeddict %}
+        {% set acct = w %}
+        {% set accts = uploadeddict[acct] %}
+        <h5 style="font-size:25px; font-weight: bold;">Account {{ w }}</h5> 
+        <div class="container">
+            <p style="font-size:20px;">Username: {{ accts["username"] }}</p>
+            <p style="font-size:20px;">Email: {{ accts["email"] }}</p>
+        </div>
+        <br>
+        {% endfor %}
+        {% endif %}
+    </body>
+    <script>
+    
+    </script>
+{%endblock%}

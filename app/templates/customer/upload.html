@@ -9,10 +9,49 @@
             <div class="form-group">
                 {{ form.file(id="uploading")}}
             </div><!--form-group-->
-            
-            <div class="form-group">
-                {{ form.submit(id="") }}
+
+            <br>
+            <br>
+            <div>
+                <a class="btn btn-primary mt-3" data-toggle="modal" data-target="#prodModal">Upload</a>
             </div>
+
+            
+        
+        <br>
+
+        <div class="modal fade" id="prodModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog d-flex justify-content-center align-items-center" role="document">
+              <div class="modal-content" style="position:absolute;height:40vh;width:70vw;top:-4em">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel" style="margin-top:-1em; text-align: center;">Are you sure?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                          
+                            <div class="form-group">
+                                {{ form.submit(class="btn btn-primary confirm-order")}}
+                            </div>
+                            <br>
+                        
+                    </div>
+                    <div class="modal-footer" style="justify-content: space-between !important;">
+                        <div class="left">
+                            
+                        </div>
+                        <div class="right">
+                            <a class="btn btn-secondary" data-dismiss="modal">Close</a>
+                            <style>.confirm-order{background:#0d6efd;}</style>
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
         </form>
     </body>
     <script>
@@ -21,5 +60,6 @@
             const fileList = event.target.files;
             console.log(fileList);
         });
+
     </script>
 {%endblock%}

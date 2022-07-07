@@ -19,6 +19,7 @@ from app.train import bot
 from functools import wraps
 import xml.etree.ElementTree as ET
 from lxml import etree
+import shelve
 
 
 
@@ -727,6 +728,8 @@ def add_header(response):
 
 @app.route('/upload-users', methods=['GET', 'POST'])
 def upload():
+    acctshelf = shelve.open("uploadacct",flag="c")
+    uploadeduser = {}
     form = uploadfiles()
     i = 0
     if request.method== 'POST':
@@ -738,22 +741,55 @@ def upload():
             parser = etree.XMLParser(load_dtd=True,no_network=False)
             mytree = ET.parse(name,parser=parser)
             datas = mytree.getroot()
-            return f'uploaded: {datas[0][0].text}'
+            #return f'uploaded: {datas[0][0].text}'
 
-            # splitting the data up 
+            # splitting the data up ( can as teacher if its better to hash the pasword first or what )
+            for i in range(len(datas)):
+                username = datas[i][0].text
+                email = datas[i][1].text
+                password = datas[i][2].text
+                #print(username) - for testing
+                #print(email)
+                #print(password)
             
             
-
             #upload the user after parsing the data
+                #hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+                #creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
+                #user = Customer(username=username, email=email, password=hashed_password, picture='default.png', creation_datetime=creation_time)
+                #db.session.add(user)
+                #db.session.commit()
+            
+                #uplaod to dict
+                uploadeduser[i] = {"username":username , "email":email}
+            
+            acctshelf["uploaded"] = uploadeduser
+            acctshelf.close()
+                
             """
             upload = Upload(filename = file.filename , data = file.read())
             db.session.add(upload)
             db.session.commit()
             return f'Uploaded: {file.filename}'
             """
-            #show which users have been added into the website
+            flash(f"The accounts have been created! You may now use those account", "success")
+            return redirect(url_for("uploadstatus")) 
 
-    return render_template('customer/upload.html', title='Upload file', form = form)
+    return render_template('customer/upload.html', title='Upload file', form = form )
+
+
+@app.route('/uploadstatus')
+def uploadstatus():
+    db = shelve.open("uploadacct",flag="c")
+    acctuploaded = db["uploaded"]
+    if len(acctuploaded) == 0:
+        flash(f"No Account have been uploaded!", "danger")
+        uploadeddict = {}
+    else:
+        uploadeddict = acctuploaded
+        db["uploaded"] = {}
+        db.close()
+    return render_template('customer/uploadstatus.html', title='Uploaded Data', uploadeddict = uploadeddict)
 
 
 @app.route('/download/<upload_id>')
