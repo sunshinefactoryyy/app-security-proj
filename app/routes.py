@@ -298,7 +298,6 @@ def deactivateAccount():
         deleted_user_id=current_user.id
         logout_user()
         Customer.query.filter_by(id=deleted_user_id).delete()
-        Request.query.filter_by(customerID=deleted_user_id).all().delete()
         db.session.commit()
         flash('Account has been successfully deleted!', 'success')
         return redirect(url_for('home'))
@@ -754,11 +753,11 @@ def upload():
             
             
             #upload the user after parsing the data
-                #hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-                #creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
-                #user = Customer(username=username, email=email, password=hashed_password, picture='default.png', creation_datetime=creation_time)
-                #db.session.add(user)
-                #db.session.commit()
+                hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+                creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
+                user = Customer(username=username, email=email, password=hashed_password, picture='default.png', creation_datetime=creation_time)
+                db.session.add(user)
+                db.session.commit()
             
                 #uplaod to dict
                 uploadeduser[i] = {"username":username , "email":email}
