@@ -434,6 +434,8 @@ def authorised_only(f):
     return decortated_function
 
 @app.route('/employee-information')
+@login_required
+@authorised_only
 def employeeInformation():
     user = current_user
 
@@ -444,6 +446,8 @@ def employeeInformation():
     )
 
 @app.route('/employee-information/edit', methods=["GET", "POST"])
+@login_required
+@authorised_only
 def employeeInformationEdit():
     user = current_user
     form = UpdateEmployeeAccountForm()
@@ -466,6 +470,8 @@ def employeeInformationEdit():
     )
 
 @app.route('/request-management')
+@login_required
+@authorised_only
 def requestManagement():
     requestData = Request.query.all()
     return render_template(
@@ -475,6 +481,8 @@ def requestManagement():
     )
 
 @app.route('/request-management/<int:requestID>')
+@login_required
+@authorised_only
 def requestManagementDetails(requestID):
     request = Request.query.get_or_404(requestID)
     customer = Customer.query.filter_by(id=request.customerID).first()
@@ -489,6 +497,8 @@ def requestManagementDetails(requestID):
     )
 
 @app.route('/catalogue', methods=["GET", "POST"])
+@login_required
+@authorised_only
 def catalogue():
     form = NewCatalogueItem()
     catalogueData = CatalogueProduct.query.all()
@@ -510,6 +520,8 @@ def catalogue():
     )
 
 @app.route('/catalogue/<int:productID>')
+@login_required
+@authorised_only
 def catalogueProduct(productID):
     product = CatalogueProduct.query.get_or_404(productID)
 
@@ -520,6 +532,8 @@ def catalogueProduct(productID):
     )
 
 @app.route('/catalogue/<int:productID>/edit', methods=["GET", "POST"])
+@login_required
+@authorised_only
 def catalogueProductEdit(productID):
     form = UpdateCatalogueItem()
     product = CatalogueProduct.query.get_or_404(productID)
@@ -543,12 +557,16 @@ def catalogueProductEdit(productID):
     )
 
 @app.route('/catalogue/<int:productID>/delete')
+@login_required
+@authorised_only
 def catalogueProductDelete(productID):
     CatalogueProduct.query.filter_by(id=productID).delete()
     db.session.commit()
     return redirect(url_for('catalogue'))
 
 @app.route('/inventory', methods=["GET", "POST"])
+@login_required
+@authorised_only
 def inventoryManagement():
     form = NewInventoryItem()
     inventoryData = Inventory.query.all()
@@ -570,6 +588,8 @@ def inventoryManagement():
     )
 
 @app.route('/inventory/<int:partID>')
+@login_required
+@authorised_only
 def inventoryPartDetails(partID):
     part = Inventory.query.get_or_404(partID)
 
@@ -580,6 +600,8 @@ def inventoryPartDetails(partID):
     )
 
 @app.route('/inventory/<int:partID>/edit', methods=["GET", "POST"])
+@login_required
+@authorised_only
 def inventoryPartDetailsEdit(partID):
     form = UpdateInventoryItem()
     part = Inventory.query.get_or_404(partID)
@@ -603,6 +625,8 @@ def inventoryPartDetailsEdit(partID):
     )
 
 @app.route('/inventory/<int:partID>/delete')
+@login_required
+@authorised_only
 def inventoryPartDetailsDelete(partID):
     Inventory.query.filter_by(id=partID).delete()
     db.session.commit()
@@ -610,6 +634,8 @@ def inventoryPartDetailsDelete(partID):
     return redirect(url_for('inventoryManagement'))
 
 @app.route('/inventory/<int:partID>/replenish')
+@login_required
+@authorised_only
 def inventoryPartDetailsReplenish(partID):
     Inventory.query.filter_by(id=partID).first().partQuantity += 10
     db.session.commit()
@@ -617,6 +643,8 @@ def inventoryPartDetailsReplenish(partID):
     return redirect(url_for('inventoryPartDetails', partID=partID))
 
 @app.route('/employee-management', methods=["GET", "POST"])
+@login_required
+@authorised_only
 def employeeManagement():
     employeeData = Employee.query.all()
     form = EmployeeCreationForm()
@@ -640,6 +668,8 @@ def employeeManagement():
     )
 
 @app.route('/employee-management/<int:employeeID>')
+@login_required
+@authorised_only
 def employeeManagementDetails(employeeID):
     employee = Employee.query.get_or_404(employeeID)
 
@@ -650,6 +680,8 @@ def employeeManagementDetails(employeeID):
     )
 
 @app.route('/employee-management/<int:employeeID>/edit', methods=["GET", "POST"])
+@login_required
+@authorised_only
 def employeeManagementDetailsEdit(employeeID):
     employee = Employee.query.get_or_404(employeeID)
     form = UpdateEmployeeManagementForm()
@@ -678,6 +710,8 @@ def employeeManagementDetailsEdit(employeeID):
 
 
 @app.route('/employee-management/<int:employeeID>/delete')
+@login_required
+@authorised_only
 def employeeManagementDetailsDelete(employeeID):
     Employee.query.filter_by(id=employeeID).delete()
     db.session.commit()
