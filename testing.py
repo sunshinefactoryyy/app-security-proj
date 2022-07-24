@@ -1,9 +1,13 @@
+from lib2to3.pgen2.parse import ParseError
 import xml.etree.ElementTree as ET
 from lxml import etree
 from xml.dom import minidom
-"""
-parser = etree.XMLParser(load_dtd=True,no_network=False)
-mytree = ET.parse('sample.xml')
+
+try:
+    parser = etree.XMLParser(load_dtd=True,no_network=False)
+    mytree = ET.parse('sample.xml')
+except ET.ParseError:
+    print("hi")
 
 #ET.dump(mytree.getroot())
 
@@ -11,7 +15,7 @@ mytree = ET.parse('sample.xml')
 parser = etree.XMLParser(load_dtd=True,no_network=False)
 mytree = ET.parse("sample.xml",parser=parser)
 #print(etree.dump(mytree.getroot()))
-
+"""
 root = mytree.getroot()
 #print(root[0][0].text)
 
