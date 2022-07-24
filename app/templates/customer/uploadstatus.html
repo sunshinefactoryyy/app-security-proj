@@ -5,6 +5,9 @@
     <body>
         <h1 style="font-size:40px;">Uploaded Accounts</h1>
         <br>
+        {% if error_check == True %}
+        <p style="font-size:20px;">Inappropriate character in File!</p>
+        {% else %}
         {% if uploadeddict == {} %}
         <p style="font-size:20px;">No User have been uploaded!</p>
         {% else %}
@@ -18,6 +21,7 @@
         </div>
         <br>
         {% endfor %}
+        {% endif %}
         {% endif %}
     </body>
     <script>

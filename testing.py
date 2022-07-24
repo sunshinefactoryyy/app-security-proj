@@ -5,7 +5,7 @@ from xml.dom import minidom
 parser = etree.XMLParser(load_dtd=True,no_network=False)
 mytree = ET.parse('sample.xml')
 
-ET.dump(mytree.getroot())
+#ET.dump(mytree.getroot())
 
 """
 parser = etree.XMLParser(load_dtd=True,no_network=False)
@@ -13,7 +13,7 @@ mytree = ET.parse("sample.xml",parser=parser)
 #print(etree.dump(mytree.getroot()))
 
 root = mytree.getroot()
-print(root[0][0].text)
+#print(root[0][0].text)
 
 for i in range(len(root)):
     username = root[i][0].text

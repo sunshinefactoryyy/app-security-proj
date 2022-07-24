@@ -731,38 +731,45 @@ def upload():
     uploadeduser = {}
     form = uploadfiles()
     i = 0
+    error_check = False
     if request.method== 'POST':
         file = form.file.data
         name = file.filename
         name = name.lower()
         if name.endswith(".xml"):
             # parse the xml file into the parser
-            parser = etree.XMLParser(load_dtd=True,no_network=False)
-            mytree = ET.parse(name,parser=parser)
-            datas = mytree.getroot()
-            #return f'uploaded: {datas[0][0].text}'
+            #parser = etree.XMLParser(load_dtd=True,no_network=False)
+            try:
+                mytree = ET.parse(name)     #check for any DTD reference
+            except ET.ParseError:
+                error_check = True
 
-            # splitting the data up ( can as teacher if its better to hash the pasword first or what )
-            for i in range(len(datas)):
-                username = datas[i][0].text
-                email = datas[i][1].text
-                password = datas[i][2].text
-                #print(username) - for testing
-                #print(email)
-                #print(password)
-            
-            
-            #upload the user after parsing the data
-                hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-                creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
-                user = Customer(username=username, email=email, password=hashed_password, picture='default.png', creation_datetime=creation_time)
-                db.session.add(user)
-                db.session.commit()
-            
-                #uplaod to dict
-                uploadeduser[i] = {"username":username , "email":email}
+            if error_check == False:    # if there is no DTD reference
+                datas = mytree.getroot()
+                #return f'uploaded: {datas[0][0].text}'
+
+                # splitting the data up ( can as teacher if its better to hash the pasword first or what )
+                for i in range(len(datas)):
+                    username = datas[i][0].text
+                    email = datas[i][1].text
+                    password = datas[i][2].text
+                    #print(username) - for testing
+                    #print(email)
+                    #print(password)
+                
+                
+                #upload the user after parsing the data
+                    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+                    creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
+                    user = Customer(username=username, email=email, password=hashed_password, picture='default.png', creation_datetime=creation_time)
+                    db.session.add(user)
+                    db.session.commit()
+                
+                    #uplaod to dict
+                    uploadeduser[i] = {"username":username , "email":email}
             
             acctshelf["uploaded"] = uploadeduser
+            acctshelf["errorcheck"] = error_check
             acctshelf.close()
                 
             """
@@ -780,15 +787,19 @@ def upload():
 @app.route('/uploadstatus')
 def uploadstatus():
     db = shelve.open("uploadacct",flag="c")
-    acctuploaded = db["uploaded"]
-    if len(acctuploaded) == 0:
+    acctuploaded = db["uploaded"] # to retrieve teh list of accounts that have been added
+    error_check = db["errorcheck"] # to show error msg for suspicious chracters
+    if error_check == True:
+        flash(f"XML File contains suspicious characters!", "danger")
+        uploadeddict = {}
+    elif len(acctuploaded) == 0:
         flash(f"No Account have been uploaded!", "danger")
         uploadeddict = {}
     else:
         uploadeddict = acctuploaded
         db["uploaded"] = {}
         db.close()
-    return render_template('customer/uploadstatus.html', title='Uploaded Data', uploadeddict = uploadeddict)
+    return render_template('customer/uploadstatus.html', title='Uploaded Data', uploadeddict = uploadeddict , error_check = error_check)
 
 
 @app.route('/download/<upload_id>')
