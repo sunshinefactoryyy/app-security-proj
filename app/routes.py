@@ -768,52 +768,60 @@ def upload():
     error_check = False
     if request.method== 'POST':
         file = form.file.data
-        name = file.filename
-        name = name.lower()
-        if name.endswith(".xml"):
-            # parse the xml file into the parser
-            #parser = etree.XMLParser(load_dtd=True,no_network=False)
-            try:
-                mytree = ET.parse(name)     #check for any DTD reference
-            except ET.ParseError:
-                error_check = True
+        if file == None:
+            flash(f"No File Selected!", "danger")
+        else:
+            name = file.filename
+            name = name.lower()
+            if name.endswith(".xml"):
+                # parse the xml file into the parser
+                #parser = etree.XMLParser(load_dtd=True,no_network=False)
+                try:
+                    mytree = ET.parse(name)     #check for any DTD reference
+                except ET.ParseError:
+                    error_check = True
 
-            if error_check == False:    # if there is no DTD reference
-                datas = mytree.getroot()
-                #return f'uploaded: {datas[0][0].text}'
+                if error_check == False:    # if there is no DTD reference
+                    datas = mytree.getroot()
+                    #return f'uploaded: {datas[0][0].text}'
 
-                # splitting the data up ( can as teacher if its better to hash the pasword first or what )
-                for i in range(len(datas)):
-                    username = datas[i][0].text
-                    email = datas[i][1].text
-                    password = datas[i][2].text
-                    #print(username) - for testing
-                    #print(email)
-                    #print(password)
+                    # splitting the data up ( can as teacher if its better to hash the pasword first or what )
+                    for i in range(len(datas)):
+                        username = datas[i][0].text
+                        email = datas[i][1].text
+                        password = datas[i][2].text
+                        #print(username) - for testing
+                        #print(email)
+                        #print(password)
+                    
+                    
+                    #upload the user after parsing the data
+                        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+                        creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
+                        user = Customer(username=username, email=email, password=hashed_password, picture='default.png', creation_datetime=creation_time)
+                        db.session.add(user)
+                        db.session.commit()
+                    
+                        #uplaod to dict
+                        uploadeduser[i] = {"username":username , "email":email}
                 
-                
-                #upload the user after parsing the data
-                    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-                    creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
-                    user = Customer(username=username, email=email, password=hashed_password, picture='default.png', creation_datetime=creation_time)
-                    db.session.add(user)
-                    db.session.commit()
-                
-                    #uplaod to dict
-                    uploadeduser[i] = {"username":username , "email":email}
-            
-            acctshelf["uploaded"] = uploadeduser
-            acctshelf["errorcheck"] = error_check
-            acctshelf.close()
-                
-            """
-            upload = Upload(filename = file.filename , data = file.read())
-            db.session.add(upload)
-            db.session.commit()
-            return f'Uploaded: {file.filename}'
-            """
-            flash(f"The accounts have been created! You may now use those account", "success")
-            return redirect(url_for("uploadstatus")) 
+                acctshelf["uploaded"] = uploadeduser
+                acctshelf["errorcheck"] = error_check
+                acctshelf.close()
+                    
+                """
+                upload = Upload(filename = file.filename , data = file.read())
+                db.session.add(upload)
+                db.session.commit()
+                return f'Uploaded: {file.filename}'
+                """
+
+                if error_check == False and len(uploadeduser) != 0:
+                    flash(f"The accounts have been created! You may now use those account", "success")
+        
+                return redirect(url_for("uploadstatus")) 
+            else:
+                flash(f"Incorrect File Format", "danger")
 
     return render_template('customer/upload.html', title='Upload file', form = form )
 
@@ -824,7 +832,7 @@ def uploadstatus():
     acctuploaded = db["uploaded"] # to retrieve teh list of accounts that have been added
     error_check = db["errorcheck"] # to show error msg for suspicious chracters
     if error_check == True:
-        flash(f"XML File contains suspicious characters!", "danger")
+        flash(f"XML File contains Inappropriate characters!", "danger")
         uploadeddict = {}
     elif len(acctuploaded) == 0:
         flash(f"No Account have been uploaded!", "danger")

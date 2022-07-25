@@ -14,12 +14,13 @@
         {% for w in uploadeddict %}
         {% set acct = w %}
         {% set accts = uploadeddict[acct] %}
-        <h5 style="font-size:25px; font-weight: bold;">Account {{ w }}</h5> 
-        <div class="container">
-            <p style="font-size:20px;">Username: {{ accts["username"] }}</p>
-            <p style="font-size:20px;">Email: {{ accts["email"] }}</p>
-        </div>
+        <h3>__________________________________________________________________________</h3>
         <br>
+        <h5 style="padding-bottom:10px ; font-size:25px; font-weight: bold;">Account {{ w }}:</h5> 
+            <p style="font-size:20px; "><span style="font-size:20px; font-weight: bold;">Username:</span> {{ accts["username"] }}</p>
+            <p style="font-size:20px; "><span style="font-size:20px; font-weight: bold;">Email:</span> {{ accts["email"] }}</p>
+        <br>
+        <h3>__________________________________________________________________________</h3>
         {% endfor %}
         {% endif %}
         {% endif %}
