@@ -98,7 +98,7 @@ def register():
         return redirect(url_for('customerRequest'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        # hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
         user = Customer(username=form.username.data, email=form.email.data, password=form.password.data, picture='default.png', creation_datetime=creation_time)
         db.session.add(user)
