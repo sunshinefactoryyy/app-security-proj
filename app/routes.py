@@ -107,7 +107,9 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
-        user = Customer(username=form.username.data, email=form.email.data, password=hashed_password, picture='default.png', creation_datetime=creation_time)
+        emails = form.email.data
+        emails = emails.lower()
+        user = Customer(username=form.username.data, email=emails, password=hashed_password, picture='default.png', creation_datetime=creation_time)
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)
@@ -761,6 +763,17 @@ def add_header(response):
 
 @app.route('/upload-users', methods=['GET', 'POST'])
 def upload():
+
+    def validate_email(email):   # validate the email that it is not in use
+        user = Customer.query.filter_by(email=email).first()
+        if user:
+            return False
+
+    def validate_username(username):    # validate the username that it is not in use
+        user = Customer.query.filter_by(username=username).first()
+        if user:
+            return False
+
     acctshelf = shelve.open("uploadacct",flag="c")
     uploadeduser = {}
     form = uploadfiles()
@@ -777,7 +790,7 @@ def upload():
                 # parse the xml file into the parser
                 #parser = etree.XMLParser(load_dtd=True,no_network=False)
                 try:
-                    mytree = ET.parse(name)     #check for any DTD reference
+                    mytree = ET.parse(name)     #check for any external DTD reference
                 except ET.ParseError:
                     error_check = True
 
@@ -785,11 +798,46 @@ def upload():
                     datas = mytree.getroot()
                     #return f'uploaded: {datas[0][0].text}'
 
-                    # splitting the data up ( can as teacher if its better to hash the pasword first or what )
+                    # check that there is no duplicated emails in the file
+                    email_list = []
+                    for i in range(len(datas)):
+                        email = datas[i][1].text
+                        email_list.append(email.lower())
+
+                    check_email = set(email_list)   #check for duplicates
+                    if len(email_list) != len(check_email):     # check for duplicated emails
+                        flash(f"There are duplicated emails. Please choose a different one.", "danger")
+                        return redirect(url_for("upload"))
+                    else:
+                        for i in email_list:
+                            email_check = validate_email(i)         # check if the emails are taken alr
+                            if email_check == False:        # check if the emails are taken alr
+                                flash(f"Some of the email is taken. Please choose a different one.", "danger")
+                                return redirect(url_for("upload"))
+                    
+                    #check that there is no duplicated usernames in the file
+                    username_list = []
+                    for i in range(len(datas)):
+                        username = datas[i][0].text
+                        username_list.append(username)
+                    check_username = set(username_list)
+                    if len(username_list) != len(check_username):     # check for duplicated username
+                        flash(f"There are duplicated usernames. Please choose a different one.", "danger")
+                        return redirect(url_for("upload"))
+                    else:
+                        for i in username_list:
+                            username_check = validate_username(username)    # check if the usernames are taken alr
+                            if username_check == False:        # check if the usernames are taken alr
+                                flash(f"Some of the usernames is taken. Please choose a different one.", "danger")
+                                return redirect(url_for("upload"))
+
+
+                    # splitting the data up 
                     for i in range(len(datas)):
                         username = datas[i][0].text
                         email = datas[i][1].text
                         password = datas[i][2].text
+
                         #print(username) - for testing
                         #print(email)
                         #print(password)

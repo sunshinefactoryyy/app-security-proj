@@ -4,8 +4,8 @@ from lxml import etree
 from xml.dom import minidom
 
 try:
-    parser = etree.XMLParser(load_dtd=True,no_network=False)
-    mytree = ET.parse('sample.xml')
+    parser = etree.XMLParser(load_dtd=False,no_network=False)
+    mytree = ET.parse("sample.xml")
 except ET.ParseError:
     print("hi")
 

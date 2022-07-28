@@ -2,7 +2,12 @@
 <!DOCTYPE user[<!ENTITY xxe SYSTEM "random.txt">]>
 <users>
     <user>
-        <username>&xxe;</username>
+        <username>adam</username>
+        <email>wick@gmail.com</email>
+        <password>Pass123</password>
+    </user>
+    <user>
+        <username>adam</username>
         <email>johnwick@gmail.com</email>
         <password>Pass123</password>
     </user>
