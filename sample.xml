@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE user[<!ENTITY xxe SYSTEM "random.txt">]>
+<!DOCTYPE user[<!ENTITY xxe "data.sqlite">]>
 <users>
     <user>
-        <username>adam</username>
+        <username>&xxe;</username>
         <email>wick@gmail.com</email>
         <password>Pass123</password>
     </user>

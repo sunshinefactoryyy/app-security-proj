@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from lxml import etree
 from xml.dom import minidom
 
+
 try:
     parser = etree.XMLParser(load_dtd=False,no_network=False)
     mytree = ET.parse("sample.xml")
@@ -17,18 +18,27 @@ mytree = ET.parse("sample.xml",parser=parser)
 #print(etree.dump(mytree.getroot()))
 """
 root = mytree.getroot()
-#print(root[0][0].text)
+#print(root)
 
 for i in range(len(root)):
     username = root[i][0].text
+    usernames = root[i][0].tag
     email = root[i][1].text
     password = root[i][2].text
-    print(username)
-    print(email)
-    print(password)
+    print(usernames)
+
+    #print(username)
+    #print(email)
+    #print(password)
 
 """
 tree = ET.parse('sample.xml')
 root = tree.getroot()
 print(root[1][0].text)
 """
+
+files = open("sample.xml",'r')
+for o in files:
+    for q in o:
+        if q == '&':
+            print("l")
