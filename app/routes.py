@@ -100,7 +100,7 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
-        user = Customer(username=form.username.data, email=form.email.data, password=form.password.data, picture='default.png', creation_datetime=creation_time)
+        user = Customer(username=form.username.data, email=form.email.data, password=hashed_password, picture='default.png', creation_datetime=creation_time)
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)
