@@ -1,0 +1,31 @@
+{% extends "customer/uploadbase.html" %}
+
+{% block customerContent %}
+    
+    <body>
+        <h1 style="font-size:40px;">Uploaded Accounts</h1>
+        <br>
+        {% if error_check == True %}
+        <p style="font-size:20px;">Inappropriate character in File!</p>
+        {% else %}
+        {% if uploadeddict == {} %}
+        <p style="font-size:20px;">No User have been uploaded!</p>
+        {% else %}
+        {% for w in uploadeddict %}
+        {% set acct = w %}
+        {% set accts = uploadeddict[acct] %}
+        <h3>__________________________________________________________________________</h3>
+        <br>
+        <h5 style="padding-bottom:10px ; font-size:25px; font-weight: bold;">Account {{ w }}:</h5> 
+            <p style="font-size:20px; "><span style="font-size:20px; font-weight: bold;">Username:</span> {{ accts["username"] }}</p>
+            <p style="font-size:20px; "><span style="font-size:20px; font-weight: bold;">Email:</span> {{ accts["email"] }}</p>
+        <br>
+        <h3>__________________________________________________________________________</h3>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+    </body>
+    <script>
+    
+    </script>
+{%endblock%}

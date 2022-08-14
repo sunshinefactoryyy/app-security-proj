@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script>
+        function take_name(){
+            name = document.getElementById("uploading").value.split(/(\\|\/)/g).pop()
+            document.getElementById('uploaded_file').innerHTML = name
+        }
+    </script>
+    <body>
+        <section class="form-container p-1 d-flex justify-content-around align-items-center">
+            <img class="col-md-5 d-none d-md-none d-lg-block" src="/static/public/Secure_login.svg">
+        
+            <div class="login col-md-7">
+                <br>
+                <br>
+                <h1 id="title" class="text-center font-weight-bold display-4">Upload</h1>
+                
+                <!--here-->
+                <form method="post" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+        
+                    <div class="form-group" onchange="take_name()">
+                        {{ form.file(id="uploading")}}
+                    </div><!--form-group-->
+    
+                    <br>
+                    <div>
+                        <button id="login_btn" type="button" data-toggle="modal" data-target="#prodModal">Upload File</button>
+                    </div>
+                    <br>
+                    <br>
+        
+                    
+                
+                <br>
+        
+                <div class="modal fade" id="prodModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog d-flex justify-content-center align-items-center" role="document">
+                      <div class="modal-content" style="position:absolute;height:35vh;width:70vw;top:-4em">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel" style="margin-top:5px; text-align: center; font-size:20px;">Are you sure you want to upload this file? : <span id="uploaded_file" style="color:blue; text-decoration: underline;"></span> </h5> 
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="form-group">
+                                  
+                                    <div class="form-group">
+                                        {{ form.submit(id="login_btn")}}
+                                    </div>
+                                    <br>
+                                
+                            </div>
+                            <div class="modal-footer" style="justify-content: space-between !important;">
+                                <div class="left">
+                                    
+                                </div>
+                                <div class="right">
+                                    <a class="btn btn-secondary" data-dismiss="modal">Close</a>
+                                    <style>.confirm-order{background:#0d6efd;}</style>
+                                </div>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+                </form>
+                
+            </div><!--login-->
+        </section><!--form-container-->
+
+        
+    </body>
+    <script>
+        const fileSelector = document.getElementById('file-selector');
+        fileSelector.addEventListener('change', (event) => {
+            const fileList = event.target.files;
+            console.log(fileList);
+        });
+
+    </script>
+{%endblock%}

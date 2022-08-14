@@ -78,3 +78,9 @@ class CatalogueProduct(db.Model):
     productName = db.Column(db.String(200), nullable=False)
     productDescription = db.Column(db.String(1000), nullable=False)
     productCost = db.Column(db.Float, nullable=False)
+
+class Upload(db.Model):
+    __tablename__ = 'uploadfile'
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(200))
+    data = db.Column(db.LargeBinary)

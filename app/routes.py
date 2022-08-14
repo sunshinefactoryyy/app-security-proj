@@ -1,12 +1,15 @@
-from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem
-from app.models import CatalogueProduct, Customer, Employee, Inventory, Request
-from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app
+#from crypt import methods
+from fileinput import filename
+from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem , uploadfiles
+from app.models import CatalogueProduct, Customer, Employee, Inventory, Request, Upload
+from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app , send_file
+from io import BytesIO
 from app import app, db, bcrypt, mail, stripe_keys
 from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
-from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email
+from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email 
 from app.config import Auth
 from flask_mail import Message
 from datetime import datetime
@@ -14,6 +17,10 @@ import os
 import stripe
 from app.train import bot
 from functools import wraps
+import xml.etree.ElementTree as ET
+from lxml import etree
+import shelve
+
 
 
 # Public Routes
@@ -100,7 +107,9 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
-        user = Customer(username=form.username.data, email=form.email.data, password=hashed_password, picture='default.png', creation_datetime=creation_time)
+        emails = form.email.data
+        emails = emails.lower()
+        user = Customer(username=form.username.data, email=emails, password=hashed_password, picture='default.png', creation_datetime=creation_time)
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)
@@ -291,7 +300,6 @@ def deactivateAccount():
         deleted_user_id=current_user.id
         logout_user()
         Customer.query.filter_by(id=deleted_user_id).delete()
-        Request.query.filter_by(customerID=deleted_user_id).all().delete()
         db.session.commit()
         flash('Account has been successfully deleted!', 'success')
         return redirect(url_for('home'))
@@ -751,3 +759,161 @@ def add_header(response):
 def add_header(response):
     response.headers['Cache-Control'] = 'no-store'
     return response
+
+
+@app.route('/upload-users', methods=['GET', 'POST'])
+def upload():
+
+    def validate_email(email):   # validate the email that it is not in use
+        user = Customer.query.filter_by(email=email).first()
+        if user:
+            return False
+
+    def validate_username(username):    # validate the username that it is not in use
+        user = Customer.query.filter_by(username=username).first()
+        if user:
+            return False
+
+    acctshelf = shelve.open("uploadacct",flag="c")
+    uploadeduser = {}
+    form = uploadfiles()
+    i = 0
+    error_check = False
+    if request.method== 'POST':
+        file = form.file.data
+        if file == None:
+            flash(f"No File Selected!", "danger")
+        else:
+            name = file.filename
+
+            # remove dtd reference
+            files = open(name,'r')
+            for lines in files:
+                for letter in lines:
+                    if letter == '&':
+                        flash(f"XML File contains Inappropriate characters!", "danger")
+                        return redirect(url_for("upload"))
+
+            name = name.lower()
+            if name.endswith(".xml"):
+                # parse the xml file into the parser
+                #parser = etree.XMLParser(load_dtd=True,no_network=False)
+                try:
+                    mytree = ET.parse(name)     #check for any external DTD reference
+                except ET.ParseError:
+                    error_check = True
+
+                if error_check == False:    # if there is no DTD reference
+                    datas = mytree.getroot()
+                    #return f'uploaded: {datas[0][0].text}'
+
+                    # check that there is no duplicated emails in the file
+                    email_list = []
+                    for i in range(len(datas)):
+                        email = datas[i][1].text
+                        email_list.append(email.lower())
+
+                    check_email = set(email_list)   #check for duplicates
+                    if len(email_list) != len(check_email):     # check for duplicated emails
+                        flash(f"There are duplicated emails. Please choose a different one.", "danger")
+                        return redirect(url_for("upload"))
+                    else:
+                        for i in email_list:
+                            email_check = validate_email(i)         # check if the emails are taken alr
+                            if email_check == False:        # check if the emails are taken alr
+                                flash(f"Some of the email is taken. Please choose a different one.", "danger")
+                                return redirect(url_for("upload"))
+                    
+                    #check that there is no duplicated usernames in the file
+                    username_list = []
+                    for i in range(len(datas)):
+                        username = datas[i][0].text
+                        username_list.append(username)
+                    check_username = set(username_list)
+                    if len(username_list) != len(check_username):     # check for duplicated username
+                        flash(f"There are duplicated usernames. Please choose a different one.", "danger")
+                        return redirect(url_for("upload"))
+                    else:
+                        for i in username_list:
+                            username_check = validate_username(username)    # check if the usernames are taken alr
+                            if username_check == False:        # check if the usernames are taken alr
+                                flash(f"Some of the usernames is taken. Please choose a different one.", "danger")
+                                return redirect(url_for("upload"))
+
+
+                    # splitting the data up 
+                    for i in range(len(datas)):
+                        username = datas[i][0].text
+                        email = datas[i][1].text
+                        password = datas[i][2].text
+
+                        #print(username) - for testing
+                        #print(email)
+                        #print(password)
+                    
+                    
+                    #upload the user after parsing the data
+                        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+                        creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
+                        user = Customer(username=username, email=email, password=hashed_password, picture='default.png', creation_datetime=creation_time)
+                        db.session.add(user)
+                        db.session.commit()
+                    
+                        #uplaod to dict
+                        uploadeduser[i] = {"username":username , "email":email}
+                
+                acctshelf["uploaded"] = uploadeduser
+                acctshelf["errorcheck"] = error_check
+                acctshelf.close()
+                    
+                """
+                upload = Upload(filename = file.filename , data = file.read())
+                db.session.add(upload)
+                db.session.commit()
+                return f'Uploaded: {file.filename}'
+                """
+
+                if error_check == False and len(uploadeduser) != 0:
+                    flash(f"The accounts have been created! You may now use those account", "success")
+        
+                return redirect(url_for("uploadstatus")) 
+            else:
+                flash(f"Incorrect File Format", "danger")
+
+    return render_template('customer/upload.html', title='Upload file', form = form )
+
+
+@app.route('/uploadstatus')
+def uploadstatus():
+    db = shelve.open("uploadacct",flag="c")
+    acctuploaded = db["uploaded"] # to retrieve teh list of accounts that have been added
+    error_check = db["errorcheck"] # to show error msg for suspicious chracters
+    if error_check == True:
+        flash(f"XML File contains Inappropriate characters!", "danger")
+        uploadeddict = {}
+    elif len(acctuploaded) == 0:
+        flash(f"No Account have been uploaded!", "danger")
+        uploadeddict = {}
+    else:
+        uploadeddict = acctuploaded
+        db["uploaded"] = {}
+        db.close()
+    return render_template('customer/uploadstatus.html', title='Uploaded Data', uploadeddict = uploadeddict , error_check = error_check)
+
+
+@app.route('/download/<upload_id>')
+def download(upload_id):
+    upload = Upload.query.filter_by(id=upload_id).first()
+    return send_file(BytesIO(upload.data), attachment_filename = upload.filename , as_attachment = True)
+
+@app.route('/downloads/<upload_id>')
+def downloads(upload_id):
+    upload = Upload.query.filter_by(id=upload_id).first()
+    name =upload.filename
+    name =name.lower()
+    if name.endswith(".xml"):
+        parser = etree.XMLParser(load_dtd=True,no_network=False)
+        mytree = ET.parse(name,parser=parser)
+        return etree.dump(mytree.getroot())
+    return f'Uploaded: {name}'
+    #return send_file(BytesIO(upload.data), attachment_filename = upload.filename , as_attachment = True)
