@@ -1,3 +1,5 @@
+import email
+from flask_jwt_extended import create_access_token
 from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem
 from app.models import CatalogueProduct, Customer, Employee, Inventory, Request
 from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app
@@ -116,6 +118,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
+        access_token = create_access_token(identity=email)
         return redirect(url_for('customerAccount'))
     google = get_google_auth()
     auth_url, state = google.authorization_url(Auth.AUTH_URI, access_type='offline')
@@ -128,6 +131,7 @@ def login():
             pw = Customer.query.filter_by(password=form.password.data).first()
             if user and pw:
                 login_user(user, remember=True)
+                access_token = create_access_token(identity=form.email.data)
                 next_page = request.args.get("next")
                 return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
             else:
@@ -137,9 +141,10 @@ def login():
             pw = Employee.query.filter_by(password=form.password.data).first()
             if user and pw:
                 login_user(user, remember=True)
+                access_token = create_access_token(identity=form.email.data)
                 return redirect(url_for('employeeInformation'))
             else:
-                flash("Login unsuccessful. Please check email and password.", 'danger')
+                flash("Login unsuccessful. Please check email and password.", 'danger'), 401
 
     return render_template(
         'authentication/login.html', 
