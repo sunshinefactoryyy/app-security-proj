@@ -786,16 +786,17 @@ def upload():
         else:
             name = file.filename
 
-            # remove dtd reference
-            files = open(name,'r')
-            for lines in files:
-                for letter in lines:
-                    if letter == '&':
-                        flash(f"XML File contains Inappropriate characters!", "danger")
-                        return redirect(url_for("upload"))
-
             name = name.lower()
             if name.endswith(".xml"):
+                
+                # remove dtd reference
+                files = open(name,'r')
+                for lines in files:
+                    for letter in lines:
+                        if letter == '&':
+                            flash(f"XML File contains Inappropriate characters!", "danger")
+                            return redirect(url_for("upload"))
+
                 # parse the xml file into the parser
                 #parser = etree.XMLParser(load_dtd=True,no_network=False)
                 try:
