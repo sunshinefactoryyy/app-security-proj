@@ -19,7 +19,8 @@
 <script>
     function getBotResponse() {
       var rawText = $("#textInput").val();
-      $("div#textInput").text(rawText);
+      //method 1
+      $("div#textInput").text(rawText); //.text() function will escape and display text
       var cleanText = $("<div>").text(rawText).html();
       var userHtml = '<p class="userText"><span>' + cleanText + "</span></p>";
       $("#textInput").val("");
