@@ -99,3 +99,4 @@ WARNING|2022-08-15 18:10:05,912|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRON
 WARNING|2022-08-15 18:10:10,688|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:7
 WARNING|2022-08-15 18:10:14,759|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:8
 WARNING|2022-08-15 18:10:18,594|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:9
+INFO|2022-08-15 21:34:29,753|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
