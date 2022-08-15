@@ -1,0 +1,421 @@
+{% extends "logBase.html" %}
+
+{% block content %}
+<style>
+    .overlap, #modClose1, #modClose2, #modClose3 {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") !important;
+    }
+</style>
+<div class="modal fade" id='monthLogModal' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='monthLogModalLabel' aria-hidden='true'>
+    <div class='modal-dialog modal-xl'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title h5' id='monthLogModalLabel'>Past Month Logs</h5>
+                <button id='modClose1' type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+            </div>
+            <div class='modal-body'>
+                <!-- insert filters -->
+
+                <div style='height:400px;overflow-y:auto'>
+                    <table class='table table-hover'>
+                        <thead style='position:sticky;top:0;z-index:1;background:#eee'>
+                            <tr>
+                                <th>Level</th>
+                                <th>Date and Time</th>
+                                <th>Event</th>
+                                <th>IP</th>
+                                <th>Other Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id='monthBody'>
+                        {% for log in monthlog %}
+                            <tr>
+                                <td>{{ log['level'] }}</td>
+                                <td>{{ log['datetime'] }}</td>
+                                <td>{{ log['event'] }}</td>
+                                <td>{{ log['address'] }}</td>
+                                <td>
+                                {% if 'email' in log %}
+                                    email: {{ log['email'] }} <br>
+                                {% endif %}
+                                {% if 'email_entered' in log %}
+                                    email entered: {{ log['email_entered'] }} <br>
+                                {% endif %}
+                                {% if 'entered_pass' in log %}
+                                    entered password: {{ log['entered_pass'] }}
+                                {% endif %}
+                                {% if 'unknown' in log %}
+                                    {{ log['unknown'] }}
+                                {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal' style='background-color:#6c757d'>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id='weekLogModal' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='weekLogModalLabel' aria-hidden='true'>
+    <div class='modal-dialog modal-xl'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title h5' id='weekLogModalLabel'>Past Week Logs</h5>
+                <button id='modClose2' type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+            </div>
+            <div class='modal-body'>
+                <!-- insert filters -->
+
+                <div style='height:400px;overflow-y:auto'>
+                    <table class='table table-hover'>
+                        <thead style='position:sticky;top:0;z-index:1;background:#eee'>
+                            <tr>
+                                <th>Level</th>
+                                <th>Date and Time</th>
+                                <th>Event</th>
+                                <th>IP</th>
+                                <th>Other Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id='weekBody'>
+                        {% for log in weeklog %}
+                            <tr>
+                                <td>{{ log['level'] }}</td>
+                                <td>{{ log['datetime'] }}</td>
+                                <td>{{ log['event'] }}</td>
+                                <td>{{ log['address'] }}</td>
+                                <td>
+                                {% if 'email' in log %}
+                                    email: {{ log['email'] }} <br>
+                                {% endif %}
+                                {% if 'email_entered' in log %}
+                                    email entered: {{ log['email_entered'] }} <br>
+                                {% endif %}
+                                {% if 'entered_pass' in log %}
+                                    entered password: {{ log['entered_pass'] }}
+                                {% endif %}
+                                {% if 'unknown' in log %}
+                                    {{ log['unknown'] }}
+                                {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal' style='background-color:#6c757d'>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id='past8LogModal' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='past8LogModalLabel' aria-hidden='true'>
+    <div class='modal-dialog modal-xl'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title h5' id='past8LogModalLabel'>Past 8 Week's Logs</h5>
+                <button id='modClose3' type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+            </div>
+            <div class='modal-body'>
+                <div class='row'>
+                    <div class='list-group list-group-horizontal' id='past8loglisttab' role='tablist'>
+                        <a class='list-group-item list-group-item-action active' id='past8logweek1tab' data-bs-toggle='list' href='#past8logweek1' role='tab' aria-controls='past8logweek1'>Week 1</a>
+                        <a class='list-group-item list-group-item-action' id='past8logweek2tab' data-bs-toggle='list' href='#past8logweek2' role='tab' aria-controls='past8logweek2'>Week 2</a>
+                        <a class='list-group-item list-group-item-action' id='past8logweek3tab' data-bs-toggle='list' href='#past8logweek3' role='tab' aria-controls='past8logweek3'>Week 3</a>
+                        <a class='list-group-item list-group-item-action' id='past8logweek4tab' data-bs-toggle='list' href='#past8logweek4' role='tab' aria-controls='past8logweek4'>Week 4</a>
+                        <a class='list-group-item list-group-item-action' id='past8logweek5tab' data-bs-toggle='list' href='#past8logweek5' role='tab' aria-controls='past8logweek5'>Week 5</a>
+                        <a class='list-group-item list-group-item-action' id='past8logweek6tab' data-bs-toggle='list' href='#past8logweek6' role='tab' aria-controls='past8logweek6'>Week 6</a>
+                        <a class='list-group-item list-group-item-action' id='past8logweek7tab' data-bs-toggle='list' href='#past8logweek7' role='tab' aria-controls='past8logweek7'>Week 7</a>
+                        <a class='list-group-item list-group-item-action' id='past8logweek8tab' data-bs-toggle='list' href='#past8logweek8' role='tab' aria-controls='past8logweek8'>Week 8</a>
+                    </div>
+                </div>
+                <br>
+                <div class='row'>
+                    <div class='tab-content' id='past8loglistcontent'>
+                        {% for i in range(past8len) %}
+                            {% if i==0 %}
+                            <div class='tab-pane fade show active' id='past8logweek{{ i+1 }}' role='tabpanel' aria-labelledby='past8week{{ i+1 }}tab'>
+                            {% else %}
+                            <div class='tab-pane fade' id='past8logweek{{ i+1 }}' role='tabpanel' aria-labelledby='past8week{{ i+1 }}tab'>
+                            {% endif %}
+                                <!--insert filters-->
+
+                                <div style='height:400px;overflow-y:auto'>
+                                    <table class='table table-hover'>
+                                        <thead style='position:sticky;top:0;z-index:1;background:#eee'>
+                                            <tr>
+                                                <th>Level</th>
+                                                <th>Date and Time</th>
+                                                <th>Event</th>
+                                                <th>IP</th>
+                                                <th>Other Details</th>
+                                            </tr>
+                                        </thead>
+                                        {% if i==7 %}
+                                        <tbody id='past8Body'>
+                                        {% else %}
+                                        <tbody>
+                                        {% endif %}
+                                        {% for log in past8log[i] %}
+                                            <tr>
+                                                <td>{{ log['level'] }}</td>
+                                                <td>{{ log['datetime'] }}</td>
+                                                <td>
+                                                    {% if 'event' in log %}
+                                                        {{ log['event'] }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ log['address'] }}</td>
+                                                <td>
+                                                {% if 'email' in log %}
+                                                    email: {{ log['email'] }} <br>
+                                                {% endif %}
+                                                {% if 'email_entered' in log %}
+                                                    email entered: {{ log['email_entered'] }} <br>
+                                                {% endif %}
+                                                {% if 'entered_pass' in log %}
+                                                    entered password: {{ log['entered_pass'] }}
+                                                {% endif %}
+                                                {% if 'unknown' in log %}
+                                                    {{ log['unknown'] }}
+                                                {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal' style='background-color:#6c757d'>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col-6'>
+            <h2 class='h2'>Log over the Past 8 Weeks</h2>
+            <div class='row'>
+                <div class='container-md'>
+                    <canvas id="past8Chart" width="375" height="300"></canvas>
+                </div>
+            </div>
+            <br>
+            <div class='row'>
+                <div class='col-4'>
+                    <div class='text-center'>
+                        <button type='button' class='btn btn-secondary' data-bs-toggle='modal' data-bs-target='#past8LogModal' style='background-color:#6c757d'>More Details</button>
+                    </div>
+                </div>
+                <div class='col-8'>
+                    <select class='form-select' id='past8LevelCheck' onchange='past8LevelChange(this.value)'>
+                        <option selected value='debug'>Debug</option>
+                        <option value='info'>Info</option>
+                        <option value='warning'>Warning</option>
+                        <option value='error'>Error</option>
+                        <option value='critical'>Critical</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class='col-6'>
+            <h2 class='h2'>Password Attack Monitoring</h2>
+            <!-- password attack monitoring-->
+            <div class='row'>
+                <div style='height:400px;overflow-y:auto'>
+                    <table class='table table-hover'>
+                        <thead style='position:sticky;top:0;z-index:1;background:#eee'>
+                            <tr>
+                                <th>Account Type</th>
+                                <th>Email</th>
+                                <th>Attempts</th>
+                                <th>Review</th>
+                            </tr>
+                        </thead>
+                        <tbody id='pmBody'>
+                        {% for key in passMonitorData %}
+                            {% if 4 < passMonitorData[key]['attempts'] < 9 %}
+                            <tr class='table-warning'>
+                            {% elif passMonitorData[key]['attempts'] > 8 %}
+                            <tr class='table-danger'>
+                            {% else %}
+                            <tr>
+                            {% endif %}
+                                <td>{{ passMonitorData[key]['account_type'] }}</td>
+                                <td>{{ passMonitorData[key]['email'] }}</td>
+                                <td>{{ passMonitorData[key]['attempts'] }}
+                                <td>
+                                    <div class='text-center'>
+                                        <button type='button' class='btn btn-secondary' data-bs-toggle='modal' data-bs-target='#passMonitor{{key}}Modal' style='background-color:#6c757d'>Review</button>
+                                    </div>
+                                    <div class="modal fade" id='passMonitor{{key}}Modal' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='passMonitor{{key}}Label' aria-hidden='true'>
+                                        <div class='modal-dialog modal-xl'>
+                                            <div class='modal-content'>
+                                                <div class='modal-header'>
+                                                    <h5 class='modal-title h5' id='passMonitor{{key}}Label'>Attack {{key + 1}}</h5>
+                                                    <button type='button' class='btn-close overlap' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                </div>
+                                                <div class='modal-body'>
+                                                    <br>
+                                                    <div class='row'>
+                                                        <!--insert filters-->
+                        
+                                                        <div style='height:400px;overflow-y:auto'>
+                                                            <table class='table table-hover'>
+                                                                <thead style='position:sticky;top:0;z-index:1;background:#eee'>
+                                                                    <tr>
+                                                                        <th>Date and Time</th>
+                                                                        <th>IP</th>
+                                                                        <th>Entered Password</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for log in passMonitorData[key]['data'] %}
+                                                                    <tr>
+                                                                        <td>{{ log['datetime'] }}</td>
+                                                                        <td>{{ log['address'] }}</td>
+                                                                        <td>{{ log['entered_pass'] }}</td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='modal-footer'>
+                                                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal' style='background-color:#6c757d'>Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class='row'>
+        <div class='col-6'>
+            <h2 class='h2'>Log over the Past Month</h2>
+            <div class='row'>
+                <div class='container-sm'>
+                    <canvas id="monthChart" width="300" height="300"></canvas>
+                </div>
+            </div>
+            <br>
+            <div class='text-center'>
+                <button type='button' class='btn btn-secondary' data-bs-toggle='modal' data-bs-target='#monthLogModal' style='background-color:#6c757d'>More Details</button>
+            </div>
+        </div>
+        <div class='col-6'>
+            <h2 class='h2'>Log over the Past Week</h2>
+            <div class='row'>
+                <div class='container-sm'>
+                    <canvas id="weekChart" width="300" height="300"></canvas>
+                </div>
+            </div>
+            <br>
+            <div class='text-center'>
+                <button type='button' class='btn btn-secondary' data-bs-toggle='modal' data-bs-target='#weekLogModal' style='background-color:#6c757d'>More Details</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script src='../../../static/view_log.js'></script>
+<script>
+    var socket = io();
+    var monthlog = {{ jsonMonth|safe }};
+    var weeklog = {{ jsonWeek|safe }};
+    var past8log = {{ jsonPast8|safe }};
+    var mdata = {{ mdata }};
+    var wdata = {{ wdata }};
+    var past8data = {{ past8data }};
+    var jsonPM = {{ jsonPM|safe }};
+    const mChart = document.getElementById('monthChart');
+    const wChart = document.getElementById('weekChart');
+    const p8Chart = document.getElementById('past8Chart');
+    const monthChart = new Chart(mChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['Debug', 'Info', 'Warning', 'Error', 'Critical'],
+            datasets: [{
+                label: 'Past Month Data',
+                data: mdata,
+                backgroundColor: [
+                    'rgb(169,169,169)',
+                    'rgb(173,255,47)',
+                    'rgb(255,255,0)',
+                    'rgb(255,99,71)',
+                    'rgb(255,0,0)'
+                ],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true
+        }
+    });
+    const weekChart = new Chart(wChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['Debug', 'Info', 'Warning', 'Error', 'Critical'],
+            datasets: [{
+                label: 'weekData',
+                data: wdata,
+                backgroundColor: [
+                    'rgb(169,169,169)',
+                    'rgb(173,255,47)',
+                    'rgb(255,255,0)',
+                    'rgb(255,99,71)',
+                    'rgb(255,0,0)'
+                ],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true
+        }
+    });
+    const past8Chart = new Chart(p8Chart, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
+            datasets: [{
+                label: 'Debug',
+                data: past8data[0],
+                borderColor: 'rgb(169,169,169)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true
+        }
+    });
+    var updateIntervalLog = window.setInterval(function(){
+        socket.emit('check_chart_update', {'mdata': mdata, 'wdata': wdata}, updateCharts);
+        socket.emit('check_table_update', {'monthlog': monthlog, 'weeklog': weeklog}, updateTables);
+        socket.emit('check_p8c_update', {'past8data': past8data}, updatePast8Charts);
+        socket.emit('check_p8t_update', {'past8log':past8log}, updatePast8Tables);
+        socket.emit('check_pm_update', {'data': jsonPM}, updatePassMonitor);
+    }, 2000);
+</script>
+{% endblock %}

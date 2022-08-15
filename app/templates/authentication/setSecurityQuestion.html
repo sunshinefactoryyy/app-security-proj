@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="form-container p-1 d-flex justify-content-around align-items-center">
+    <img class="col-md-5 d-none d-md-none d-lg-block" src="/static/public/Secure_login.svg">
+
+    <div class="login col-md-7">
+        <h1 id="title" class="text-center font-weight-bold display-4">Set Security Question</h1>
+
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.question.label(class="form-control-label") }}
+                {% if form.question.errors %}
+                    {{ form.email(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.question.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                {{ form.question(class="form-control") }}
+                {% endif %}
+            </div><!--form-group-->
+
+
+            <div class="form-group">
+                {{ form.option1.label(class="form-control-label") }}
+                {% if form.option1.errors %}
+                    {{ form.option1(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.option1.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                {{ form.option1(class="form-control") }}
+                {% endif %}
+            </div><!--form-group-->
+
+
+            <div class="form-group">
+                {{ form.option2.label(class="form-control-label") }}
+                {% if form.option2.errors %}
+                    {{ form.option2(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.option2.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                {{ form.option2(class="form-control") }}
+                {% endif %}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.option3.label(class="form-control-label") }}
+                {% if form.option3.errors %}
+                    {{ form.option3(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.option3.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                {{ form.option3(class="form-control") }}
+                {% endif %}
+            </div><!--form-group-->
+
+            <div class='form-group'>
+                {{ form.correct.label(class='form-control-label') }}
+                {% if form.correct.errors %}
+                    {{ form.correct(class="form-select is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.correct.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                {{ form.correct(class="form-select") }}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.submit(id="login_btn") }}
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

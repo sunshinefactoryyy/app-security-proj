@@ -20,6 +20,11 @@
                 {% include '/includes/squareButtonComponent.html' %}
             {% endwith %}
         </a>
+        <a class="tw-m-2" href="{{url_for('view_logs')}}">
+            {% with iconSrc='/static/public/icons/file-earmark-lock.svg', color='white' %}
+                {% include '/includes/squareButtonComponent.html' %}
+            {% endwith %}
+        </a>
     </div>
     <a class="tw-m-4" href="{{url_for('employeeInformation')}}">
         {% with iconSrc='/static/public/icons/circle-info-solid.svg', color='white' %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="form-container p-1 d-flex justify-content-around align-items-center">
+    <img class="col-md-5 d-none d-md-none d-lg-block" src="/static/public/Secure_login.svg">
+
+    <div class="login col-md-7">
+        <h1 id="title" class="text-center font-weight-bold display-4">Security Question Verification</h1>
+
+            <p>{{ question }}</p>
+            <p>1. {{ options[0] }}</p>
+            <p>2. {{ options[1] }}</p>
+            <p>3. {{ options[2] }}</p>
+
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.question.label(class="form-control-label") }}
+                {% for option in form.question %}
+                <div class='form-check'>
+                    <tr>
+                        <td>{{ option(class='form-check-input', type='radio') }}</td>
+                        <td>{{ option.label(class='form-check-label') }}</td>
+                    </tr>
+                </div>
+                {% endfor %}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.submit(id="login_btn") }}
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

@@ -166,3 +166,23 @@ class UpdateCatalogueItem(FlaskForm):
     cost = FloatField("Product Cost", validators=[DataRequired()])
     description = TextAreaField("Product Description")
     submit = SubmitField("Update")
+
+class OTPForm(FlaskForm):
+    otp = StringField('OTP', validators=[DataRequired()])
+    submit = SubmitField('Verify')
+
+class SecurityQuestionsForm(FlaskForm):
+    question = RadioField('Which is the correct option', choices=[(1, 'First'), (2, 'Second'), (3, 'Third')], validators=[DataRequired()])
+    submit = SubmitField('Verify')
+
+class Set2FAForm(FlaskForm):
+    choose = RadioField('Preferred Authentication Method', choices=[('otp', 'OTPs through Email'), ('sQn', 'Pre-set Security Questions')], validators=[DataRequired()])
+    submit = SubmitField('Confirm')
+
+class SetSecurityQuestionForm(FlaskForm):
+    question = StringField('Question', validators=[DataRequired()])
+    option1 = StringField('Option 1', validators=[DataRequired()])
+    option2 = StringField('Option 2', validators=[DataRequired()])
+    option3 = StringField('Option 3', validators=[DataRequired()])
+    correct = SelectField('Correct Option', choices=[(1, 'First'), (2, 'Second'), (3, 'Third')], validators=[DataRequired()])
+    submit = SubmitField('Confirm')

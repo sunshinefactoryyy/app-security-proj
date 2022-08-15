@@ -1,0 +1,101 @@
+WARNING|2022-07-12 17:07:01,886|address:192.168.0.2;event:CUST_LOGIN_FAIL_WRONGPASS;email:user1@gmail.com;entered_pass:u5er1Pa5S
+INFO|2022-07-12 17:18:20,042|address:127.0.0.1;event:EMP_LOGIN;email:employee10@gmail.com
+INFO|2022-07-12 17:24:24,707|address:192.168.0.2;event:CUST_LOGIN;email:user1@gmail.com
+INFO|2022-07-22 16:13:29,668|address:207.52.155.119;event:CUST_REG_LOGIN_GOOGLE;email:user3@gmail.com
+INFO|2022-07-28 23:00:11,572|address:127.0.0.1;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-07-28 23:09:36,861|address:127.0.0.1;event:EMP_LOGIN;email:dummy1@email.com
+DEBUG|2022-07-29 01:05:25,452|Generated new state dkVobAuDpbM1KZEMM1KkqvPg7ytCPE.
+DEBUG|2022-07-29 01:05:34,348|Generated new state pOmlU7Vuf7QqAIpLNMpyg3waDo6TVf.
+INFO|2022-07-29 01:05:34,731|address:127.0.0.1;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-07-29 01:41:42,609|address:127.0.0.1;event:CUST_REG_LOGIN;email:joshuser@gmail.com
+DEBUG|2022-07-29 01:41:59,215|Generated new state GvUB2br9roOF8KIPujBrOmfq4cuOvR.
+DEBUG|2022-07-29 01:42:09,917|Generated new state Zv9T3bruTX1SD0Lum8DxD7kqQDwcRn.
+INFO|2022-07-29 01:42:10,295|address:127.0.0.1;event:CUST_LOGIN;email:joshuser@gmail.com
+DEBUG|2022-07-29 01:42:27,932|Generated new state Qbeie9QX9kOMEJ4eVjuY8aItJD9ibk.
+DEBUG|2022-07-29 01:42:34,694|Generated new state wWOvzqVNjcgYcuifddReOxUAZ1QEn9.
+INFO|2022-07-29 01:42:35,120|address:127.0.0.1;event:EMP_LOGIN;email:dummy1@email.com
+DEBUG|2022-07-29 15:14:04,133|Generated new state USPbBzIysQWQa3Fg3qX1RrPon7Gkq5.
+INFO|2022-07-29 15:14:10,111|address:127.0.0.1;event:CUST_REG_LOGIN_GOOGLE;email:jlohyolo@gmail.com
+DEBUG|2022-07-29 15:19:33,714|Generated new state b5ApH77knA3sUCZskcdpj6qtLB3X7d.
+DEBUG|2022-07-29 15:19:41,538|Generated new state Rd0Fs8CoK814NAjcIrWXJShWC7CaF0.
+INFO|2022-07-29 15:19:41,964|address:127.0.0.1;event:EMP_LOGIN;email:dummy1@email.com
+WARNING|2022-07-30 15:18:59,073|address:127.0.0.1;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:123456780
+INFO|2022-07-30 15:23:43,969|address:127.0.0.1;event:CUST_LOGIN_GOOGLE;email:jlohyolo@gmail.com
+INFO|2022-08-09 16:05:04,228|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-09 16:14:14,398|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-09 16:15:01,621|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-09 16:44:07,894|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-09 16:46:46,706|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-10 00:02:03,065|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-10 00:03:49,317|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-10 00:05:49,851|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-10 00:34:22,162|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-10 00:38:42,071|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+WARNING|2022-08-10 01:01:14,649|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:123456789
+WARNING|2022-08-10 01:05:14,237|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:123456789
+WARNING|2022-08-10 01:05:22,891|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:12
+INFO|2022-08-10 01:06:24,387|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-11 22:05:46,905|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+WARNING|2022-08-11 22:25:17,622|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:123456789
+WARNING|2022-08-11 22:27:31,376|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:184
+WARNING|2022-08-11 22:32:45,139|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:9
+WARNING|2022-08-11 22:36:47,156|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:12
+WARNING|2022-08-11 22:44:30,213|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:1753
+WARNING|2022-08-11 22:46:47,813|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:hi
+WARNING|2022-08-12 17:27:50,360|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:wrong
+WARNING|2022-08-12 17:27:28,770|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:wrong
+WARNING|2022-08-12 17:28:32,330|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:correct
+WARNING|2022-08-12 17:29:29,239|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:tried
+WARNING|2022-08-12 17:30:11,626|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:pp
+INFO|2022-08-12 21:19:14,519|address:192.168.10.197;event:EMP_LOGIN;email:dummy1@email.com
+WARNING|2022-08-12 21:22:50,680|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:fail
+INFO|2022-08-15 02:28:33,993|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 02:30:37,021|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 02:34:03,244|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 02:34:18,561|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 02:39:39,581|address:192.168.10.27;event:CUST_REG_LOGIN;email:zeropercentmob@gmail.com
+INFO|2022-08-15 02:39:45,202|address:192.168.10.27;event:CUST_REG_LOGIN;email:zeropercentmob@gmail.com
+INFO|2022-08-15 03:15:56,312|address:192.168.10.27;event:CUST_LOGIN;email:zeropercentmob@gmail.com
+INFO|2022-08-15 03:20:58,538|address:192.168.10.27;event:CUST_LOGIN;email:zeropercentmob@gmail.com
+INFO|2022-08-15 03:56:23,017|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+WARNING|2022-08-15 16:53:35,221|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:pp
+WARNING|2022-08-15 16:53:40,787|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:poopoo
+WARNING|2022-08-15 16:56:49,689|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:no
+WARNING|2022-08-15 16:59:58,832|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:1
+WARNING|2022-08-15 17:00:07,272|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:2
+WARNING|2022-08-15 17:07:00,682|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:2
+WARNING|2022-08-15 17:07:04,976|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:1
+WARNING|2022-08-15 17:11:33,673|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:test
+WARNING|2022-08-15 17:12:26,435|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:test
+WARNING|2022-08-15 17:12:31,586|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:2
+WARNING|2022-08-15 17:13:49,939|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:3
+WARNING|2022-08-15 17:15:37,760|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:3
+WARNING|2022-08-15 17:18:52,649|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:1
+WARNING|2022-08-15 17:18:57,560|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:2
+WARNING|2022-08-15 17:25:04,861|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:1
+WARNING|2022-08-15 17:25:09,796|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:2
+WARNING|2022-08-15 17:32:42,381|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:1
+WARNING|2022-08-15 17:32:47,282|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:2
+WARNING|2022-08-15 17:33:19,042|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:3
+WARNING|2022-08-15 17:39:46,551|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:1
+WARNING|2022-08-15 17:39:51,006|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:2
+WARNING|2022-08-15 17:41:42,700|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:3
+WARNING|2022-08-15 17:46:09,243|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:1
+WARNING|2022-08-15 17:46:13,022|address:192.168.10.197;event:CUST_LOGIN_FAIL_WRONGPASS;email:zeropercentmob@gmail.com;entered_pass:2
+WARNING|2022-08-15 17:47:35,729|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:1
+WARNING|2022-08-15 17:47:41,053|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:2
+WARNING|2022-08-15 17:51:49,310|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:3
+WARNING|2022-08-15 17:52:06,722|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:4
+WARNING|2022-08-15 18:03:59,193|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:1
+WARNING|2022-08-15 18:04:02,703|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:2
+WARNING|2022-08-15 18:05:22,570|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:3
+WARNING|2022-08-15 18:06:50,664|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:1
+WARNING|2022-08-15 18:09:32,932|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:1
+WARNING|2022-08-15 18:09:37,924|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:2
+WARNING|2022-08-15 18:09:50,563|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:3
+WARNING|2022-08-15 18:09:55,730|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:4
+WARNING|2022-08-15 18:10:00,321|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:5
+WARNING|2022-08-15 18:10:05,912|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:6
+WARNING|2022-08-15 18:10:10,688|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:7
+WARNING|2022-08-15 18:10:14,759|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:8
+WARNING|2022-08-15 18:10:18,594|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:9

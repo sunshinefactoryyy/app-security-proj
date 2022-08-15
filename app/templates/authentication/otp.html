@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="form-container p-1 d-flex justify-content-around align-items-center">
+    <img class="col-md-5 d-none d-md-none d-lg-block" src="/static/public/Secure_login.svg">
+
+    <div class="login col-md-7">
+        <h1 id="title" class="text-center font-weight-bold display-4">OTP Verification</h1>
+
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.otp.label(class="form-control-label") }}
+                {% if form.otp.errors %}
+                    {{ form.otp(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.otp.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                {{ form.otp(class="form-control") }}
+                {% endif %}
+            </div><!--form-group-->
+
+            <div class="form-group">
+                {{ form.submit(id="login_btn") }}
+            </div>
+
+        </form>
+    </div>
+</section>
+
+{% endblock %}

@@ -78,3 +78,13 @@ class CatalogueProduct(db.Model):
     productName = db.Column(db.String(200), nullable=False)
     productDescription = db.Column(db.String(1000), nullable=False)
     productCost = db.Column(db.Float, nullable=False)
+
+class Security2FA(db.Model):
+    __tablename__ = 'security2fa'
+    email = db.Column(db.String(100), unique=True, nullable=False, primary_key=True)
+    choice = db.Column(db.String(3), nullable=False)
+    otp = db.Column(db.String(6))
+    secQn = db.Column(db.String(200))
+    secAns1 = db.Column(db.String(200))
+    secAns2 = db.Column(db.String(200))
+    secAns3 = db.Column(db.String(200))
