@@ -9,6 +9,7 @@
 
         <form method="post">
             {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
 
             <div class="form-group">
                 {{ form.password.label(class="form-control-label") }}

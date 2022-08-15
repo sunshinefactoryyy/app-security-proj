@@ -1,16 +1,19 @@
+import email
+from flask_jwt_extended import create_access_token
 #from crypt import methods
 from fileinput import filename
 from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem , uploadfiles, OTPForm, SecurityQuestionsForm, Set2FAForm, SetSecurityQuestionForm
 from app.models import CatalogueProduct, Customer, Employee, Inventory, Request, Upload, Security2FA
 from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app , send_file
 from io import BytesIO
-from app import app, db, bcrypt, stripe_keys, socket_
+from app import app, db, bcrypt, stripe_keys, csrf, socket_
 from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
 from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email, log_event, calcDataMnW, splitLogs, calcDataP8, retPMLogs 
 from app.config import Auth
+from flask_wtf.csrf import CSRFError
 from flask_mail import Message
 from datetime import datetime
 import os
@@ -130,15 +133,18 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
+        access_token = create_access_token(identity=email)
         return redirect(url_for('customerAccount'))
     google = get_google_auth()
     auth_url, state = google.authorization_url(Auth.AUTH_URI, access_type='offline')
     session['oauth_state'] = state
     form = LoginForm()
     if form.validate_on_submit():
+        
         if Customer.query.filter_by(email=form.email.data).first():
             user = Customer.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
+                access_token = create_access_token(identity=form.email.data)
                 next_page = request.args.get("next")
                 search = 'CUST' + user.email
                 security = Security2FA.query.filter_by(email=search).first()
@@ -170,6 +176,7 @@ def login():
         elif Employee.query.filter_by(email=form.email.data).first():
             user = Employee.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
+                access_token = create_access_token(identity=form.email.data)
                 search = 'EMP' + user.email
                 security = Security2FA.query.filter_by(email=search).first()
                 if security is None:
@@ -632,7 +639,7 @@ def customerCart():
     form = CustomerRequestForm()
     if form.validate_on_submit():
         image_folder = save_picture(form.images.data, path='static/src/request_pics', seperate=True)
-        creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
+        creation_time=datetime.now().strftime(r'%Y%m%d %H:%M')
         new_request = Request(productName=form.productName.data,
                             images=image_folder, 
                             repairCost=300,
@@ -1145,6 +1152,10 @@ def error_403(e):
 @app.errorhandler(500)
 def error_500(e):
     return render_template('errors/500.html'), 500
+
+@app.errorhandler(CSRFError)
+def handle_csfr_error(e):
+    return render_template('errors/csrf_error.html', reason=e.description), 400
 
 @app.after_request
 def add_header(response):

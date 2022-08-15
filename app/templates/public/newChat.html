@@ -27,13 +27,15 @@
     <script>
       function getBotResponse() {
         var rawText = $("#textInput").val();
-        var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+        $("div#textInput").text(rawText); //.text() function will escape and display text
+        var cleanText = $("<div>").text(rawText).html();
+        var userHtml = '<p class="userText"><span>' + cleanText + "</span></p>";
         $("#textInput").val("");
         $("#chatbox").append(userHtml);
         document
           .getElementById("userInput")
           .scrollIntoView({ block: "start", behavior: "smooth" });
-        $.get("/get", { msg: rawText }).done(function(data) {
+        $.get("/get", { msg: cleanText }).done(function(data) {
           var botHtml = '<p class="botText"><span>' + data + "</span></p>";
           $("#chatbox").append(botHtml);
           document
