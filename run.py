@@ -1,5 +1,5 @@
-from app import app
+from app import app, socket_
 from pathlib import Path
 
 if __name__ == '__main__':
-    app.run(ssl_context=(Path('./ssl.crt'), Path('./ssl.key')), debug=True)
+    socket_.run(app, ssl_context=(Path('./ssl.crt'), Path('./ssl.key')), host='0.0.0.0', port='443')

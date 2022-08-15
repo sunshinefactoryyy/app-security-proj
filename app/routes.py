@@ -1,15 +1,15 @@
 #from crypt import methods
 from fileinput import filename
-from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem , uploadfiles
-from app.models import CatalogueProduct, Customer, Employee, Inventory, Request, Upload
+from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem , uploadfiles, OTPForm, SecurityQuestionsForm, Set2FAForm, SetSecurityQuestionForm
+from app.models import CatalogueProduct, Customer, Employee, Inventory, Request, Upload, Security2FA
 from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app , send_file
 from io import BytesIO
-from app import app, db, bcrypt, mail, stripe_keys
+from app import app, db, bcrypt, stripe_keys, socket_
 from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
-from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email 
+from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email, log_event, calcDataMnW, splitLogs, calcDataP8, retPMLogs 
 from app.config import Auth
 from flask_mail import Message
 from datetime import datetime
@@ -20,6 +20,10 @@ from functools import wraps
 import xml.etree.ElementTree as ET
 from lxml import etree
 import shelve
+from random import randint, shuffle
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from datetime import timedelta
 
 
 
@@ -112,9 +116,10 @@ def register():
         user = Customer(username=form.username.data, email=emails, password=hashed_password, picture='default.png', creation_datetime=creation_time)
         db.session.add(user)
         db.session.commit()
-        login_user(user, remember=True)
+        login_user(user)
+        log_event('info', 'CUST_REG_LOGIN', str(request.remote_addr), 'email:{}'.format(form.email.data))
         flash(f"Your account has been created! You are now logged in!", "success")
-        return redirect(url_for("customerRequest"))
+        return redirect(url_for('set_2fa', event='CUST_REG_LOGIN', email=user.email))
 
     return render_template(
         'authentication/register.html', 
@@ -134,19 +139,64 @@ def login():
         if Customer.query.filter_by(email=form.email.data).first():
             user = Customer.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
-                login_user(user, remember=True)
                 next_page = request.args.get("next")
-                return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
+                search = 'CUST' + user.email
+                security = Security2FA.query.filter_by(email=search).first()
+                if security is None:
+                    return redirect(url_for('set_2fa', next=next_page, email=user.email, event='CUST_LOGIN'))
+                elif security.choice == 'otp':
+                    otp = str(randint(0, 999999))
+                    while len(otp) < 6:
+                        otp = '0' + otp
+                    message = Mail(
+                        from_email='otp.vaporlab@gmail.com',
+                        to_emails=user.email,
+                        subject='2FA Login OTP',
+                        html_content=f"<p>Copy the following One-Time-Pin and enter it into the OTP Confirmation Page:</p> <h3>{otp}</h3><p>Please do not disclose this OTP to anyone.</p><p>If this login attempt is not you, please proceed to change your account password.</p>"
+                    )
+                    sg = SendGridAPIClient(os.environ['SENDGRID_API_KEY'])
+                    response = sg.send(message)
+                    security.otp = otp
+                    db.session.commit()
+                    return redirect(url_for('otp', next=next_page, event='CUST_LOGIN', email=user.email))
+                else:
+                    return redirect(url_for('security_question', next=next_page, event='CUST_LOGIN', email=user.email))
             else:
                 flash("Login unsuccessful. Please check email and password.", 'danger')
+                if user:
+                    log_event('warning', 'CUST_LOGIN_FAIL_WRONGPASS', str(request.remote_addr), 'email:{};entered_pass:{}'.format(user.email, form.password.data))
+                else:
+                    log_event('warning', 'CUST_LOGIN_FAIL_USERNOTFOUND', str(request.remote_addr), 'email_entered:{}'.format(form.email.data))
         elif Employee.query.filter_by(email=form.email.data).first():
             user = Employee.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
-                login_user(user, remember=True)
-                return redirect(url_for('employeeInformation'))
+                search = 'EMP' + user.email
+                security = Security2FA.query.filter_by(email=search).first()
+                if security is None:
+                    return redirect(url_for('set_2fa', email=user.email, event='EMP_LOGIN'))
+                elif security.choice == 'otp':
+                    otp = str(randint(0, 999999))
+                    while len(otp) < 6:
+                        otp = '0' + otp
+                    message = Mail(
+                        from_email='otp.vaporlab@gmail.com',
+                        to_emails=user.email,
+                        subject='2FA Login OTP',
+                        html_content=f"<p>Copy the following One-Time-Pin and enter it into the OTP Confirmation Page:</p> <h3>{otp}</h3><p>Please do not disclose this OTP to anyone.</p><p>If this login attempt is not you, please proceed to change your account password.</p>"
+                    )
+                    sg = SendGridAPIClient(os.environ['SENDGRID_API_KEY'])
+                    response = sg.send(message)
+                    security.otp = otp
+                    db.session.commit()
+                    return redirect(url_for('otp', event='EMP_LOGIN', email=user.email))
+                else:
+                    return redirect(url_for('security_question', event='EMP_LOGIN', email=user.email))
             else:
                 flash("Login unsuccessful. Please check email and password.", 'danger')
-
+                if user:
+                    log_event('warning', 'EMP_LOGIN_FAIL_WRONGPASS', str(request.remote_addr), 'email:{};entered_pass:{}'.format(user.email, form.password.data))
+                else:
+                    log_event('warning', 'EMP_LOGIN_FAIL_USERNOTFOUND', str(request.remote_addr), 'email_entered:{}'.format(form.email.data))
     return render_template(
         'authentication/login.html', 
         title='Login', 
@@ -156,6 +206,7 @@ def login():
 
 @app.route('/login/callback')
 def callback():
+    new_acc = False
     if current_user is not None and current_user.is_authenticated:
         return redirect(url_for('home'))
     if 'error' in request.args:
@@ -182,6 +233,7 @@ def callback():
             if user is None:
                 user = Customer()
                 user.email = email
+                new_acc = True
             user.username = user_data['name']
             user.tokens = json.dumps(token)
             user.picture = download_picture(user_data['picture'])
@@ -189,7 +241,31 @@ def callback():
             db.session.add(user)
             db.session.commit()
             login_user(user)
-            return redirect(url_for('home'))
+            # LOG!
+            if new_acc:
+                return redirect(url_for('set_2fa', event='CUST_REG_LOGIN_GOOGLE', email=email))
+            else:
+                search = 'CUST' + user.email
+                security = Security2FA.query.filter_by(email=search).first()
+                if security is None:
+                    return redirect(url_for('set_2fa', email=user.email, event='CUST_LOGIN_GOOGLE'))
+                elif security.choice == 'otp':
+                    otp = str(randint(0, 999999))
+                    while len(otp) < 6:
+                        otp = '0' + otp
+                    message = Mail(
+                        from_email='otp.vaporlab@gmail.com',
+                        to_emails=user.email,
+                        subject='2FA Login OTP',
+                        html_content=f"<p>Copy the following One-Time-Pin and enter it into the OTP Confirmation Page:</p> <h3>{otp}</h3><p>Please do not disclose this OTP to anyone.</p><p>If this login attempt is not you, please proceed to change your account password.</p>"
+                    )
+                    sg = SendGridAPIClient(os.environ['SENDGRID_API_KEY'])
+                    response = sg.send(message)
+                    security.otp = otp
+                    db.session.commit()
+                    return redirect(url_for('otp', event='CUST_LOGIN_GOOGLE', email=user.email))
+                else:
+                    return redirect(url_for('security_question', event='CUST_LOGIN_GOOGLE', email=user.email))
         return 'Could not fetch your information.'
 
 @app.route('/reset_password', methods=['GET', 'POST'])
@@ -226,6 +302,193 @@ def reset_token(token):
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/otp', methods=['GET', 'POST'])
+def otp():
+    if request.args.get('event') == 'CUST_LOGIN':
+        next_page = request.args.get('next')
+    form = OTPForm()
+    if form.validate_on_submit():
+        event = request.args.get('event')
+        if event=='EMP_LOGIN':
+            search = 'EMP' + request.args.get('email')
+        else:
+            search = 'CUST' + request.args.get('email')
+        security = Security2FA.query.filter_by(email=search).first()
+        email = request.args.get('email')
+        if security.otp == form.otp.data:
+            if event=='EMP_LOGIN':
+                user = Employee.query.filter_by(email=email).first()
+                login_user(user)
+                log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                return redirect(url_for('employeeInformation'))
+            else:
+                user = Customer.query.filter_by(email=email).first()
+                if event=='CUST_LOGIN':
+                    login_user(user)
+                    log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                    return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
+                else:
+                    login_user(user)
+                    log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                    return redirect(url_for('home'))
+        else:
+            flash(f"OTP is wrong! Please check for the new OTP sent to your email and try again.", 'danger')
+            otp = str(randint(0, 999999))
+            while len(otp) < 6:
+                otp = '0' + otp
+            message = Mail(
+                from_email='otp.vaporlab@gmail.com',
+                to_emails=email,
+                subject='2FA Login OTP',
+                html_content=f"<p>Copy the following One-Time-Pin and enter it into the OTP Confirmation Page:</p> <h3>{otp}</h3><p>Please do not disclose this OTP to anyone.</p><p>If this login attempt is not you, please proceed to change your account password.</p>"
+            )
+            sg = SendGridAPIClient(os.environ['SENDGRID_API_KEY'])
+            response = sg.send(message)
+            security.otp = otp
+            db.session.commit()
+            if event=='CUST_LOGIN':
+                return redirect(url_for('otp', next=next_page, event='CUST_LOGIN', email=request.args.get('email')))
+            elif event=='EMP_LOGIN':
+                return redirect(url_for('otp', event='EMP_LOGIN', email=request.args.get('email')))
+            else:
+                return redirect(url_for('otp', event='CUST_LOGIN_GOOGLE', email=request.args.get('email')))
+    return render_template('authentication/otp.html', form=form, title='OTP Verification')
+
+@app.route('/securityQuestion', methods=['GET', 'POST'])
+def security_question():
+    event = request.args.get('event')
+    email = request.args.get('email')
+    if event=='CUST_LOGIN':
+        next_page = request.args.get('next')
+    if event=='EMP_LOGIN':
+        search = 'EMP' + email
+    else:
+        search = 'CUST' + email
+    security = Security2FA.query.filter_by(email=search).first()
+    question = security.secQn
+    options = []
+    options.append(security.secAns1)
+    options.append(security.secAns2)
+    options.append(security.secAns3)
+    shuffle(options)
+    correct = options.index(security.secAns1) + 1
+    form = SecurityQuestionsForm()
+    if form.validate_on_submit():
+        if str(correct) == form.question.data:
+            if event=='EMP_LOGIN':
+                user = Employee.query.filter_by(email=email).first()
+                login_user(user)
+                log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                return redirect(url_for('employeeInformation'))
+            else:
+                user = Customer.query.filter_by(email=email).first()
+                if event=='CUST_LOGIN':
+                    login_user(user)
+                    log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                    return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
+                else:
+                    login_user(user)
+                    log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                    return redirect(url_for('home'))
+        else:
+            flash(f"Security Question answered wrongly!", 'danger')
+            if event=='CUST_LOGIN':
+                return redirect(url_for('security_question', next=next_page, event='CUST_LOGIN', email=email))
+            elif event=='EMP_LOGIN':
+                return redirect(url_for('security_question', event='EMP_LOGIN', email=email))
+            else:
+                return redirect(url_for('security_question', event='CUST_LOGIN_GOOGLE', email=email))
+    return render_template('authentication/securityQuestion.html', question=question, options=options, form=form, title='Security Question Check')
+
+@app.route('/set2FA', methods=['GET', 'POST'])
+def set_2fa():
+    event = request.args.get('event')
+    email = request.args.get('email')
+    if event=='CUST_LOGIN':
+        next_page = request.args.get('next')
+    form = Set2FAForm()
+    if form.validate_on_submit():
+        if form.choose.data == 'otp':
+            if event=='EMP_LOGIN':
+                key = 'EMP' + email
+                security = Security2FA(email=key, choice='otp')
+                db.session.add(security)
+                db.session.commit()
+                user = Employee.query.filter_by(email=email).first()
+                login_user(user)
+                log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                return redirect(url_for('employeeInformation'))
+            else:
+                key = 'CUST' + email
+                security = Security2FA(email=key, choice='otp')
+                db.session.add(security)
+                db.session.commit()
+                user = Customer.query.filter_by(email=email).first()
+                if event=='CUST_LOGIN':
+                    login_user(user)
+                    log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                    return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
+                else:
+                    login_user(user)
+                    log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                    return redirect(url_for('home'))
+        else:
+            if event=='CUST_LOGIN':
+                return redirect(url_for('set_security_question', next=next_page, event='CUST_LOGIN', email=email))
+            elif event=='EMP_LOGIN':
+                return redirect(url_for('set_security_question', event='EMP_LOGIN', email=email))
+            else:
+                return redirect(url_for('set_security_question', event='CUST_LOGIN_GOOGLE', email=email))
+    return render_template('authentication/set2FA.html', title='Set 2FA Method', form=form)
+
+@app.route('/setSecurityQuestion', methods=['GET', 'POST'])
+def set_security_question():
+    event = request.args.get('event')
+    email = request.args.get('email')
+    if event=='CUST_LOGIN':
+        next_page = request.args.get('next')
+    form = SetSecurityQuestionForm()
+    if form.validate_on_submit():
+        correct = str(form.correct.data)
+        options = []
+        if correct=='1':
+            options.append(form.option1.data)
+            options.append(form.option2.data)
+            options.append(form.option3.data)
+        elif correct=='2':
+            options.append(form.option2.data)
+            options.append(form.option1.data)
+            options.append(form.option3.data)
+        else:
+            options.append(form.option3.data)
+            options.append(form.option1.data)
+            options.append(form.option2.data)
+        if event=='EMP_LOGIN':
+            key = 'EMP' + email
+            security = Security2FA(secQn=form.question.data, email=key, secAns1=options[0], secAns2=options[1], secAns3=options[2], choice='sQn')
+            db.session.add(security)
+            db.session.commit()
+            user = Employee.query.filter_by(email=email).first()
+            login_user(user)
+            log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+            return redirect(url_for('employeeInformation'))
+        else:
+            key = 'CUST' + email
+            security = Security2FA(secQn=form.question.data, email=key, secAns1=options[0], secAns2=options[1], secAns3=options[2], choice='sQn')
+            db.session.add(security)
+            db.session.commit()
+            user = Customer.query.filter_by(email=email).first()
+            if event=='CUST_LOGIN':
+                login_user(user)
+                log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
+            else:
+                login_user(user)
+                log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
+                return redirect(url_for('home'))
+    return render_template('authentication/setSecurityQuestion.html', title='Set Security Question', form=form)
+            
 
 # Customer Routes
 @app.route('/account')
@@ -719,6 +982,140 @@ def employeeManagementDetailsDelete(employeeID):
     db.session.commit()
 
     return redirect(url_for('employeeManagement'))
+
+
+@app.route('/logs')
+@login_required
+@authorised_only
+def view_logs():
+    monthlog, weeklog, past8log = splitLogs()
+    mData, wData = calcDataMnW(monthlog, weeklog)
+    past8Data = calcDataP8(past8log)
+    passMonitorData, passMonitorMarker = retPMLogs()
+    return render_template('employee/logging/viewLog.html',
+                           monthlog=monthlog,
+                           weeklog=weeklog, 
+                           past8log=past8log,
+                           passMonitorData=passMonitorData,
+                           jsonPM=json.dumps(passMonitorData),
+                           mdata=mData,
+                           wdata=wData, 
+                           past8data=past8Data, 
+                           past8len=len(past8log), 
+                           jsonMonth=json.dumps(monthlog), 
+                           jsonWeek=json.dumps(weeklog), 
+                           jsonPast8=json.dumps(past8log))
+
+
+@socket_.on('check_chart_update')
+def checkChartUpdate(data):
+    returnDict = {'change':'false'}
+    monthlog, weeklog, past8log = splitLogs()
+    mData, wData = calcDataMnW(monthlog, weeklog)
+    if mData!=data['mdata']:
+        returnDict['mdata'] = mData
+        if wData!=data['wdata']:
+            returnDict['wdata'] = wData
+        returnDict['change'] = 'true'
+    elif wData!=data['wdata']:
+        returnDict['wdata'] = wData
+        returnDict['change'] = 'true'
+    return returnDict
+
+
+@socket_.on('check_table_update')
+def checkTableUpdate(data):
+    returnDict = {'change':'false'}
+    monthlog, weeklog, past8log = splitLogs()
+    if monthlog!=data['monthlog']:
+        temp = data['monthlog'][-1]
+        count = 0
+        while True:
+            if monthlog[count] == temp:
+                break
+            else:
+                count+=1
+        temp = []
+        for i in range(count+1, len(monthlog)):
+            temp.append(monthlog[i])
+        returnDict['monthlog'] = temp
+        if weeklog!=data['weeklog']:
+            temp = data['weeklog'][-1]
+            count = 0
+            while True:
+                if weeklog[count] == temp:
+                    break
+                else:
+                    count+=1
+            temp = []
+            for i in range(count+1, len(weeklog)):
+                temp.append(weeklog[i])
+            returnDict['weeklog'] = temp
+        returnDict['change'] = 'true'
+    elif weeklog!=data['weeklog']:
+        temp = data['weeklog'][-1]
+        count = 0
+        while True:
+            if weeklog[count] == temp:
+                break
+            else:
+                count+=1
+        temp = []
+        for i in range(count+1, len(weeklog)):
+            temp.append(weeklog[i])
+        returnDict['weeklog'] = temp
+        returnDict['change'] = 'true'
+    return returnDict
+
+
+@socket_.on('check_p8c_update')
+def check_p8c_update(data):
+    monthlog, weeklog, past8log = splitLogs()
+    past8data = calcDataP8(past8log)
+    if past8data!=data['past8data']:
+        returnDict = {'data': past8data}
+        return returnDict
+    else:
+        return {}
+
+
+@socket_.on('check_p8t_update')         
+def check_p8t_update(data):
+    returnDict = {'change': 'false'}
+    monthlog, weeklog, past8log = splitLogs()
+    if past8log[7]!=data['past8log'][7]:
+        temp = data['past8log'][7][-1]
+        count = 0
+        while True:
+            if past8log[7][count]==temp:
+                break
+            else:
+                count+=1
+        temp = []
+        for x in range(count+1, len(past8log[7])):
+            temp.append(past8log[7][x])
+        returnDict[8] = temp
+        returnDict['change'] = 'true'
+    return returnDict
+
+
+@socket_.on('check_pm_update')
+def check_pm_update(data):
+    sendData = {}
+    returnDict = data['data']
+    passMonitorData, passMonitorMarker = retPMLogs()
+    if len(returnDict)!=len(passMonitorData):
+        sendData['changed'] = 'true'
+        sendData['data'] = passMonitorData
+        sendData['length'] = len(passMonitorData)
+    else:
+        for i in range(len(returnDict)):
+            if returnDict[str(i)]!=passMonitorData[i]:
+                sendData['changed'] = 'true'
+                sendData['data'] = passMonitorData
+                sendData['length'] = len(passMonitorData)
+                break
+    return sendData
 
 
 #Chatbot

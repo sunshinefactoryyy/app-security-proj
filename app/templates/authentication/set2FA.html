@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="form-container p-1 d-flex justify-content-around align-items-center">
+    <img class="col-md-5 d-none d-md-none d-lg-block" src="/static/public/Secure_login.svg">
+
+    <div class="login col-md-7">
+        <h1 id="title" class="text-center font-weight-bold display-4">Setting 2FA Method</h1>
+
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.choose.label(class="form-control-label") }}
+                <br>
+                {% for option in form.choose %}
+                <div class='form-check'>
+                    <tr>
+                        <td>{{ option(class='form-check-input', type='radio') }}</td>
+                        <td>{{ option.label(class='form-check-label') }}</td>
+                    </tr>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.submit(id="login_btn") }}
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock %}
