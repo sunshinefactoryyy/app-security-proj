@@ -375,7 +375,7 @@ def security_question():
     correct = options.index(security.secAns1) + 1
     form = SecurityQuestionsForm()
     if form.validate_on_submit():
-        if str(correct) == form.question.data:
+        if security.secAns1 == form.question.data:
             if event=='EMP_LOGIN':
                 user = Employee.query.filter_by(email=email).first()
                 login_user(user)
@@ -399,7 +399,7 @@ def security_question():
                 return redirect(url_for('security_question', event='EMP_LOGIN', email=email))
             else:
                 return redirect(url_for('security_question', event='CUST_LOGIN_GOOGLE', email=email))
-    return render_template('authentication/securityQuestion.html', question=question, options=options, form=form, title='Security Question Check')
+    return render_template('authentication/securityQuestion.html', question=question, options=options, form=form, title='Security Question Check', optionsJ=json.dumps(options))
 
 @app.route('/set2FA', methods=['GET', 'POST'])
 def set_2fa():
