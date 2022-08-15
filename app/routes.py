@@ -1298,7 +1298,7 @@ def uploadstatus():
         db.close()
     return render_template('customer/uploadstatus.html', title='Uploaded Data', uploadeddict = uploadeddict , error_check = error_check)
 
-
+"""
 @app.route('/download/<upload_id>')
 def download(upload_id):
     upload = Upload.query.filter_by(id=upload_id).first()
@@ -1315,3 +1315,4 @@ def downloads(upload_id):
         return etree.dump(mytree.getroot())
     return f'Uploaded: {name}'
     #return send_file(BytesIO(upload.data), attachment_filename = upload.filename , as_attachment = True)
+"""
