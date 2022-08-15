@@ -20,6 +20,7 @@
 <div class="mt-4 w-100">
     <form class="d-flex flex-row align-items-start justify-content-start w-100" method="post" action="" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
         <div class="d-flex flex-column align-items-center justify-content-start">
             <img class="tw-h-96 tw-w-96" src="/static/src/part_pics/{{ part.partPicture }}" />
             <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl mt-3">

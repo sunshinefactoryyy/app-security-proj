@@ -52,6 +52,7 @@
         <h1 class="fs-2 fw-bold pb-1 mt-2 ms-2">Add New Item</h1>
         <form class="w-100" method="post" action="">
             {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
             <div class="tw-flex tw-items-center tw-justify-center bg-primary tw-py-3.5 tw-px-5 tw-rounded-xl mt-3">
                 {{ form.picture.label(class="form-control-label tw-text-sm tw-font-bold tw-text-white me-2") }}
                 {{ form.picture(class="tw-text-sm tw-font-medium tw-tracking-wide tw-text-white tw-whitespace-nowrap", style='width:15em;') }}

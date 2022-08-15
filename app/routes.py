@@ -3,13 +3,14 @@ from flask_jwt_extended import create_access_token
 from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem
 from app.models import CatalogueProduct, Customer, Employee, Inventory, Request
 from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app
-from app import app, db, bcrypt, mail, stripe_keys
+from app import app, db, bcrypt, mail, stripe_keys, csrf
 from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
 from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email
 from app.config import Auth
+from flask_wtf.csrf import CSRFError
 from flask_mail import Message
 from datetime import datetime
 import os
@@ -101,7 +102,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
+        creation_time=datetime.now().strftime(r'%Y%m%d %H:%M')
         user = Customer(username=form.username.data, email=form.email.data, password=hashed_password, picture='default.png', creation_datetime=creation_time)
         db.session.add(user)
         db.session.commit()
@@ -368,7 +369,7 @@ def customerCart():
     form = CustomerRequestForm()
     if form.validate_on_submit():
         image_folder = save_picture(form.images.data, path='static/src/request_pics', seperate=True)
-        creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
+        creation_time=datetime.now().strftime(r'%Y%m%d %H:%M')
         new_request = Request(productName=form.productName.data,
                             images=image_folder, 
                             repairCost=300,
@@ -747,6 +748,10 @@ def error_403(e):
 @app.errorhandler(500)
 def error_500(e):
     return render_template('errors/500.html'), 500
+
+@app.errorhandler(CSRFError)
+def handle_csfr_error(e):
+    return render_template('errors/csrf_error.html', reason=e.description), 400
 
 @app.after_request
 def add_header(response):

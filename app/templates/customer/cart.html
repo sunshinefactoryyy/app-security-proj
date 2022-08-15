@@ -47,6 +47,7 @@
                         <div class="modal-body">
                             <form method="POST" action="" enctype="multipart/form-data">
                                 {{ form.hidden_tag() }}
+                                {{ form.csrf_token }}
                                 {{ form.productName(class='d-none') }}
                                 <div class="d-flex">
                                     <div class="form-group">

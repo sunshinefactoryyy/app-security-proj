@@ -20,7 +20,7 @@
     <div class="d-flex flex-grow-1 flex-column align-items-start justify-content-between tw-h-64 ms-4">
         <div class="d-flex flex-column align-items-start justify-content-start w-100">
             <p class="fs-3 fw-bold pb-1">{{ request.productName }}</p>
-            <p><b> Date Requested: </b> {{ request.creation_datetime.strftime('%Y-%m-%d %H:%M') }}</p>
+            <p><b> Date Requested: </b> {{ request.creation_datetime.strftime('%Y%m%d %H:%M') }}</p>
             <p><b>Issue Description: </b> {{ request.description }}</p>
         </div>
         <div class="d-flex flex-row align-items-center justify-content-end w-100">

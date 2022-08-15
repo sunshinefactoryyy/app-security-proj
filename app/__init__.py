@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-# from flask_talisman import Talisman
+from flask_wtf.csrf import CSRFProtect
 import os
 from dotenv import load_dotenv
 import stripe
@@ -18,8 +18,8 @@ app.config['SECRET_KEY'] = 'ab2d494b73d4d8ee5ef8f28b5d575bcd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 db = SQLAlchemy(app)
-# talisman = Talisman(app)
 bcrypt = Bcrypt(app)
+csrf = CSRFProtect(app)
 login_manager = LoginManager(app)
 login_manager.init_app(app)
 login_manager.login_view = "login"

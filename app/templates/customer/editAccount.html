@@ -9,6 +9,7 @@
 </div>
 <form class="d-flex flex-row align-items-start justify-content-start pt-2" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
     <div class="me-5">
         {% if userData['picture'] %}
             <div class="tw-h-64 tw-w-64 rounded-circle d-flex align-items-center justify-content-center">
