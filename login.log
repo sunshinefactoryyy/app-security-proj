@@ -100,3 +100,11 @@ WARNING|2022-08-15 18:10:10,688|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRON
 WARNING|2022-08-15 18:10:14,759|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:8
 WARNING|2022-08-15 18:10:18,594|address:192.168.10.197;event:EMP_LOGIN_FAIL_WRONGPASS;email:dummy1@email.com;entered_pass:9
 INFO|2022-08-15 21:34:29,753|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 21:41:04,237|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 21:47:49,370|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 21:48:25,711|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 21:48:41,860|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 21:49:12,558|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 21:49:39,042|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 21:49:52,845|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
+INFO|2022-08-15 21:51:55,936|address:192.168.10.27;event:EMP_LOGIN;email:dummy1@email.com
