@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, validators, MultipleFileField, RadioField, FloatField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, validators, MultipleFileField, RadioField, FloatField, HiddenField
 from wtforms.fields.datetime import DateField
 from wtforms.fields.numeric import IntegerField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
@@ -173,6 +173,9 @@ class OTPForm(FlaskForm):
 
 class SecurityQuestionsForm(FlaskForm):
     question = RadioField('Which is the correct option', choices=[(1, 'First'), (2, 'Second'), (3, 'Third')], validators=[DataRequired()])
+    hidden1 = HiddenField()
+    hidden2 = HiddenField()
+    hidden3 = HiddenField()
     submit = SubmitField('Verify')
 
 class Set2FAForm(FlaskForm):

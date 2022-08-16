@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="form-container p-1 d-flex justify-content-around align-items-center">
+<section class="form-container p-1 d-flex justify-content-around align-items-center" onload='myFunction()'>
     <img class="col-md-5 d-none d-md-none d-lg-block" src="/static/public/Secure_login.svg">
 
     <div class="login col-md-7">
@@ -26,7 +26,6 @@
                 </div>
                 {% endfor %}
             </div><!--form-group-->
-
             <div class="form-group">
                 {{ form.submit(id="login_btn") }}
             </div>
@@ -36,9 +35,9 @@
 <script>
     var options = {{ optionsJ|safe }};
     for (var i=0;i<3;i++) {
-        query = 'question-';
-        query = query.concat(i.toString());
-        document.getElementById(query).value = options[i];
+            query = 'hidden';
+            query = query.concat((i+1).toString());
+            document.getElementById(query).value = options[i];
     }
 </script>
 {% endblock %}

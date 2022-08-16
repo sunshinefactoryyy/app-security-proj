@@ -379,10 +379,16 @@ def security_question():
     options.append(security.secAns2)
     options.append(security.secAns3)
     shuffle(options)
-    correct = options.index(security.secAns1) + 1
     form = SecurityQuestionsForm()
     if form.validate_on_submit():
-        if security.secAns1 == form.question.data:
+        options = []
+        options.append(form.hidden1.data)
+        options.append(form.hidden2.data)
+        options.append(form.hidden3.data)
+        correct = options.index(security.secAns1) + 1
+        print(correct)
+        print(form.question.data)
+        if str(correct) == str(form.question.data):
             if event=='EMP_LOGIN':
                 user = Employee.query.filter_by(email=email).first()
                 login_user(user, remember=True)
