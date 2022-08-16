@@ -1,5 +1,6 @@
 #from crypt import methods
 from fileinput import filename
+from imp import reload
 from app.forms import EmployeeCreationForm, LoginForm, NewCatalogueItem, RegistrationForm, UpdateCatalogueItem, UpdateCustomerAccountForm, RequestResetForm, ResetPasswordForm, CustomerRequestForm, NewInventoryItem, UpdateEmployeeAccountForm, UpdateEmployeeManagementForm, UpdateInventoryItem , uploadfiles
 from app.models import CatalogueProduct, Customer, Employee, Inventory, Request, Upload
 from flask import render_template, url_for, flash, redirect, request, session, abort, jsonify, current_app , send_file
@@ -432,6 +433,12 @@ def authorised_only(f):
     def decortated_function(*args, **kwargs):
         if Employee.query.filter_by(id=current_user.id).first() is None:
             return abort(403)
+        try:
+            if Employee.query.filter_by(permissions = current_user.permissions).first() is None:
+                return abort(403)
+        except:
+            flash(f"Denied! Unauthorized Access!", "danger")
+            return redirect(url_for('customerAccount'))
         return f(*args, **kwargs)
     return decortated_function
 
