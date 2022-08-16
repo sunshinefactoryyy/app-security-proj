@@ -386,8 +386,6 @@ def security_question():
         options.append(form.hidden2.data)
         options.append(form.hidden3.data)
         correct = options.index(security.secAns1) + 1
-        print(correct)
-        print(form.question.data)
         if str(correct) == str(form.question.data):
             if event=='EMP_LOGIN':
                 user = Employee.query.filter_by(email=email).first()
