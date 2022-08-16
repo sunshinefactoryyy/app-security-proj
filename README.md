@@ -21,8 +21,8 @@
 4. Congrats! Now the application should run in [here.](https://127.0.0.1:5000/)
 
 ## Extras
-* Google authentication requires ssl certificate
-* Ssl certificate is not verified yet therefore browsers consider this site as insecure
+* Google authentication requires SSL certificate
+* SSL certificate is self-signed hence browsers considers this site to be insecure.
 * Here's dummy credentials you may use to log in as admin
     * Email: dummy1@email.com
     * Password: 1234567890
