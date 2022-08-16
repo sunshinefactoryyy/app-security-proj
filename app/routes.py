@@ -119,7 +119,7 @@ def register():
         user = Customer(username=form.username.data, email=emails, password=hashed_password, picture='default.png', creation_datetime=creation_time)
         db.session.add(user)
         db.session.commit()
-        login_user(user)
+        login_user(user, remember=True)
         log_event('info', 'CUST_REG_LOGIN', str(request.remote_addr), 'email:{}'.format(form.email.data))
         flash(f"Your account has been created! You are now logged in!", "success")
         return redirect(url_for('set_2fa', event='CUST_REG_LOGIN', email=user.email))
@@ -247,7 +247,7 @@ def callback():
             user.password = bcrypt.generate_password_hash(generate_password()).decode('utf-8')
             db.session.add(user)
             db.session.commit()
-            login_user(user)
+            login_user(user, remember=True)
             # LOG!
             if new_acc:
                 return redirect(url_for('set_2fa', event='CUST_REG_LOGIN_GOOGLE', email=email))
@@ -326,17 +326,17 @@ def otp():
         if security.otp == form.otp.data:
             if event=='EMP_LOGIN':
                 user = Employee.query.filter_by(email=email).first()
-                login_user(user)
+                login_user(user, remember=True)
                 log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                 return redirect(url_for('employeeInformation'))
             else:
                 user = Customer.query.filter_by(email=email).first()
                 if event=='CUST_LOGIN':
-                    login_user(user)
+                    login_user(user, remember=True)
                     log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                     return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
                 else:
-                    login_user(user)
+                    login_user(user, remember=True)
                     log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                     return redirect(url_for('home'))
         else:
@@ -385,17 +385,17 @@ def security_question():
         if security.secAns1 == form.question.data:
             if event=='EMP_LOGIN':
                 user = Employee.query.filter_by(email=email).first()
-                login_user(user)
+                login_user(user, remember=True)
                 log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                 return redirect(url_for('employeeInformation'))
             else:
                 user = Customer.query.filter_by(email=email).first()
                 if event=='CUST_LOGIN':
-                    login_user(user)
+                    login_user(user, remember=True)
                     log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                     return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
                 else:
-                    login_user(user)
+                    login_user(user, remember=True)
                     log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                     return redirect(url_for('home'))
         else:
@@ -423,7 +423,7 @@ def set_2fa():
                 db.session.add(security)
                 db.session.commit()
                 user = Employee.query.filter_by(email=email).first()
-                login_user(user)
+                login_user(user, remember=True)
                 log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                 return redirect(url_for('employeeInformation'))
             else:
@@ -433,11 +433,11 @@ def set_2fa():
                 db.session.commit()
                 user = Customer.query.filter_by(email=email).first()
                 if event=='CUST_LOGIN':
-                    login_user(user)
+                    login_user(user, remember=True)
                     log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                     return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
                 else:
-                    login_user(user)
+                    login_user(user, remember=True)
                     log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                     return redirect(url_for('home'))
         else:
@@ -477,7 +477,7 @@ def set_security_question():
             db.session.add(security)
             db.session.commit()
             user = Employee.query.filter_by(email=email).first()
-            login_user(user)
+            login_user(user, remember=True)
             log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
             return redirect(url_for('employeeInformation'))
         else:
@@ -487,11 +487,11 @@ def set_security_question():
             db.session.commit()
             user = Customer.query.filter_by(email=email).first()
             if event=='CUST_LOGIN':
-                login_user(user)
+                login_user(user, remember=True)
                 log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                 return redirect(next_page) if next_page else redirect(url_for('customerAccount'))
             else:
-                login_user(user)
+                login_user(user, remember=True)
                 log_event('info', event, str(request.remote_addr), 'email:{}'.format(email))
                 return redirect(url_for('home'))
     return render_template('authentication/setSecurityQuestion.html', title='Set Security Question', form=form)

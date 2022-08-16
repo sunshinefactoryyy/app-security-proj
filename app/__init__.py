@@ -9,6 +9,7 @@ import os
 from dotenv import load_dotenv
 import stripe
 from flask_socketio import SocketIO
+from datetime import timedelta
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -18,6 +19,8 @@ app.config['SECRET_KEY'] = 'ab2d494b73d4d8ee5ef8f28b5d575bcd'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(minutes=5)
+app.config['REMEMBER_COOKIE_REFRESH_EACH_REQUEST'] = True
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 csrf = CSRFProtect(app)
