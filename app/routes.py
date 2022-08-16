@@ -702,6 +702,12 @@ def authorised_only(f):
     def decortated_function(*args, **kwargs):
         if Employee.query.filter_by(id=current_user.id).first() is None:
             return abort(403)
+        try:
+            if Employee.query.filter_by(permissions = current_user.permissions).first() is None:
+                return abort(403)
+        except:
+            flash(f"Denied! Unauthorized Access!", "danger")
+            return redirect(url_for('customerAccount'))
         return f(*args, **kwargs)
     return decortated_function
 
