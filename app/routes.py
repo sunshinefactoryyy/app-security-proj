@@ -1197,6 +1197,14 @@ def upload():
             name = name.lower()
             if name.endswith(".xml"):
                 
+
+                # parse the xml file into the parser
+                #parser = etree.XMLParser(load_dtd=True,no_network=False)
+                try:
+                    mytree = ET.parse(name)     #check for any external DTD reference
+                except ET.ParseError:
+                    error_check = True
+                
                 # remove dtd reference
                 files = open(name,'r')
                 for lines in files:
@@ -1205,14 +1213,7 @@ def upload():
                             flash(f"XML File contains Inappropriate characters!", "danger")
                             return redirect(url_for("upload"))
 
-                # parse the xml file into the parser
-                #parser = etree.XMLParser(load_dtd=True,no_network=False)
-                try:
-                    mytree = ET.parse(name)     #check for any external DTD reference
-                except ET.ParseError:
-                    error_check = True
-
-                if error_check == False:    # if there is no DTD reference
+                if error_check == False:    # if there is no external DTD reference
                     datas = mytree.getroot()
                     #return f'uploaded: {datas[0][0].text}'
 
