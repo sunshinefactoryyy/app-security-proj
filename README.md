@@ -1,4 +1,4 @@
-# AY2-APP-SEC-PROJ
+# AY2-APP-SECURITY-PROJECT
 ## Members
 1. Aloysius Koh
 2. Wu Yuewei
@@ -18,7 +18,6 @@
 3. Run these commands in your second terminal tab:
     1. `pip install -r requirements.txt`
     2. `py run.py` (Win) / `python3 run.py` (Linux)
-4. Congrats! Now the application should run in [here.](https://127.0.0.1:5000/)
 
 ## Extras
 * Google authentication requires SSL certificate
