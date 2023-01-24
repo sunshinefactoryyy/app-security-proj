@@ -14,6 +14,11 @@ import os
 import stripe
 from app.train import bot
 from functools import wraps
+import pymongo
+import certifi
+
+ca = certifi.where()
+mongo = pymongo.MongoClient(host="mongodb+srv://kieranlee130:t0424308g@cluster0.e8qqfxm.mongodb.net/test", tlsCAFile=ca)
 
 
 # Public Routes
@@ -101,6 +106,7 @@ def register():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
         user = Customer(username=form.username.data, email=form.email.data, password=hashed_password, picture='default.png', creation_datetime=creation_time)
+        mongo.customerDetails.UserDetails.insert_one({'username':form.username.data, 'email':form.email.data, 'password':hashed_password, 'creation_datetime':creation_time})
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)

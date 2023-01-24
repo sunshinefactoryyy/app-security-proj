@@ -6,6 +6,11 @@ from flask_mail import Mail
 import os
 from dotenv import load_dotenv
 import stripe
+import pymongo
+import certifi
+
+ca = certifi.where()
+mongo = pymongo.MongoClient(host="mongodb+srv://kieranlee130:t0424308g@cluster0.e8qqfxm.mongodb.net/test", tlsCAFile=ca)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
